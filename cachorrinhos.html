@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Club Pups - Dog Care</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-yellow: #fcd444;
+            --btn-teal: #1c718d;
+            --btn-teal-hover: #0d3a4a;
+            --blob-blue: #86c7df;
+            --blob-green: #87c7bd;
+            --text-dark: #1a1a1a;
+            --text-muted: #6c757d;
+            --bg-light-blue: #f2f9f8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito Sans', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Merriweather', serif;
+            color: var(--text-dark);
+            line-height: 1.2;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border-radius: 30px;
+            padding: 10px 24px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-teal {
+            background-color: var(--btn-teal);
+            color: white;
+        }
+
+        .btn-teal:hover {
+            background-color: var(--btn-teal-hover);
+            color: white;
+        }
+
+        .btn-outline-custom {
+            border: 2px solid transparent;
+            background: rgba(255,255,255,0.4);
+            color: white;
+        }
+
+        .btn-outline-custom:hover {
+            background: rgba(255,255,255,0.6);
+        }
+
+        .hero-section {
+            background-color: var(--blob-blue);
+            position: relative;
+            border-bottom-left-radius: 50% 5%;
+            border-bottom-right-radius: 50% 5%;
+            overflow: hidden;
+            color: white;
+            padding-top: 150px;
+        }
+
+        .hero-section h1, .hero-section h2, .hero-section p {
+            color: white;
+        }
+
+        .menu-toggle { display: none; background: none; border: none; font-size: 1.5rem; color: var(--text-dark); cursor: pointer; }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 800px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .hero-content h1 {
+            font-weight: bolder;
+            font-size: 7rem;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            max-width: 600px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .hero-image-container{
+            position: absolute;
+            bottom: -120px;
+            left: 0;
+            width: 100%;
+        }
+
+        .dog-left {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 550px;
+        }
+
+        .dog-right {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 700px;
+        }
+
+        .service-icon-bar {
+            margin-top: -30px;
+            z-index: 10;
+            position: relative;
+        }
+
+        .service-bar-inner {
+            background-color: white;
+            border-radius: 50px;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .service-item {
+            font-weight: 700;
+            color: var(--btn-teal);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+        }
+
+        .service-item i:first-child {
+            font-size: 1.5rem;
+            color: var(--blob-green);
+        }
+        
+        .service-item .chevron {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .split-section {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            padding: 80px 0;
+            flex-wrap: wrap;
+        }
+
+        .split-section > div {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .flex-reverse {
+            flex-direction: row-reverse;
+        }
+
+        .text-content p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        
+        .text-content .strong-text {
+            font-weight: bold;
+            color: var(--text-dark);
+        }
+
+        .action-links {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .text-link {
+            font-weight: bold;
+            color: var(--text-dark);
+        }
+
+        .blob-container, .circle-container {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            aspect-ratio: 1;
+            margin: auto;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .blob-container {
+            background-color: var(--blob-blue);
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+        }
+
+        .blob-container:hover { transform: scale(1.02); border-radius: 45%; }
+       
+        .circle-container {
+            background-color: var(--bg-yellow);
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+        }
+
+        .circle-container:hover { transform: scale(1.02); border-radius: 45%; }
+
+        .cover-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .blob-img {
+            width: 90%;
+            object-fit: cover;
+        }
+
+        .play-btn-circle {
+            position: absolute;
+            top: 20px;
+            left: 0px;
+            background-color: #dcedea;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+            z-index: 3;
+            color: var(--text-dark);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .play-btn-circle::after {
+            content: '\f04b';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            bottom: -10px;
+            right: 10px;
+            background: black;
+            color: white;
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .facts-section {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .facts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            text-align: left;
+            margin-top: 50px;
+        }
+
+        .fact-item .fact-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+        
+        .c-yellow { color: #f5c518; }
+        .c-info { color: #17a2b8; }
+        .c-primary { color: #007bff; }
+        .c-danger { color: #dc3545; }
+        .c-success { color: #28a745; }
+
+        .fact-item h5 {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .fact-item p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .testimonial-section {
+            text-align: center;
+            padding: 80px 0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .testimonial-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .testimonial-controls i {
+            color: var(--text-muted);
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        .testimonial-avatar {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .testimonial-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-author {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+         .pets-section {
+            background-color: var(--color-pink);
+            padding: 3rem 0;
+        }
+
+        .pet-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin: 15px;
+        }
+
+        .pet-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .pet-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .pet-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .pet-info {
+            margin-top: 10px;
+            padding: 1.5rem;
+            margin-bottom: 30px;
+        }
+
+        .pet-category {
+            color: var(--color-blue);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .pet-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .pet-description {
+            color: var(--color-text);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .pet-details {
+            list-style: none;
+            color: var(--color-text);
+            font-size: 0.85rem;
+        }
+
+        .pet-details li {
+            margin: 0.3rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--color-blue);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 13px;
+        }
+
+        .footer-wave {
+            background-color: var(--bg-yellow);
+            border-top-left-radius: 50% 20px;
+            border-top-right-radius: 50% 20px;
+            padding: 40px 0 20px;
+            margin-top: 50px;
+        }
+
+        .contact-dog {
+            height: 400px;
+            margin-top: -150px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: -50px;
+        }
+
+        .footer-col h4 {
+            font-size: 40px;
+            margin: 5px 0 10px;
+        }
+
+        .footer-col p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .social-circle {
+            display: inline-flex;
+            width: 35px;
+            height: 35px;
+            background: #d1e9e4;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            color: var(--btn-teal);
+            transition: 0.3s;
+        }
+        
+        .social-circle:hover {
+            background: var(--btn-teal);
+            color: white;
+        }
+
+        .buttons {
+            margin-top: 50px;
+            text-align: center;
+            border-radius: 30px;
+        }
+
+        .blob-btn {
+            z-index: 1;
+            position: relative;
+            padding: 15px 30px;
+            margin-bottom: 30px;
+            text-align: center;
+            text-transform: uppercase;
+            color: var(--btn-teal);
+            font-size: 16px;
+            font-weight: bold;
+            background-color: transparent;
+            outline: none;
+            border: none;
+            transition: color 0.5s;
+            cursor: pointer;
+            border-radius: 30px;
+        }
+        .blob-btn:before {
+            content: "";
+            z-index: 1;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--btn-teal);
+            border-radius: 30px;
+        }
+        .blob-btn:after {
+            content: "";
+            z-index: -2;
+            position: absolute;
+            left: 3px;
+            top: 3px;
+            width: 100%;
+            height: 100%;
+            transition: all 0.3s 0.2s;
+            border-radius: 30px;
+        }
+        .blob-btn:hover {
+            color: #FFFFFF;
+            border-radius: 30px;
+        }
+        .blob-btn:hover:after {
+            transition: all 0.3s;
+            left: 0;
+            top: 0;
+            border-radius: 30px;
+        }
+        .blob-btn__inner {
+            z-index: -1;
+            overflow: hidden;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 30px;
+            background: #ffffff;
+        }
+        .blob-btn__blobs {
+            position: relative;
+            display: block;
+            height: 100%;
+            filter: url("#goo");
+        }
+        .blob-btn__blob {
+            position: absolute;
+            top: 2px;
+            width: 25%;
+            height: 100%;
+            background: var(--btn-teal);
+            border-radius: 100%;
+            transform: translate3d(0, 150%, 0) scale(1.7);
+            transition: transform 0.45s;
+        }
+        @supports (filter: url("#goo")) {
+            .blob-btn__blob {
+                transform: translate3d(0, 150%, 0) scale(1.4);
+            }
+        }
+        .blob-btn__blob:nth-child(1) {
+            left: 0%;
+            transition-delay: 0s;
+        }
+        .blob-btn__blob:nth-child(2) {
+            left: 30%;
+            transition-delay: 0.08s;
+        }
+        .blob-btn__blob:nth-child(3) {
+            left: 60%;
+            transition-delay: 0.16s;
+        }
+        .blob-btn__blob:nth-child(4) {
+            left: 90%;
+            transition-delay: 0.24s;
+        }
+        .blob-btn:hover .blob-btn__blob {
+            transform: translateZ(0) scale(1.7);
+        }
+        @supports (filter: url("#goo")) {
+            .blob-btn:hover .blob-btn__blob {
+                transform: translateZ(0) scale(1.4);
+            }
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        div { 
+            margin: 50px auto;
+        }
+
+        .btn-adotar {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            border-radius: 30px;
+            padding: 20px 20px;
+            font-weight: bolder;
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+            transition: all .5s ease; 
+        }
+
+        .btn--adotar {
+            color: #fff;
+            padding-right: 0;
+            background-color: #c0392b;
+            -webkit-clip-path: polygon(0% 0%, 100% 0, 100% 70%, 90% 100%, 0% 100%);
+            clip-path: polygon(0 0, 100% 0, 100% 50%, 75% 100%, 0 100%);
+        }
+
+        .btn--adotar:hover { 
+            -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 100% 100%, 0 100%);  
+        }
+
+        .btn--adotar:after {
+            content: "\f004";
+            color: #e74c3c;
+            font-family: FontAwesome;
+            display: inline-block;
+            position: relative;
+            right: -55px;
+            transition: all 0.2s ease;
+        }
+
+        .btn--adotar:hover:after {
+            margin: -5px 15px;
+            right: 0px;
+        }
+
+        .footer-nav {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            align-items: center;
+        }
+
+        .copyright {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-left: 40%;
+        }
+
+        .ticker-wrap {
+            width: 100%;
+            background-color: var(--light-pink);
+            padding: 12px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            z-index: 5;
+            margin-top: -150px;
+        }
+
+        .ticker {
+            display: inline-block;
+            animation: marquee 20s linear infinite;
+        }
+
+        .ticker-item {
+            display: inline-block;
+            padding: 0 2rem;
+            font-size: 1.5rem;
+            color: #555;
+        }
+        
+        .ticker-icon { color: var(--text-green); font-size: 1rem; vertical-align: middle; margin: 0 10px;}
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @media (max-width: 992px) {
+            .menu-toggle { display: block; }
+            .hero-content h1 { font-size: 2.8rem; }
+            .glass-navbar ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            .hero-buttons {
+                flex-wrap: wrap;
+            }
+            .pet-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.2rem; }
+            .hero-buttons { flex-direction: column; }
+            .split-section { flex-direction: column; text-align: center; }
+            .flex-reverse { flex-direction: column; }
+            .action-links { justify-content: center; }
+            .blob-container, .circle-container { max-width: 300px; }
+            .play-btn-circle { left: -10px; width: 80px; height: 80px; font-size: 0.6rem; }
+            .glass-navbar ul {
+                flex-direction: column;
+                border-radius: 20px;
+                padding: 10px;
+            }
+            .glass-navbar a {
+                justify-content: center;
+                width: 100%;
+            }
+            .pet-cards {
+                grid-template-columns: 1fr;
+            }
+            .blob-btn {
+                width: 100%;
+            }
+            .ticker-item {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Nome Projeto</h1>
+                <p>
+                    Apoie nossas ongs de ajuda para que continuem com esse trabalho lindo. 
+                    Seja voluntário ou faça sua doação.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#voluntario" class="btn btn-teal">
+                        Voluntariar-se <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <a href="#adocao" class="btn btn-outline-custom">
+                        Adote <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-image-container">
+            <img src="img/cachorrinhoLingua.png" class="dog-left" alt="">
+            <img src="img/cachorrinhoFeliz.png" class="dog-right" alt="">
+        </div>
+    </header>
+
+    <div class="container service-icon-bar">
+        <div class="service-bar-inner">
+            <a href="#" class="service-item"><i class="fa-solid fa-stethoscope"></i> Voluntários <i class="fa-solid fa-chevron-right chevron"></i></a>
+            <a href="#" class="service-item"><i class="fa-solid fa-house"></i> Ongs <i class="fa-solid fa-chevron-right chevron"></i></a>
+            <a href="#" class="service-item"><i class="fa-solid fa-bone"></i> Adoção <i class="fa-solid fa-chevron-right chevron"></i></a>
+            <a href="#" class="service-item"><i class="fa-brands fa-gratipay"></i> Doações <i class="fa-solid fa-chevron-right chevron"></i></a>
+        </div>
+    </div>
+
+    <section id="voluntario" class="container split-section">
+        <div class="text-content">
+            <h2 class="section-title">Seja um Voluntário,<br>ajude os animais</h2>
+            <p class="strong-text">Ser voluntário em uma ONG de animais não muda só a vida deles, muda a sua também! Cada cuidado, cada carinho e cada resgate é uma chance real de transformar abandono em amor.</p>
+            <p>Doações também são bem-vindas!</p>
+            <div class="action-links">
+                <a href="#" class="btn btn-teal">Voluntariar-se<i class="fa-solid fa-chevron-right"></i></a>
+                <a href="#" class="text-link">Doações <i class="fa-solid fa-chevron-right"></i></a>
+            </div>
+        </div>
+        <div class="image-content" style="position: relative;">
+            <div class="blob-container">
+                <img src="img/cachorinhoCima.png" class="blob-img">
+            </div>
+        </div>
+    </section>
+
+    <section class="pets-section">
+        <div class="section">
+            <h2 class="section-title" style="color: #1c718d;"><i class="fa-solid fa-paw"></i> Nossas Ongs <i class="fa-solid fa-paw"></i></h2><br>
+            
+            <div class="pet-cards">
+                <div class="pet-card">
+                    <img src="data:image/jpeg;base64,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" alt="Amicão" class="pet-image">
+                    <div class="pet-info">
+                        <h3 class="pet-name">Amicão</h3>
+                        <p class="pet-description">Em caso de abandono ou maus tratos, ligue 181</p>
+                        <ul class="pet-details">
+                            <li><i class="fa-brands fa-instagram"></i><a href="https://www.instagram.com/amicaomuriae/" target="_blank"> @amicaomuriae</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        <div class="buttons">
+            <a href="#" class="blob-btn" style="text-decoration: none;">
+                Ver todas as Ongs
+                <span class="blob-btn__inner">
+                    <span class="blob-btn__blobs">
+                        <span class="blob-btn__blob"></span>
+                        <span class="blob-btn__blob"></span>
+                        <span class="blob-btn__blob"></span>
+                        <span class="blob-btn__blob"></span>
+                    </span>
+                </span>
+            </a>
+        </div>
+
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+                <defs>
+                    <filter id="goo">
+                    <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10"></feGaussianBlur>
+                    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 21 -7" result="goo"></feColorMatrix>
+                    <feBlend in2="goo" in="SourceGraphic" result="mix"></feBlend>
+                    </filter>
+                </defs>
+            </svg>
+        </div>
+
+        <div class="ticker-wrap">
+            <div class="ticker" style="font-weight: bolder;">
+                <div class="ticker-item"><i class="fa-solid fa-paw"></i> FAÇA UMA DOAÇÃO <i class="fa-solid fa-paw"></i> SALVE OS BICHINHOS <i class="fa-solid fa-paw"></i></div>
+                <div class="ticker-item"><i class="fa-solid fa-paw"></i> FAÇA UMA DOAÇÃO <i class="fa-solid fa-paw"></i> SALVE OS BICHINHOS <i class="fa-solid fa-paw"></i></div>
+                <div class="ticker-item"><i class="fa-solid fa-paw"></i> FAÇA UMA DOAÇÃO <i class="fa-solid fa-paw"></i> SALVE OS BICHINHOS <i class="fa-solid fa-paw"></i></div>
+                <div class="ticker-item"><i class="fa-solid fa-paw"></i> FAÇA UMA DOAÇÃO <i class="fa-solid fa-paw"></i> SALVE OS BICHINHOS <i class="fa-solid fa-paw"></i></div>
+                <div class="ticker-item"><i class="fa-solid fa-paw"></i> FAÇA UMA DOAÇÃO <i class="fa-solid fa-paw"></i> SALVE OS BICHINHOS <i class="fa-solid fa-paw"></i></div>
+                <div class="ticker-item"><i class="fa-solid fa-paw"></i> FAÇA UMA DOAÇÃO <i class="fa-solid fa-paw"></i> SALVE OS BICHINHOS <i class="fa-solid fa-paw"></i></div>
+                <div class="ticker-item"><i class="fa-solid fa-paw"></i> FAÇA UMA DOAÇÃO <i class="fa-solid fa-paw"></i> SALVE OS BICHINHOS <i class="fa-solid fa-paw"></i></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="adocao" class="container split-section flex-reverse" style="margin-top: -200px;">
+        <div class="text-content">
+            <h2 class="section-title">Não compre, adote!</h2>
+            <p>
+                Adoção é um ato de amor e reparação. Antes de comprar, vasculhe nosso site e encontre um amigo esperando por um lar cheio de carinho. Dê a eles uma chance de serem felizes e faça a diferença na vida de um pet abandonado.
+            </p>
+            <div class="action-links">
+                <a href="" class="btn-adotar btn--adotar">Adotar</a>
+            </div>
+        </div>
+        <div class="image-content">
+            <div class="circle-container">
+                <img src="img/carinhoGatinho.png" class="cover-img" alt="Golden Retriever">
+            </div>
+        </div>
+    </section>
+
+    <section class="container testimonial-section">
+        <p style="color: #6c757d;">Confira nossos animaiszinhos para doação:</p>
+
+        <div class="testimonial-controls">
+            <i class="fa-solid fa-chevron-left" id="prev"></i>
+
+            <img id="animal-img" class="testimonial-avatar" src="" class="testimonial-avatar">
+
+            <i class="fa-solid fa-chevron-right" id="next"></i>
+        </div>
+
+        <p class="testimonial-text" id="animal-desc"></p>
+        <p class="testimonial-author" id="animal-info"></p>
+    </section>
+
+    <footer class="footer-wave">
+        <div class="container">
+            <img class="contact-dog" src="img/afollow.png" alt="AFollow">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Nome do Projeto</h4>
+                    <p class="section-subtitle" style="margin-bottom: 0;">Faculdade Santa Marcelina - Muriaé</p>
+                </div>
+                <div class="footer-col" style="text-align: right;">
+                    <p>Equipe de Desenvolvimento: <br></p>
+                    <h4>Gleicekelly, Silmara, Thaise e Karine</h4>    
+                </div>
+            </div>
+        </div>
+        <p class="copyright">Copyright © 2026. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        const items = document.querySelectorAll('.glass-navbar li');
+
+        items.forEach(item => {
+            item.addEventListener('click', (e) => {
+                
+                e.preventDefault();
+                
+                items.forEach(i => i.classList.remove('active'));
+                
+                item.classList.add('active');
+            });
+        });
+
+        const animais = [
+            {
+                img: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e",
+                desc: "Muito dócil e adora brincar!",
+                info: "Rex, Rottweiler<br>12 anos"
+            },
+            {
+                img: "https://images.unsplash.com/photo-1517849845537-4d257902454a",
+                desc: "Carinhoso e companheiro.",
+                info: "Luna, Vira-lata<br>3 anos"
+            },
+            {
+                img: "https://images.unsplash.com/photo-1537151625747-768eb6cf92b2",
+                desc: "Cheio de energia!",
+                info: "Thor, Labrador<br>2 anos"
+            }
+        ];
+
+        let index = 0;
+
+        const img = document.getElementById("animal-img");
+        const desc = document.getElementById("animal-desc");
+        const info = document.getElementById("animal-info");
+
+        function mostrarAnimal(i) {
+            img.src = animais[i].img;
+            desc.innerText = `"${animais[i].desc}"`;
+            info.innerHTML = animais[i].info;
+        }
+
+        // Botões
+        document.getElementById("next").onclick = () => {
+            index = (index + 1) % animais.length;
+            mostrarAnimal(index);
+        };
+
+        document.getElementById("prev").onclick = () => {
+            index = (index - 1 + animais.length) % animais.length;
+            mostrarAnimal(index);
+        };
+
+        setInterval(() => {
+            index = (index + 1) % animais.length;
+            mostrarAnimal(index);
+        }, 4000);
+
+        mostrarAnimal(index);
+
+</script>
+</body>
+</html>
