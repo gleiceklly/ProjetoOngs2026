@@ -1,0 +1,51 @@
+.container-navbar {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.main-navbar{
+    background:white;
+    padding:0 0;
+}
+
+.logo{
+    font-weight:bold;
+    color:#1c718d;
+    font-size:30px;
+}
+
+.nav-link{
+    font-weight:600;
+    color:#333 !important;
+}
+
+.nav-link:hover{
+    color:#1c718d !important;
+}
+
+.btn-teal{
+    background:#1c718d;
+    color:white;
+    border-radius:20px;
+    padding:5px 14px;
+}
+
+.btn-teal:hover{
+    background:#0d3a4a;
+}
+
+.btn-outline-teal{
+    border:2px solid #1c718d;
+    color:#1c718d;
+    border-radius:20px;
+    padding:5px 14px;
+}
+
+.btn-outline-teal:hover{
+    background:#1c718d;
+    color:white;
+}

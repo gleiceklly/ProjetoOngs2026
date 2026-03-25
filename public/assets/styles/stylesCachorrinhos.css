@@ -36,6 +36,64 @@ ul {
     list-style: none;
 }
 
+/* inicio navbar */
+.container-navbar {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.main-navbar{
+    background:white;
+    padding:0 0;
+}
+
+.logo {
+    font-weight: bold;
+    color: #1c718d;
+    font-size: 24px;
+}
+
+.logo:hover{
+    color:#0d3a4a;
+}
+
+.nav-link{
+    font-weight:600;
+    color:#333 !important;
+}
+
+.nav-link:hover{
+    color:#1c718d !important;
+}
+
+.btn-teal{
+    background:#1c718d;
+    color:white;
+    border-radius:20px;
+    padding:5px 14px;
+}
+
+.btn-teal:hover{
+    background:#0d3a4a;
+}
+
+.btn-outline-teal{
+    border:2px solid #1c718d;
+    color:#1c718d;
+    border-radius:20px;
+    padding:5px 14px;
+}
+
+.btn-outline-teal:hover{
+    background:#1c718d;
+    color:white;
+}
+/* fim navbar */
+
 .container {
     max-width: 1140px;
     margin: 0 auto;
@@ -779,4 +837,47 @@ div {
     .ticker-item {
         font-size: 1rem;
     }
+}
+
+/* Remove a margem intrusa que o seletor 'div' estava criando */
+.main-navbar div {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+@media (max-width: 992px) {
+    .container-navbar {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 15px !important;
+    }
+
+    .navbar-collapse {
+        flex-basis: 100%;
+        margin-top: 15px !important;
+    }
+
+    .navbar-nav {
+        text-align: center;
+        padding: 10px 0;
+    }
+
+    .d-flex.gap-2 {
+        justify-content: center;
+        width: 100%;
+        padding-bottom: 15px;
+    }
+}
+
+.navbar-toggler {
+    margin: 0 !important;
+    padding: 4px 8px;
+}
+
+.main-navbar div {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
 }
