@@ -1,0 +1,83 @@
+CREATE DATABASE patasdobem;
+USE patasdobem;
+
+CREATE TABLE usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(150) UNIQUE NOT NULL,
+    senha VARCHAR(255) NOT NULL,
+    telefone VARCHAR(20),
+    tipo ENUM('admin','usuario') DEFAULT 'usuario',
+    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE ongs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(150) NOT NULL,
+    descricao TEXT,
+    cidade VARCHAR(100),
+    estado VARCHAR(100),
+    telefone VARCHAR(20),
+    email VARCHAR(150),
+    site VARCHAR(200),
+    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE animaisAdocao (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100),
+    especie ENUM('cachorro','gato','outro') NOT NULL,
+    raca VARCHAR(100),
+    idade INT,
+    sexo ENUM('macho','femea'),
+    porte ENUM('pequeno','medio','grande'),
+    descricao TEXT,
+    foto VARCHAR(255),
+    status ENUM('disponivel','adotado') DEFAULT 'disponivel',
+    id_ong INT,
+    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (id_ong) REFERENCES ongs(id)
+);
+
+CREATE TABLE pedidosAdocoes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT,
+    id_animal INT,
+    mensagem TEXT,
+    status ENUM('pendente','aprovado','recusado') DEFAULT 'pendente',
+    data_pedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
+    FOREIGN KEY (id_animal) REFERENCES animais(id)
+);
+
+CREATE TABLE doacoes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT,
+    id_ong INT,
+    valor DECIMAL(10,2),
+    mensagem TEXT,
+    data_doacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
+    FOREIGN KEY (id_ong) REFERENCES ongs(id)
+);
+
+CREATE TABLE voluntarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100),
+    email VARCHAR(150),
+    telefone VARCHAR(20),
+    cidade VARCHAR(100),
+    mensagem TEXT,
+    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE fotos_animais (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_animal INT,
+    caminho VARCHAR(255),
+
+    FOREIGN KEY (id_animal) REFERENCES animais(id)
+);
