@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil do Animal – Nome Projeto</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/stylesAnimais.css">
+</head>
+<body>
+
+    <div class="breadcrumb">
+        <a href="adocao.html">Home</a>
+        <span>›</span>
+        <a href="adocao.html">Quero adotar</a>
+        <span>›</span>
+        <span id="breadAnimal">Animal</span>
+    </div>
+
+    <div class="main-wrap">
+        <div class="photo-col">
+            <img id="animalPhoto" src="" alt="Foto do animal">
+        </div>
+
+        <div class="info-col">
+            <h1 id="animalNome">
+                –
+                <span class="fav-icons">
+                    <i class="fa-regular fa-heart" title="Favoritar"></i>
+                    <i class="fa-regular fa-share-from-square" title="Compartilhar"></i>
+                </span>
+            </h1>
+
+            <div class="meta-line">
+                <span id="animalTipo">–</span>
+            </div>
+            <div class="meta-line loc">
+                <i class="fa-solid fa-location-dot"></i>
+                <span id="animalLoc"></span>
+            </div>
+            <div class="meta-line pub">
+                <i class="fa-solid fa-paw"></i>
+                <span>Publicado por <strong>ONG Parceira</strong> em 04/08/2025</span>
+            </div>
+
+            <p class="section-title-sm"><i class="fa-solid fa-book-open"></i> A história de <span id="storyName"></span></p>
+            <div class="story-box" id="storyBox">Carregando...</div>
+
+            <p class="section-title-sm"><i class="fa-solid fa-tags"></i> Mais detalhes sobre <span id="tagsName"></span></p>
+            <div class="tags" id="tagsBox">
+                <span class="tag">Dócil</span>
+                <span class="tag">Calmo</span>
+                <span class="tag">Brincalhão</span>
+                <span class="tag red">Morde os chinelos</span>
+            </div>
+
+            <button class="btn-adopt" id="btnAdotar">
+                <i class="fa-solid fa-heart"></i> Quero adotar
+            </button>
+        </div>
+    </div>
+
+    <div class="others-wrap">
+        <h2><i class="fa-solid fa-paw"></i> Outros peludos esperando seu clique</h2>
+        <div class="others-grid" id="othersGrid"></div>
+        <div class="pagination" id="pagination"></div>
+    </div>
+
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <button class="modal-close" id="modalClose" aria-label="Fechar">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="modal-icon-wrap">
+                <i class="fa-solid fa-paw"></i>
+            </div>
+
+            <h2 id="modalTitle">Adotar é salvar, proteger e amar.</h2><br>
+
+            <p class="modal-contact-label">Entre em contato com o protetor</p>
+
+            <div class="modal-contact-list">
+                <a class="modal-contact-item" href="mailto:ongparceira@email.com.br">
+                    <div class="contact-icon email"><i class="fa-solid fa-envelope"></i></div>
+                    <div class="contact-info">
+                        <small>E-mail</small>
+                        <span>ongparceira@email.com.br</span>
+                    </div>
+                </a>
+                <a class="modal-contact-item" href="https://wa.me/5511999997777" target="_blank">
+                    <div class="contact-icon whatsapp"><i class="fa-brands fa-whatsapp"></i></div>
+                    <div class="contact-info">
+                        <small>WhatsApp</small>
+                        <span>(11) 99999-7777</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-cancelar" id="btnCancelar">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/animais.js"></script>
+
+</body>
+</html>
