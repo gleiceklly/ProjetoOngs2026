@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONGs Parceiras – Nome Projeto</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/stylesOngs.css">
+</head>
+<body>
+    <div class="page-header">
+        <a href="cachorrinhos.html" class="back-link">
+            <i class="fa-solid fa-arrow-left"></i> Voltar ao início
+        </a>
+    </div>
+
+    <section class="why-section">
+        <div class="why-text">
+            <div class="why-label">
+                <i class="fa-solid fa-paw"></i> Por que apoiar ONGs?
+            </div>
+            <h2>O trabalho das ONGs <span>salva vidas</span> todos os dias</h2>
+            <p>
+                No Brasil, estima-se que mais de <strong>30 milhões de animais</strong> vivem em situação de abandono nas ruas. Cães e gatos enfrentam fome, doenças, maus-tratos e acidentes sem nenhuma proteção.
+            </p>
+            <p>
+                As ONGs de proteção animal são a linha de frente nessa luta. São voluntários que resgatam, veterinários que tratam sem cobrar, lares temporários que acolhem e famílias que se tornam eternas. Sem elas, esses animais simplesmente não teriam chance.
+            </p>
+            <p>
+                Ao adotar por meio de uma ONG parceira, você não apenas dá um lar, você libera espaço para que outro animal seja salvo. É uma corrente de amor que não para.
+            </p>
+        </div>
+        <div class="blob-container">
+            <div class="circle-container">
+                <img src="../img/doguinhoAdotado.png" alt="Voluntária cuidando de animais resgatados">
+            </div>
+        </div>
+    </section>
+
+    <div class="search-area">
+        <div class="search-bar-wrap">
+            <div class="search-input-wrap">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" class="search-input" id="searchInput" placeholder="Buscar ONG por nome ou cidade…">
+            </div>
+            <button class="btn-buscar" id="btnBuscar">
+                <i class="fa-solid fa-magnifying-glass"></i> Buscar
+            </button>
+        </div>
+    </div>
+
+    <div class="hero-text">
+        <h1>ONGs Parceiras</h1>
+        <p>Organizações dedicadas a resgatar, cuidar e encontrar um lar para animais.<br>Conheça, apoie e ajude a espalhar amor!</p>
+    </div>
+
+    <div class="content-wrapper">
+        <p class="results-info">
+            Mostrando <span id="countVisible">0</span> ONGs
+        </p>
+
+        <!--
+            PHP (futuro): o foreach vai gerar os cards aqui com data-* attributes para o JS filtrar
+            foreach($ongs as $ong):
+            <a href="ong.php?id=<?= $ong['id'] ?>" class="ong-card"
+               data-nome="<?= strtolower($ong['nome']) ?>"
+               data-cidade="<?= strtolower($ong['cidade']) ?>">
+                <img class="ong-card-banner" src="<?= $ong['banner'] ?>" alt="">
+                <div class="ong-card-header">
+                    <img class="ong-avatar" src="<?= $ong['logo'] ?>" alt="<?= $ong['nome'] ?>">
+                    <div class="ong-name-wrap">
+                        <h3><?= $ong['nome'] ?></h3>
+                        <div class="ong-location"><i class="fa-solid fa-location-dot"></i><?= $ong['cidade'] ?>, <?= $ong['estado'] ?></div>
+                    </div>
+                </div>
+                ...
+            </a>
+            endforeach;
+        -->
+
+        <div class="ong-grid" id="ongGrid"></div>
+        <div class="pagination" id="pagination"></div>
+    </div>
+
+    <script src="../js/ongs.js"></script>
+
+</body>
+</html>

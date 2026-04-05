@@ -1,7 +1,7 @@
 let selectedPlano = 'unica';
 let selectedCausa = null;
 let selectedValor = null;
-let selectedPayment = null;
+let selectedPayment = 'pix';
 
 function setPlano(plano) {
     selectedPlano = plano;
@@ -29,20 +29,9 @@ function updateCustom(val) {
     updateSummary();
 }
 
-function selectPayment(method) {
-    document.querySelectorAll('.payment-option').forEach(o => o.classList.remove('selected'));
-    document.getElementById('opt-' + method).classList.add('selected');
-    selectedPayment = method;
-
-    document.getElementById('card-fields').classList.toggle('show', method === 'cartao');
-    document.getElementById('pix-details').classList.toggle('show', method === 'pix');
-
-    updateSummary();
-}
-
 function updateSummary() {
     const labels = { mensal: 'Mensal', unica: 'Única' };
-    const payLabels = { cartao: 'Cartão de Crédito', pix: 'PIX', boleto: 'Boleto Bancário' };
+    const payLabels = { pix: 'Pix' };
 
     document.getElementById('sumCausa').textContent = selectedCausa || '—';
     document.getElementById('sumPlano').textContent = labels[selectedPlano] || '—';
@@ -62,7 +51,7 @@ function copyPix() {
 function submitDonation() {
     if (!selectedCausa) { alert('Por favor, selecione uma Ong para doação.'); return; }
     if (!selectedValor) { alert('Informe um valor para doação.'); return; }
-    if (!selectedPayment) { alert('Por favor, selecione a forma de pagamento.'); return; }
+
     const nome = document.getElementById('nome').value.trim();
     const email = document.getElementById('email').value.trim();
     if (!nome || !email) { alert('Por favor, preencha seu nome e e-mail.'); return; }

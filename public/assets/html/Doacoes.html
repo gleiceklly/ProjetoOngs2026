@@ -116,63 +116,28 @@
     <div class="section-label"><i class="fa-solid fa-credit-card"></i> Forma de Pagamento</div>
 
     <div class="payment-options">
-
-        <div class="payment-option" id="opt-cartao" onclick="selectPayment('cartao')">
-            <div class="payment-option__left">
-                <i class="fa-solid fa-credit-card"></i> Cartão de Crédito
-            </div>
-            <div class="radio-circle"></div>
-        </div>
-
-        <div class="card-fields" id="card-fields">
-            <div class="form-group" style="margin-bottom:0;">
-                <label>Número do cartão</label>
-                <i class="fa-solid fa-credit-card input-icon"></i>
-                <input type="text" placeholder="0000 0000 0000 0000" oninput="maskCard(this)" maxlength="19">
-            </div>
-            <div class="form-group" style="margin-bottom:0;">
-                <label>Nome no cartão</label>
-                <i class="fa-solid fa-user input-icon"></i>
-                <input type="text" placeholder="Como está no cartão">
-            </div>
-            <div class="card-row">
-                <div class="form-group" style="margin-bottom:0;">
-                    <label>Validade</label>
-                    <i class="fa-solid fa-calendar input-icon"></i>
-                    <input type="text" placeholder="MM/AA" maxlength="5" oninput="maskExpiry(this)">
-                </div>
-                <div class="form-group" style="margin-bottom:0;">
-                    <label>CVV</label>
-                    <i class="fa-solid fa-lock input-icon"></i>
-                    <input type="text" placeholder="123" maxlength="3">
-                </div>
-            </div>
-        </div>
-
-        <div class="payment-option" id="opt-pix" onclick="selectPayment('pix')">
+        <div class="payment-option selected" id="opt-pix">
             <div class="payment-option__left">
                 <i class="fa-brands fa-pix"></i> PIX
             </div>
             <div class="radio-circle"></div>
         </div>
 
-        <div class="pix-details" id="pix-details">
-            <p style="color:var(--text-muted);font-size:0.9rem;">Use a chave PIX abaixo para realizar sua doação:</p>
+        <div class="pix-details show" id="pix-details">
+            <p style="color:var(--text-muted);font-size:0.9rem;">
+                Use a chave PIX abaixo para realizar sua doação:
+            </p>
+
             <div class="pix-key-box">
                 <i class="fa-brands fa-pix" style="font-size:1.4rem;"></i>
                 <span id="pixKey">nomeOng@ong.org.br</span>
                 <button class="copy-btn" onclick="copyPix()">Copiar</button>
             </div>
-            <p style="color:var(--text-muted);font-size:0.82rem;">Após realizar o PIX, envie o comprovante para nosso e-mail.</p>
-        </div>
 
-        <div class="payment-option" id="opt-boleto" onclick="selectPayment('boleto')">
-            <div class="payment-option__left">
-                <i class="fa-solid fa-barcode"></i> Boleto Bancário
-            </div>
-            <div class="radio-circle"></div>
+            <p style="color:var(--text-muted);font-size:0.82rem;">
+                Após realizar o PIX, envie o comprovante para nosso e-mail.
+            </p>
         </div>
-
     </div>
 
     <div class="summary-box" id="summaryBox">

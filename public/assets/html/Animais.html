@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil do Animal – Nome Projeto</title>
+    <title>Perfil do Animal – Patas do Bem</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styles/stylesAnimais.css">
@@ -11,7 +11,7 @@
 <body>
 
     <div class="breadcrumb">
-        <a href="adocao.html">Home</a>
+        <a href="adocao.html">Adoção</a>
         <span>›</span>
         <a href="adocao.html">Quero adotar</a>
         <span>›</span>
@@ -25,10 +25,9 @@
 
         <div class="info-col">
             <h1 id="animalNome">
-                –
                 <span class="fav-icons">
-                    <i class="fa-regular fa-heart" title="Favoritar"></i>
-                    <i class="fa-regular fa-share-from-square" title="Compartilhar"></i>
+                    <i class="fa-regular fa-heart" title="Favoritar" id="btnFav"></i>
+                    <i class="fa-regular fa-share-from-square" title="Compartilhar" id="btnShare"></i>
                 </span>
             </h1>
 
@@ -102,6 +101,38 @@
                 <button class="btn-cancelar" id="btnCancelar">Cancelar</button>
             </div>
         </div>
+    </div>
+
+    <div class="share-overlay" id="shareOverlay">
+        <div class="share-card" role="dialog" aria-modal="true" aria-label="Compartilhar animal">
+            <button class="modal-close" id="shareClose" aria-label="Fechar">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="modal-icon-wrap">
+                <i class="fa-solid fa-share-nodes"></i>
+            </div>
+
+            <h2>Compartilhe e ajude!</h2>
+            <p>Quanto mais pessoas virem, mais chances de adoção 🐾</p>
+
+            <div class="share-options" id="shareOptions">
+            </div>
+
+            <div class="share-divider">ou copie o link</div>
+
+            <div class="share-link-row">
+                <input type="text" class="share-link-input" id="shareLinkInput" readonly>
+                <button class="btn-copy" id="btnCopy">
+                    <i class="fa-regular fa-copy"></i> Copiar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">
+        <i class="fa-solid fa-check"></i>
+        <span id="toastMsg">Link copiado!</span>
     </div>
 
     <script src="../js/animais.js"></script>

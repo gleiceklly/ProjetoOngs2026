@@ -14,7 +14,6 @@ body { font-family: 'Nunito Sans', sans-serif; color: var(--text); background: v
 h1,h2,h3,h4 { font-family: 'Merriweather', serif; }
 a { text-decoration: none; color: inherit; }
 
-/* ── BREADCRUMB ── */
 .breadcrumb {
     background: var(--white);
     border-bottom: 1px solid #e8f4f8;
@@ -25,7 +24,6 @@ a { text-decoration: none; color: inherit; }
 .breadcrumb a { color: var(--teal); font-weight: 600; }
 .breadcrumb span { margin: 0 6px; }
 
-/* ── MAIN ── */
 .main-wrap {
     max-width: 960px;
     margin: 32px auto;
@@ -123,7 +121,6 @@ a { text-decoration: none; color: inherit; }
 .btn-adopt:hover { background: var(--teal-dark); transform: translateY(-2px); }
 .btn-adopt:active { transform: translateY(0); }
 
-/* ── OUTROS ANIMAIS ── */
 .others-wrap {
     max-width: 960px;
     margin: 32px auto;
@@ -172,7 +169,6 @@ a { text-decoration: none; color: inherit; }
 }
 .other-card-body p { font-size: 0.72rem; color: var(--muted); }
 
-/* ── PAGINAÇÃO (igual à anterior) ── */
 .pagination {
     display: flex;
     align-items: center;
@@ -209,7 +205,6 @@ a { text-decoration: none; color: inherit; }
 .page-btn:disabled { opacity: 0.35; cursor: not-allowed; }
 .page-ellipsis { color: var(--muted); font-weight: 700; padding: 0 4px; }
 
-/* ── MODAL DE ADOÇÃO ── */
 .modal-overlay {
     display: none;
     position: fixed;
@@ -276,22 +271,6 @@ a { text-decoration: none; color: inherit; }
     color: var(--text);
     margin-bottom: 10px;
 }
-
-.modal-alert {
-    background: #fff8e6;
-    border: 1.5px solid #fde68a;
-    border-radius: 10px;
-    padding: 10px 14px;
-    font-size: 0.84rem;
-    color: #92620a;
-    margin-bottom: 18px;
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    line-height: 1.5;
-}
-.modal-alert i { flex-shrink: 0; margin-top: 2px; color: #d97706; }
-.modal-alert a { color: #c05621; font-weight: 700; text-decoration: underline; }
 
 .modal-contact-label {
     font-size: 0.78rem;
@@ -367,3 +346,166 @@ a { text-decoration: none; color: inherit; }
     transition: border-color .2s, color .2s;
 }
 .btn-cancelar:hover { border-color: var(--teal-light); color: var(--teal); }
+
+.share-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(13, 58, 74, 0.45);
+    backdrop-filter: blur(3px);
+    z-index: 1100;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+.share-overlay.open { display: flex; }
+
+.share-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 32px 28px 24px;
+    max-width: 420px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(13,58,74,0.25);
+    position: relative;
+    animation: slideUp .25s cubic-bezier(.34,1.56,.64,1);
+}
+
+.share-card h2 {
+    font-size: 1.2rem;
+    color: var(--text);
+    margin-bottom: 6px;
+}
+.share-card p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 20px;
+}
+
+.share-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.share-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 8px;
+    border-radius: 14px;
+    border: 1.5px solid #e0f0f7;
+    background: #f7fcfe;
+    cursor: pointer;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text);
+    transition: border-color .2s, background .2s, transform .15s;
+    text-decoration: none;
+}
+.share-btn:hover {
+    border-color: var(--teal-light);
+    background: #eaf6fb;
+    transform: translateY(-2px);
+}
+.share-btn .share-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+.share-icon.whatsapp  { background: #e6f9ef; color: #25d366; }
+.share-icon.facebook  { background: #e8eef9; color: #1877f2; }
+.share-icon.twitter   { background: #e7f6fd; color: #1da1f2; }
+.share-icon.telegram  { background: #e8f4fd; color: #229ed9; }
+.share-icon.email     { background: #fef3e8; color: #e07b39; }
+.share-icon.native    { background: #f0e8fe; color: #7c3aed; }
+
+.share-divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-weight: 600;
+}
+.share-divider::before,
+.share-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #e0f0f7;
+}
+
+.share-link-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.share-link-input {
+    flex: 1;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1.5px solid #d0e8f0;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.82rem;
+    color: var(--muted);
+    background: #f7fcfe;
+    outline: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.share-link-input:focus { border-color: var(--teal-light); }
+
+.btn-copy {
+    padding: 10px 16px;
+    border-radius: 10px;
+    background: var(--teal);
+    color: var(--white);
+    border: none;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.82rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background .2s, transform .15s;
+    white-space: nowrap;
+}
+.btn-copy:hover { background: var(--teal-dark); transform: translateY(-1px); }
+.btn-copy.copied { background: #27ae60; }
+
+.toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: #0d3a4a;
+    color: #fff;
+    padding: 12px 22px;
+    border-radius: 40px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 2000;
+    box-shadow: 0 6px 24px rgba(13,58,74,0.30);
+    transition: transform .35s cubic-bezier(.34,1.56,.64,1), opacity .3s;
+    opacity: 0;
+    pointer-events: none;
+}
+.toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+.toast i { color: var(--teal-light); }
