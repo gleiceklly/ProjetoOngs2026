@@ -6,9 +6,157 @@
     <title>Patas do Bem</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../styles/stylesCachorrinhos.css">
+    <link rel="stylesheet" href="../styles/stylesDefault.css">
 </head>
+<nav class="navbar navbar-expand-lg main-navbar">
+    <div class="container-navbar">
+
+        <a class="navbar-brand logo" href="/">
+            <i class="fa-solid fa-paw"></i> Patas do Bem
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuSite">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="menuSite">
+
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/voluntarios">Voluntários</a></li>
+                <li class="nav-item"><a class="nav-link" href="/ongs">Ongs</a></li>
+                <li class="nav-item"><a class="nav-link" href="/adocao">Adoção</a></li>
+                <li class="nav-item"><a class="nav-link" href="/doacoes">Doações</a></li>
+            </ul>
+
+            <div class="d-flex gap-2">
+                <button class="btn-outline-teal btn-sm" onclick="openModal('login')">
+                    <i class="fa-solid fa-right-to-bracket"></i> Login
+                </button>
+                <button class="btn-teal btn-sm" onclick="openModal('cadastro')">
+                    <i class="fa-solid fa-user-plus"></i> Cadastro
+                </button>
+            </div>
+
+        </div>
+    </div>
+</nav>
+
 <body>
+
+    <div id="modalOverlay" role="dialog" aria-modal="true" aria-label="Login ou Cadastro" onclick="handleOverlayClick(event)">
+        <div class="modal-box">
+
+            <div class="modal-left">
+                <img src="../img/cachorroGatoHappy.png" class="modal-pet-img" alt="Cachorro e gato felizes">
+            </div>
+
+            <div class="modal-right">
+                <button class="modal-close-btn" onclick="closeModal()" aria-label="Fechar">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+                <div class="modal-tab-switch">
+                    <button class="modal-tab-btn active" id="tabLogin" onclick="switchModalTab('login')">
+                        <i class="fa-solid fa-right-to-bracket"></i> Entrar
+                    </button>
+                    <button class="modal-tab-btn" id="tabCadastro" onclick="switchModalTab('cadastro')">
+                        <i class="fa-solid fa-user-plus"></i> Cadastrar
+                    </button>
+                </div>
+
+                <div class="modal-panel active" id="panelLogin">
+                    <h2 class="modal-title">Bem-vindo de volta! <i class="fa-solid fa-paw" style="color:#86c7df;font-size:16px;"></i></h2>
+                    <p class="modal-subtitle">Entre na sua conta para continuar ajudando os animais.</p>
+
+                    <div class="modal-alert" id="alertLogin">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <span id="alertLoginMsg">E-mail não encontrado. Redirecionando para o cadastro...</span>
+                    </div>
+                    <div class="modal-success" id="successLogin">
+                        <i class="fa-solid fa-circle-check"></i> Login realizado com sucesso! Bem-vindo(a)!
+                    </div>
+
+                    <div class="modal-form-group">
+                        <label for="loginEmail">E-mail</label>
+                        <input type="email" id="loginEmail" placeholder="seu@email.com" autocomplete="email">
+                        <span class="modal-error-msg" id="errLoginEmail">Insira um e-mail válido.</span>
+                    </div>
+
+                    <div class="modal-form-group">
+                        <label for="loginSenha">Senha</label>
+                        <input type="password" id="loginSenha" placeholder="••••••••" autocomplete="current-password">
+                        <span class="modal-error-msg" id="errLoginSenha">A senha deve ter pelo menos 6 caracteres.</span>
+                    </div>
+
+                    <div class="modal-forgot">
+                        <a href="#">Esqueci minha senha</a>
+                    </div>
+
+                    <button class="modal-btn-teal" onclick="handleLogin()">
+                        <i class="fa-solid fa-paw"></i> Entrar
+                    </button>
+
+                    <p class="modal-switch-link">
+                        Não tem conta? <a href="#" onclick="switchModalTab('cadastro'); return false;">Cadastre-se</a>
+                    </p>
+                </div>
+
+                <div class="modal-panel" id="panelCadastro">
+                    <h2 class="modal-title">Crie sua conta <i class="fa-solid fa-paw" style="color:#86c7df;font-size:16px;"></i></h2>
+                    <p class="modal-subtitle">Junte-se a nós e faça a diferença na vida de um animal.</p>
+
+                    <div class="modal-success" id="successCadastro">
+                        <i class="fa-solid fa-circle-check"></i> Conta criada! Redirecionando para o login...
+                    </div>
+
+                    <div class="modal-form-group">
+                        <label for="cadNome">Nome completo</label>
+                        <input type="text" id="cadNome" placeholder="Maria Silva" autocomplete="name">
+                        <span class="modal-error-msg" id="errCadNome">Informe seu nome completo.</span>
+                    </div>
+
+                    <div class="modal-form-group">
+                        <label for="cadEmail">E-mail</label>
+                        <input type="email" id="cadEmail" placeholder="seu@email.com" autocomplete="email">
+                        <span class="modal-error-msg" id="errCadEmail">Insira um e-mail válido.</span>
+                    </div>
+
+                    <div class="modal-form-group">
+                        <label for="cadSenha">Senha</label>
+                        <input type="password" id="cadSenha" placeholder="••••••••" autocomplete="new-password">
+                        <span class="modal-error-msg" id="errCadSenha">A senha deve ter pelo menos 6 caracteres.</span>
+                    </div>
+
+                    <div class="modal-form-group">
+                        <label for="cadConfSenha">Confirmar senha</label>
+                        <input type="password" id="cadConfSenha" placeholder="••••••••" autocomplete="new-password">
+                        <span class="modal-error-msg" id="errCadConf">As senhas não coincidem.</span>
+                    </div>
+
+                    <div class="modal-terms-row">
+                        <input type="checkbox" id="termos">
+                        <label for="termos">
+                            Concordo com os <a href="#">termos de uso</a> e a política de privacidade.
+                        </label>
+                    </div>
+                    <span class="modal-error-msg" id="errTermos" style="display:none; margin-top:-10px; margin-bottom:10px;">Aceite os termos para continuar.</span>
+
+                    <button class="modal-btn-teal" onclick="handleCadastro()">
+                        <i class="fa-solid fa-paw"></i> Criar conta
+                    </button>
+
+                    <p class="modal-switch-link">
+                        Já tem conta? <a href="#" onclick="switchModalTab('login'); return false;">Entre aqui</a>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <header class="hero-section">
         <div class="container">
             <div class="hero-content">
@@ -36,7 +184,7 @@
 
     <div class="container service-icon-bar">
         <div class="service-bar-inner">
-            <a href="#" class="service-item"><i class="fa-solid fa-stethoscope"></i> Voluntários <i class="fa-solid fa-chevron-right chevron"></i></a>
+            <a href="Voluntários.html" class="service-item"><i class="fa-solid fa-stethoscope"></i> Voluntários <i class="fa-solid fa-chevron-right chevron"></i></a>
             <a href="Ongs.html" class="service-item"><i class="fa-solid fa-house"></i> Ongs <i class="fa-solid fa-chevron-right chevron"></i></a>
             <a href="Adocao.html" class="service-item"><i class="fa-solid fa-bone"></i> Adoção <i class="fa-solid fa-chevron-right chevron"></i></a>
             <a href="Doacoes.html" class="service-item"><i class="fa-brands fa-gratipay"></i> Doações <i class="fa-solid fa-chevron-right chevron"></i></a>
@@ -49,7 +197,7 @@
             <p class="strong-text">Ser voluntário em uma ONG de animais não muda só a vida deles, muda a sua também! Cada cuidado, cada carinho e cada resgate é uma chance real de transformar abandono em amor.</p>
             <p>Doações também são bem-vindas!</p>
             <div class="action-links">
-                <a href="#" class="btn btn-teal">Voluntariar-se<i class="fa-solid fa-chevron-right"></i></a>
+                <a href="Voluntários.html" class="btn btn-teal">Voluntariar-se<i class="fa-solid fa-chevron-right"></i></a>
                 <a href="Doacoes.html" class="text-link">Doações <i class="fa-solid fa-chevron-right"></i></a>
             </div>
         </div>
@@ -63,10 +211,10 @@
     <section class="pets-section">
         <div class="section">
             <h2 class="section-title" style="color: #1c718d;"><i class="fa-solid fa-paw"></i> Nossas Ongs <i class="fa-solid fa-paw"></i></h2><br>
- 
+
             <div class="carousel-wrapper">
                 <button class="arrow-btn" id="arrowLeft" onclick="moveCarousel(-1)" aria-label="Anterior"><i class="fa-solid fa-paw"></i></button>
- 
+
                 <div class="pet-cards" id="petCarousel">
                     <div class="pet-card">
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyFiSYjCdsl214Y5kXG-_VeE666V8WRFCZag&s" alt="Amicão" class="pet-image">
@@ -149,10 +297,10 @@
                         </div>
                     </div>
                 </div>
- 
+
                 <button class="arrow-btn" id="arrowRight" onclick="moveCarousel(1)" aria-label="Próximo"><i class="fa-solid fa-paw"></i></button>
             </div>
- 
+
             <div class="buttons">
                 <a href="Ongs.html" class="blob-btn" style="text-decoration: none;">
                     Ver todas as Ongs
@@ -166,7 +314,7 @@
                     </span>
                 </a>
             </div>
- 
+
             <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
                 <defs>
                     <filter id="goo">
@@ -177,7 +325,7 @@
                 </defs>
             </svg>
         </div>
- 
+
         <div class="ticker-wrap">
             <div class="ticker" style="font-weight: bolder;">
                 <div class="ticker-item"><i class="fa-solid fa-paw"></i> FAÇA UMA DOAÇÃO <i class="fa-solid fa-paw"></i> SALVE OS BICHINHOS <i class="fa-solid fa-paw"></i></div>
@@ -225,6 +373,6 @@
     </footer>
 
     <script src="../js/cachorrinhos.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

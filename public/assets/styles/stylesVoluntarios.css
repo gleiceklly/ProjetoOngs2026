@@ -26,6 +26,23 @@
     color: var(--gray-800);
     overflow-x: hidden;
   } 
+
+  .back-link {
+    position: absolute;
+    top: 24px;
+    left: 30px;
+    color: var(--teal-light);
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 0.85;
+    transition: opacity 0.2s;
+    text-decoration: none;
+  }
+  .back-link:hover { opacity: 1; }
+
   .section {
     max-width: 1200px;
     margin: 0 auto;
@@ -74,10 +91,11 @@
   .how-img img { width: 100%; height: 500px; }
 
   .how-text h2 {
-    font-size: 3.5rem;
+    font-size: 6rem;
     line-height: 1.2;
     margin-bottom: 1.2rem;
     color: #2a7c7c;
+    text-align: center;
   }
   .how-text p { color: var(--gray-600); line-height: 1.75; font-size: 1.20rem; }
   .how-text a { color: var(--teal); font-weight: 600; text-decoration: none; }
