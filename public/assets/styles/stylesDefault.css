@@ -349,8 +349,120 @@
     text-decoration: none;
 }
 
-@media (max-width: 580px) {
-    .modal-left { display: none; }
-    .modal-box { border-radius: 16px; }
-    .modal-right { padding: 28px 20px; }
+@media (max-width: 991px){
+
+    .container-navbar{
+        flex-wrap: wrap;
+        max-height: none;
+        padding: 10px 15px;
+    }
+
+    .navbar-toggler{
+        border: none;
+        box-shadow: none !important;
+    }
+
+    .navbar-collapse{
+        width: 100%;
+        background: white;
+        margin-top: 15px;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    }
+
+    .navbar-nav{
+        width: 100%;
+        text-align: center;
+        gap: 5px;
+    }
+
+    .nav-item{
+        width: 100%;
+    }
+
+    .nav-link{
+        display: block;
+        padding: 12px 0;
+    }
+
+    .d-flex.gap-2{
+        flex-direction: column;
+        width: 100%;
+        margin-top: 15px;
+    }
+
+    .d-flex.gap-2 button{
+        width: 100%;
+    }
+
+    .logo{
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 768px){
+
+    #modalOverlay{
+        padding: 10px;
+        align-items: flex-start;
+        overflow-y: auto;
+    }
+
+    .modal-box{
+        width: 100%;
+        max-width: 100%;
+        max-height: none;
+        flex-direction: column;
+        border-radius: 18px;
+        margin: 20px 0;
+    }
+
+    .modal-left{
+        display: none;
+    }
+
+    .modal-right{
+        width: 100%;
+        max-height: none;
+        overflow-y: visible;
+        padding: 25px 20px;
+    }
+
+    .modal-title{
+        font-size: 22px;
+        text-align: center;
+    }
+
+    .modal-subtitle{
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .modal-tab-switch{
+        margin-top: 20px;
+    }
+
+    .modal-tab-btn{
+        font-size: 13px;
+        padding: 10px;
+    }
+
+    .modal-form-group input{
+        font-size: 16px;
+    }
+
+    .modal-btn-teal{
+        padding: 14px;
+        font-size: 16px;
+    }
+
+    .modal-close-btn{
+        top: 15px;
+        right: 15px;
+    }
+
+    .modal-switch-link{
+        font-size: 14px;
+    }
 }
