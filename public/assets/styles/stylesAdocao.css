@@ -61,9 +61,9 @@ a { text-decoration: none; color: inherit; }
 .animalzinho-capa-right {
     position: absolute;
     right: 100px;
-    top: 30vh;
+    top: 17vh;
     transform: translateY(-50%);
-    width: 290px;
+    width: 450px;
     pointer-events: none;
 }
 
@@ -356,4 +356,5 @@ a { text-decoration: none; color: inherit; }
     }
     .filter-sidebar.open { display: block; }
     .filter-toggle-btn { display: flex; }
+    .animalzinho-capa-right {right: 2px; top: 250px;}
 }
