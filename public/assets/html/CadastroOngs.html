@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cadastrar ONG – Plataforma de Adoção Animal</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  :root {
+    --blue: #1a73e8;
+    --blue-dark: #1558b0;
+    --blue-light: #e8f0fe;
+    --teal: #1a8a8a;
+    --teal-dark: #136464;
+    --yellow: #f5c842;
+    --yellow-dark: #d4a800;
+    --gray-50: #f8f9fa;
+    --gray-100: #f1f3f4;
+    --gray-200: #e8eaed;
+    --gray-300: #dadce0;
+    --gray-500: #9aa0a6;
+    --gray-600: #80868b;
+    --gray-700: #5f6368;
+    --gray-800: #3c4043;
+    --gray-900: #202124;
+    --white: #ffffff;
+    --red: #d93025;
+    --green: #1e8e3e;
+    --green-light: #e6f4ea;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+    --shadow: 0 2px 8px rgba(0,0,0,0.10), 0 1px 3px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+    --radius: 12px;
+    --radius-sm: 8px;
+    --radius-lg: 16px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: var(--gray-50);
+    color: var(--gray-800);
+    min-height: 100vh;
+  }
+  .stepper-wrap {
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-200);
+    padding: 0 32px;
+  }
+  .stepper {
+    max-width: 860px; margin: 0 auto;
+    display: flex; align-items: center;
+    padding: 20px 0;
+    gap: 0;
+  }
+  .step { display: flex; align-items: center; flex: 1; }
+  .step:last-child { flex: 0; }
+  .step-circle {
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800; font-size: 14px;
+    flex-shrink: 0;
+    transition: all .2s;
+  }
+  .step.active .step-circle { background: var(--blue); color: #fff; }
+  .step.done .step-circle { background: var(--green); color: #fff; }
+  .step.pending .step-circle { background: var(--gray-200); color: var(--gray-600); }
+  .step-label {
+    margin-left: 10px;
+    font-size: 13px; font-weight: 600;
+    white-space: nowrap;
+  }
+  .step.active .step-label { color: var(--blue); }
+  .step.done .step-label { color: var(--green); }
+  .step.pending .step-label { color: var(--gray-500); }
+  .step-line {
+    flex: 1; height: 2px;
+    margin: 0 12px;
+    background: var(--gray-200);
+    border-radius: 2px;
+  }
+  .step-line.done { background: var(--green); }
+
+  .main {
+    max-width: 980px; margin: 36px auto;
+    padding: 0 24px;
+    gap: 28px;
+    align-items: start;
+  }
+
+  .card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .card-header {
+    padding: 22px 28px 18px;
+    border-bottom: 1px solid var(--gray-100);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .card-header-icon {
+    width: 34px; height: 34px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px;
+    flex-shrink: 0;
+  }
+  .card-header-icon.blue { background: var(--blue-light); }
+  .card-header-icon.teal { background: #e0f5f5; }
+  .card-header-icon.yellow { background: #fef9e7; }
+  .card-header-icon.green { background: var(--green-light); }
+  .card-title {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800; font-size: 17px;
+    color: var(--gray-900);
+  }
+  .card-subtitle {
+    font-size: 12px; color: var(--gray-500);
+    margin-top: 1px;
+  }
+  .card-body { padding: 24px 28px; }
+
+  /* ── FORM FIELDS ── */
+  .field-row {
+    display: grid;
+    gap: 18px;
+    margin-bottom: 18px;
+  }
+  .field-row.cols-2 { grid-template-columns: 1fr 1fr; }
+  .field-row.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .field-row.cols-1 { grid-template-columns: 1fr; }
+
+  .field { display: flex; flex-direction: column; gap: 5px; }
+  .field label {
+    font-size: 13px; font-weight: 700;
+    color: var(--gray-700);
+    display: flex; align-items: center; gap: 4px;
+  }
+  .field label .required { color: var(--red); font-size: 12px; }
+  .field label .tip {
+    font-weight: 400; color: var(--gray-500); font-size: 12px;
+    margin-left: 4px;
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    border: 1.5px solid var(--gray-300);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    color: var(--gray-900);
+    background: var(--white);
+    transition: border-color .15s, box-shadow .15s;
+    outline: none;
+    width: 100%;
+  }
+  .field input::placeholder,
+  .field textarea::placeholder { color: var(--gray-500); }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(26,115,232,0.12);
+  }
+  .field input.error { border-color: var(--red); }
+  .field textarea { resize: vertical; min-height: 100px; }
+  .field select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235f6368' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+  .field-hint { font-size: 12px; color: var(--gray-500); margin-top: 2px; }
+  .field-error { font-size: 12px; color: var(--red); margin-top: 2px; display: none; }
+
+  /* Input with icon */
+  .input-wrap { position: relative; }
+  .input-wrap .icon {
+    position: absolute; left: 12px; top: 50%;
+    transform: translateY(-50%);
+    font-size: 15px; color: var(--gray-500);
+    pointer-events: none;
+  }
+  .input-wrap input { padding-left: 38px; }
+
+  /* ── FOTO / UPLOAD ── */
+  .upload-area {
+    border: 2px dashed var(--gray-300);
+    border-radius: var(--radius);
+    padding: 32px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color .2s, background .2s;
+    position: relative;
+  }
+  .upload-area:hover { border-color: var(--blue); background: var(--blue-light); }
+  .upload-area input[type=file] { display: none; }
+  .upload-icon { font-size: 36px; margin-bottom: 10px; }
+  .upload-area p { font-size: 14px; color: var(--gray-700); margin-bottom: 4px; font-weight: 600; }
+  .upload-area small { font-size: 12px; color: var(--gray-500); }
+  .upload-btn {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 7px 18px;
+    background: var(--blue);
+    color: #fff;
+    border-radius: 7px;
+    font-size: 13px; font-weight: 700;
+    cursor: pointer;
+    transition: background .15s;
+  }
+  .upload-btn:hover { background: var(--blue-dark); }
+
+  /* ── CHECKBOXES / TAGS ── */
+  .tag-group {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-top: 4px;
+  }
+  .tag-option { display: none; }
+  .tag-label {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1.5px solid var(--gray-300);
+    font-size: 13px; font-weight: 600;
+    color: var(--gray-700);
+    cursor: pointer;
+    transition: all .15s;
+    user-select: none;
+  }
+  .tag-option:checked + .tag-label {
+    background: var(--blue-light);
+    border-color: var(--blue);
+    color: var(--blue);
+  }
+
+  /* ── SOCIAL ROW ── */
+  .social-row {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 14px;
+  }
+  .social-icon-wrap {
+    width: 38px; height: 38px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .social-icon-wrap.fb { background: #e7effd; }
+  .social-icon-wrap.ig { background: #fce8f3; }
+  .social-icon-wrap.wpp { background: #e6f4ea; }
+  .social-icon-wrap.yt { background: #fce8e6; }
+  .social-row input { flex: 1; }
+
+  /* ── HORÁRIO ATENDIMENTO ── */
+  .horario-row {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 10px;
+  }
+  .horario-row .dia {
+    font-size: 13px; font-weight: 700; color: var(--gray-700);
+    width: 100px; flex-shrink: 0;
+  }
+  .horario-row input[type=time] { width: 120px; }
+  .horario-row .sep { font-size: 13px; color: var(--gray-500); }
+  .toggle {
+    position: relative; display: inline-block;
+    width: 38px; height: 22px;
+  }
+  .toggle input { display: none; }
+  .toggle-slider {
+    position: absolute; inset: 0; border-radius: 22px;
+    background: var(--gray-300); cursor: pointer;
+    transition: background .2s;
+  }
+  .toggle-slider::before {
+    content: '';
+    position: absolute;
+    width: 16px; height: 16px;
+    left: 3px; top: 3px;
+    background: #fff; border-radius: 50%;
+    transition: transform .2s;
+    box-shadow: 0 1px 3px rgba(0,0,0,.2);
+  }
+  .toggle input:checked + .toggle-slider { background: var(--blue); }
+  .toggle input:checked + .toggle-slider::before { transform: translateX(16px); }
+
+  /* ── SIDEBAR ── */
+  .sidebar { position: sticky; top: 84px; }
+
+  .info-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    padding: 22px;
+    margin-bottom: 18px;
+  }
+  .info-card h3 {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800; font-size: 15px;
+    color: var(--gray-900);
+    margin-bottom: 14px;
+    display: flex; align-items: center; gap: 7px;
+  }
+  .info-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    margin-bottom: 12px;
+  }
+  .info-item:last-child { margin-bottom: 0; }
+  .info-item-icon {
+    width: 30px; height: 30px; border-radius: 7px;
+    background: var(--blue-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; flex-shrink: 0; margin-top: 1px;
+  }
+  .info-item-text p { font-size: 13px; font-weight: 700; color: var(--gray-800); margin-bottom: 1px; }
+  .info-item-text span { font-size: 12px; color: var(--gray-500); }
+
+  .checklist { list-style: none; }
+  .checklist li {
+    font-size: 13px; color: var(--gray-700);
+    padding: 5px 0;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .checklist li::before { content: '✓'; color: var(--green); font-weight: 700; font-size: 14px; }
+
+  .highlight-card {
+    background: linear-gradient(135deg, var(--teal) 0%, #1a73e8 100%);
+    border-radius: var(--radius-lg);
+    padding: 22px;
+    color: #fff;
+    margin-bottom: 18px;
+  }
+  .highlight-card h3 {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800; font-size: 16px;
+    margin-bottom: 8px;
+  }
+  .highlight-card p { font-size: 13px; opacity: 0.9; line-height: 1.5; }
+
+  /* ── SUBMIT AREA ── */
+  .submit-bar {
+    background: var(--white);
+    border-top: 1px solid var(--gray-200);
+    padding: 18px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px;
+  }
+  .submit-bar .left { font-size: 13px; color: var(--gray-500); }
+  .submit-bar .left strong { color: var(--gray-800); }
+  .submit-bar .actions { display: flex; gap: 10px; }
+
+  .btn-secondary {
+    background: var(--gray-100); color: var(--gray-700);
+    border: 1.5px solid var(--gray-300); cursor: pointer;
+    font-family: 'Lato', sans-serif;
+    font-size: 14px; font-weight: 700;
+    padding: 10px 22px; border-radius: 8px;
+    transition: background .15s;
+  }
+  .btn-secondary:hover { background: var(--gray-200); }
+
+  .btn-submit {
+    background: var(--blue); color: #fff;
+    border: none; cursor: pointer;
+    font-family: 'Lato', sans-serif;
+    font-size: 15px; font-weight: 700;
+    padding: 11px 28px; border-radius: 8px;
+    display: flex; align-items: center; gap: 8px;
+    transition: background .15s, transform .1s, box-shadow .15s;
+    box-shadow: 0 2px 8px rgba(26,115,232,0.3);
+  }
+  .btn-submit:hover {
+    background: var(--blue-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(26,115,232,0.4);
+  }
+
+  /* ── TERMOS ── */
+  .terms-row {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 18px 0 0;
+    border-top: 1px solid var(--gray-100);
+    margin-top: 4px;
+  }
+  .terms-row input[type=checkbox] {
+    width: 18px; height: 18px; accent-color: var(--blue);
+    flex-shrink: 0; margin-top: 2px; cursor: pointer;
+  }
+  .terms-row label {
+    font-size: 13px; color: var(--gray-600); line-height: 1.5; cursor: pointer;
+  }
+  .terms-row a { color: var(--blue); font-weight: 700; }
+
+  /* ── SECTION DIVIDER ── */
+  .section-divider {
+    display: flex; align-items: center; gap: 12px;
+    margin: 4px 0 20px;
+  }
+  .section-divider span {
+    font-size: 12px; font-weight: 700;
+    color: var(--gray-500); text-transform: uppercase;
+    letter-spacing: 0.8px; white-space: nowrap;
+  }
+  .section-divider::before,
+  .section-divider::after {
+    content: ''; flex: 1; height: 1px;
+    background: var(--gray-200);
+  }
+
+  /* ── ANIMAL TYPES GRID ── */
+  .animal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px; margin-top: 6px;
+  }
+  .animal-option { display: none; }
+  .animal-label {
+    border: 1.5px solid var(--gray-200);
+    border-radius: 10px;
+    padding: 14px 8px;
+    text-align: center; cursor: pointer;
+    transition: all .15s;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 6px;
+  }
+  .animal-label .emoji { font-size: 26px; }
+  .animal-label span { font-size: 12px; font-weight: 700; color: var(--gray-700); }
+  .animal-option:checked + .animal-label {
+    border-color: var(--blue);
+    background: var(--blue-light);
+  }
+  .animal-option:checked + .animal-label span { color: var(--blue); }
+
+  /* ── ATIVIDADES GRID ── */
+  .atividade-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px; margin-top: 6px;
+  }
+  .ativ-option { display: none; }
+  .ativ-label {
+    border: 1.5px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 11px 14px;
+    cursor: pointer;
+    transition: all .15s;
+    display: flex; align-items: center; gap: 9px;
+    font-size: 13px; font-weight: 600; color: var(--gray-700);
+  }
+  .ativ-label .icon { font-size: 16px; }
+  .ativ-option:checked + .ativ-label {
+    border-color: var(--blue);
+    background: var(--blue-light);
+    color: var(--blue);
+  }
+
+  /* ── PREVIEW FOTO ── */
+  .foto-preview {
+    width: 90px; height: 90px; border-radius: 12px;
+    background: var(--gray-100);
+    border: 2px dashed var(--gray-300);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+    flex-shrink: 0;
+  }
+
+  .foto-row {
+    display: flex; align-items: center; gap: 18px;
+    margin-bottom: 16px;
+  }
+  .foto-info p { font-size: 14px; font-weight: 700; color: var(--gray-800); margin-bottom: 4px; }
+  .foto-info small { font-size: 12px; color: var(--gray-500); }
+  .foto-info .foto-actions { display: flex; gap: 8px; margin-top: 10px; }
+  .foto-info .foto-actions button {
+    font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 6px;
+    cursor: pointer; border: none;
+  }
+  .btn-foto-upload { background: var(--blue); color: #fff; }
+  .btn-foto-remove { background: var(--gray-100); color: var(--gray-700); border: 1px solid var(--gray-300) !important; }
+
+  /* ── RESPONSIVO ── */
+  @media(max-width: 768px) {
+    .main { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+    .field-row.cols-2,
+    .field-row.cols-3 { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 26px; }
+    header { padding: 0 16px; }
+    .stepper { overflow-x: auto; }
+    .step-label { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="main">
+  <div class="form-col">
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Identidade da ONG</div>
+          <div class="card-subtitle">Informações que aparecerão no perfil público</div>
+        </div>
+      </div>
+      <div class="card-body">
+
+        <div class="foto-row">
+          <div class="foto-preview" id="fotoPreview"><i class="fa-solid fa-paw"></i></div>
+          <div class="foto-info">
+            <p>Foto / Logotipo da ONG</p>
+            <div class="foto-actions">
+              <button class="btn-foto-upload" onclick="document.getElementById('fotoInput').click()"> Escolher arquivo</button>
+              <button class="btn-foto-remove">Remover</button>
+            </div>
+            <input type="file" id="fotoInput" accept="image/*" style="display:none">
+          </div>
+        </div>
+
+        <div class="field-row cols-1">
+          <div class="field">
+            <label>Nome da ONG <span class="required">*</span></label>
+            <input type="text" placeholder="Ex: Associação Bigodes do Bunker">
+          </div>
+        </div>
+
+        <div class="field-row cols-2">
+          <div class="field">
+            <label>Pix <span class="tip">*</span></label>
+            <input type="text" placeholder="Digite o pix da ong" maxlength="18">
+          </div>
+        </div>
+
+        <div class="field-row cols-1">
+          <div class="field">
+            <label>Descrição / Missão <span class="required">*</span></label>
+            <textarea placeholder="Conte a história da sua ONG, sua missão, como começou e o que a diferencia..."></textarea>
+            <div class="field-hint">Mínimo 100 caracteres. Seja inspirador!</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Localização</div>
+          <div class="card-subtitle">Endereço principal de atuação</div>
+        </div>
+      </div>
+      <div class="card-body">
+
+        <div class="field-row cols-2">
+          <div class="field">
+            <label>CEP <span class="required">*</span></label>
+            <div class="input-wrap">
+              <input type="text" placeholder="00000-000" maxlength="9">
+            </div>
+          </div>
+          <div class="field">
+            <label>Estado <span class="required">*</span></label>
+            <select>
+              <option value="">Selecionar...</option>
+              <option>AC</option><option>AL</option><option>AP</option><option>AM</option>
+              <option>BA</option><option>CE</option><option>DF</option><option>ES</option>
+              <option>GO</option><option>MA</option><option>MT</option><option>MS</option>
+              <option>MG</option><option>PA</option><option>PB</option><option>PR</option>
+              <option>PE</option><option>PI</option><option>RJ</option><option>RN</option>
+              <option>RS</option><option>RO</option><option>RR</option><option>SC</option>
+              <option>SP</option><option>SE</option><option>TO</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-row cols-2">
+          <div class="field">
+            <label>Cidade <span class="required">*</span></label>
+            <input type="text" placeholder="Ex: Rio de Janeiro">
+          </div>
+          <div class="field">
+            <label>Bairro</label>
+            <input type="text" placeholder="Ex: Copacabana">
+          </div>
+        </div>
+
+        <div class="field-row cols-3">
+          <div class="field" style="grid-column: span 2;">
+            <label>Rua / Logradouro</label>
+            <input type="text" placeholder="Ex: Av. Nossa Senhora de Copacabana">
+          </div>
+          <div class="field">
+            <label>Número</label>
+            <input type="text" placeholder="Ex: 1200">
+          </div>
+        </div>
+
+        <div class="field-row cols-1">
+          <div class="field">
+            <label>Complemento</label>
+            <input type="text" placeholder="Bloco, apartamento, sala...">
+          </div>
+        </div>
+
+        <div class="field-row cols-1">
+          <div class="field">
+            <label>Área de atuação <span class="required">*</span></label>
+            <select>
+              <option value="">Selecionar alcance de atuação</option>
+              <option>Apenas no bairro / localidade</option>
+              <option>Cidade inteira</option>
+              <option>Região metropolitana</option>
+              <option>Estado</option>
+              <option>Nacional</option>
+            </select>
+            <div class="field-hint">Define como sua ONG aparecerá em buscas por localização</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Animais & Atividades</div>
+          <div class="card-subtitle">O que sua ONG faz e com quais animais trabalha</div>
+        </div>
+      </div>
+      <div class="card-body">
+
+        <div class="field">
+          <label>Tipos de animais atendidos <span class="required">*</span></label>
+          <div class="animal-grid">
+            <input type="checkbox" class="animal-option" id="a-gatos" name="animais" value="gatos">
+            <label class="animal-label" for="a-gatos"><span class="emoji"></span><span>Gatos</span></label>
+
+            <input type="checkbox" class="animal-option" id="a-caes" name="animais" value="caes">
+            <label class="animal-label" for="a-caes"><span class="emoji"></span><span>Cães</span></label>
+
+            <input type="checkbox" class="animal-option" id="a-aves" name="animais" value="aves">
+            <label class="animal-label" for="a-aves"><span class="emoji"></span><span>Aves</span></label>
+
+            <input type="checkbox" class="animal-option" id="a-coelhos" name="animais" value="coelhos">
+            <label class="animal-label" for="a-coelhos"><span class="emoji"></span><span>Coelhos</span></label>
+
+            <input type="checkbox" class="animal-option" id="a-silvestres" name="animais" value="silvestres">
+            <label class="animal-label" for="a-silvestres"><span class="emoji"></span><span>Silvestres</span></label>
+
+            <input type="checkbox" class="animal-option" id="a-outros" name="animais" value="outros">
+            <label class="animal-label" for="a-outros"><span class="emoji"></span><span>Outros</span></label>
+          </div>
+        </div>
+
+        <div class="field-row cols-2" style="margin-top:20px;">
+          <div class="field">
+            <label>Animais disponíveis atualmente</label>
+            <input type="number" placeholder="Ex: 24" min="0">
+          </div>
+        </div>
+
+        <div class="section-divider" style="margin-top: 24px;"><span>Atividades desenvolvidas</span></div>
+
+        <div class="field">
+          <label>Selecione as atividades da ONG <span class="required">*</span></label>
+          <div class="atividade-grid">
+            <input type="checkbox" class="ativ-option" id="at-adocao" name="ativ" value="adocao">
+            <label class="ativ-label" for="at-adocao"><span class="icon"></span> Adoção responsável</label>
+
+            <input type="checkbox" class="ativ-option" id="at-castracao" name="ativ" value="castracao">
+            <label class="ativ-label" for="at-castracao"><span class="icon"></span> Castração gratuita</label>
+
+            <input type="checkbox" class="ativ-option" id="at-resgate" name="ativ" value="resgate">
+            <label class="ativ-label" for="at-resgate"><span class="icon"></span> Resgate de animais</label>
+
+            <input type="checkbox" class="ativ-option" id="at-vet" name="ativ" value="vet">
+            <label class="ativ-label" for="at-vet"><span class="icon"></span> Atendimento veterinário</label>
+
+            <input type="checkbox" class="ativ-option" id="at-lartmp" name="ativ" value="lartmp">
+            <label class="ativ-label" for="at-lartmp"><span class="icon"></span> Lar temporário</label>
+
+            <input type="checkbox" class="ativ-option" id="at-feed" name="ativ" value="feed">
+            <label class="ativ-label" for="at-feed"><span class="icon"></span> Alimentação de rua</label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Contato & Responsável</div>
+          <div class="card-subtitle">Como as pessoas podem entrar em contato com a ONG</div>
+        </div>
+      </div>
+      <div class="card-body">
+
+        <div class="field-row cols-2">
+          <div class="field">
+            <label>Nome do responsável <span class="required">*</span></label>
+            <input type="text" placeholder="Nome completo">
+          </div>
+          <div class="field">
+            <label>Cargo / Função</label>
+            <input type="text" placeholder="Ex: Presidenta, Coordenadora...">
+          </div>
+        </div>
+
+        <div class="field-row cols-2">
+          <div class="field">
+            <label>E-mail de contato<span class="required">*</span></label>
+            <div class="input-wrap">
+              <input type="email" placeholder="contato@suaong.org.br">
+            </div>
+          </div>
+          <div class="field">
+            <label>Telefone / WhatsApp <span class="required">*</span></label>
+            <div class="input-wrap">
+              <input type="tel" placeholder="(21) 99999-9999">
+            </div>
+          </div>
+        </div>
+
+        <div class="section-divider" style="margin-top: 24px;"><span>Redes sociais</span></div>
+
+        <div class="social-row">
+          <div class="social-icon-wrap fb"><i class="fa-brands fa-facebook"></i></div>
+          <div class="field" style="flex:1; margin:0;">
+            <input type="url" placeholder="https://facebook.com/suaong">
+          </div>
+        </div>
+        <div class="social-row">
+          <div class="social-icon-wrap ig"><i class="fa-brands fa-instagram"></i></div>
+          <div class="field" style="flex:1; margin:0;">
+            <input type="url" placeholder="https://instagram.com/suaong">
+          </div>
+        </div>
+    
+        <div class="field-row cols-1" style="margin-top: 4px;">
+          <div class="field">
+            <label>Site da ONG</label>
+            <div class="input-wrap">
+              <span class="icon"><i class="fa-solid fa-globe"></i></span>
+              <input type="url" placeholder="https://www.suaong.org.br">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Horário de Atendimento</div>
+          <div class="card-subtitle">Quando sua ONG pode ser contatada ou visitada</div>
+        </div>
+      </div>
+      <div class="card-body">
+
+        <div style="margin-bottom:8px; font-size:12px; color:var(--gray-500); font-weight:600;">
+          Ative os dias de funcionamento e informe os horários
+        </div>
+
+        <div class="horario-row">
+          <div class="dia">Segunda-feira</div>
+          <label class="toggle"><input type="checkbox" checked><div class="toggle-slider"></div></label>
+          <input type="time" value="09:00">
+          <span class="sep">até</span>
+          <input type="time" value="18:00">
+        </div>
+        <div class="horario-row">
+          <div class="dia">Terça-feira</div>
+          <label class="toggle"><input type="checkbox" checked><div class="toggle-slider"></div></label>
+          <input type="time" value="09:00">
+          <span class="sep">até</span>
+          <input type="time" value="18:00">
+        </div>
+        <div class="horario-row">
+          <div class="dia">Quarta-feira</div>
+          <label class="toggle"><input type="checkbox" checked><div class="toggle-slider"></div></label>
+          <input type="time" value="09:00">
+          <span class="sep">até</span>
+          <input type="time" value="18:00">
+        </div>
+        <div class="horario-row">
+          <div class="dia">Quinta-feira</div>
+          <label class="toggle"><input type="checkbox" checked><div class="toggle-slider"></div></label>
+          <input type="time" value="09:00">
+          <span class="sep">até</span>
+          <input type="time" value="18:00">
+        </div>
+        <div class="horario-row">
+          <div class="dia">Sexta-feira</div>
+          <label class="toggle"><input type="checkbox" checked><div class="toggle-slider"></div></label>
+          <input type="time" value="09:00">
+          <span class="sep">até</span>
+          <input type="time" value="17:00">
+        </div>
+        <div class="horario-row">
+          <div class="dia">Sábado</div>
+          <label class="toggle"><input type="checkbox"><div class="toggle-slider"></div></label>
+          <input type="time" value="10:00" disabled style="opacity:.4">
+          <span class="sep">até</span>
+          <input type="time" value="14:00" disabled style="opacity:.4">
+        </div>
+        <div class="horario-row">
+          <div class="dia">Domingo</div>
+          <label class="toggle"><input type="checkbox"><div class="toggle-slider"></div></label>
+          <input type="time" value="10:00" disabled style="opacity:.4">
+          <span class="sep">até</span>
+          <input type="time" value="14:00" disabled style="opacity:.4">
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <div class="terms-row">
+          <input type="checkbox" id="t1">
+          <label for="t1">Confirmo que sou responsável legal por esta ONG e que todas as informações fornecidas são verdadeiras e atualizadas.</label>
+        </div>
+        <div class="terms-row">
+          <input type="checkbox" id="t2">
+          <label for="t2">Li e concordo com os <a href="#">Termos de Uso</a> e a <a href="#">Política de Privacidade</a> da plataforma.</label>
+        </div>
+        <div class="terms-row">
+          <input type="checkbox" id="t3">
+          <label for="t3">Autorizo a plataforma a exibir publicamente as informações da ONG para fins de divulgação de adoção responsável.</label>
+        </div>
+      </div>
+      <div class="submit-bar">
+        <div class="actions">
+          <button class="btn-secondary">Salvar rascunho</button>
+          <button class="btn-submit">Cadastrar ONG</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  document.getElementById('fotoInput').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+      const prev = document.getElementById('fotoPreview');
+      prev.innerHTML = '';
+      const img = document.createElement('img');
+      img.src = ev.target.result;
+      img.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:10px;';
+      prev.appendChild(img);
+    };
+    reader.readAsDataURL(file);
+  });
+
+  document.querySelectorAll('.horario-row .toggle input').forEach(toggle => {
+    toggle.addEventListener('change', function() {
+      const row = this.closest('.horario-row');
+      const inputs = row.querySelectorAll('input[type=time]');
+      inputs.forEach(inp => {
+        inp.disabled = !this.checked;
+        inp.style.opacity = this.checked ? '1' : '0.4';
+      });
+    });
+  });
+
+  const cepInput = document.querySelector('input[placeholder="00000-000"]');
+  if (cepInput) {
+    cepInput.addEventListener('blur', function() {
+      const cep = this.value.replace(/\D/g,'');
+      if (cep.length === 8) {
+        this.value = cep.slice(0,5) + '-' + cep.slice(5);
+      }
+    });
+  }
+
+  const steps = document.querySelectorAll('.step');
+  const lines = document.querySelectorAll('.step-line');
+</script>
+</body>
+</html>

@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cadastrar Animal — Adoção</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Lora:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  :root {
+    --yellow: #F5C842;
+    --yellow-light: #FDF3C0;
+    --teal: #0D6E6E;
+    --teal-dark: #094f4f;
+    --teal-light: #E0F2F2;
+    --coral: #E8533A;
+    --coral-light: #FDF0EE;
+    --gray-50: #F7F8FA;
+    --gray-100: #EEF0F4;
+    --gray-200: #DDE0E8;
+    --gray-400: #9AA0AD;
+    --gray-600: #5C6270;
+    --gray-800: #2A2D35;
+    --white: #FFFFFF;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+    --radius-xl: 24px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--gray-50);
+    color: var(--gray-800);
+    min-height: 100vh;
+    padding: 40px 20px 60px;
+  }
+
+  .page-wrapper {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  /* Page title area */
+  .page-intro {
+    margin-bottom: 32px;
+    animation: fadeUp 0.5s ease both;
+  }
+  .page-intro h1 {
+    font-family: 'Nunito', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--gray-800);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .page-intro h1 .dot {
+    width: 10px; height: 10px;
+    background: var(--yellow);
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+  .page-intro p {
+    margin-top: 6px;
+    font-size: 15px;
+    color: var(--gray-600);
+    font-weight: 500;
+    padding-left: 22px;
+  }
+
+  /* Progress steps */
+  .steps {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 32px;
+    animation: fadeUp 0.5s 0.05s ease both;
+  }
+  .step {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+  }
+  .step-num {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700;
+    background: var(--gray-100);
+    color: var(--gray-400);
+    border: 2px solid var(--gray-200);
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+  .step.active .step-num {
+    background: var(--teal);
+    color: #fff;
+    border-color: var(--teal);
+    box-shadow: 0 0 0 4px rgba(13,110,110,0.15);
+  }
+  .step.done .step-num {
+    background: var(--teal-light);
+    color: var(--teal);
+    border-color: var(--teal);
+  }
+  .step-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-400);
+  }
+  .step.active .step-label { color: var(--teal); }
+  .step.done .step-label { color: var(--teal); }
+  .step-line {
+    flex: 1;
+    height: 2px;
+    background: var(--gray-200);
+    margin: 0 8px;
+    max-width: 60px;
+  }
+  .step-line.done { background: var(--teal); }
+
+  /* Card container */
+  .card {
+    background: var(--white);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--gray-100);
+    overflow: hidden;
+    animation: fadeUp 0.5s 0.1s ease both;
+  }
+
+  /* Section inside card */
+  .form-section {
+    padding: 32px 40px;
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .form-section:last-of-type { border-bottom: none; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .section-icon {
+    width: 38px; height: 38px;
+    border-radius: var(--radius-sm);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .section-icon.yellow { background: var(--yellow-light); }
+  .section-icon.teal { background: var(--teal-light); }
+  .section-icon.coral { background: var(--coral-light); }
+  .section-icon.gray { background: var(--gray-100); }
+
+  .section-header-text h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--gray-800);
+  }
+  .section-header-text p {
+    font-size: 13px;
+    color: var(--gray-400);
+    font-weight: 500;
+    margin-top: 1px;
+  }
+
+  /* Photo upload */
+  .photo-zone {
+    border: 2px dashed var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: 36px 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--gray-50);
+    position: relative;
+  }
+  .photo-zone:hover, .photo-zone.drag {
+    border-color: var(--teal);
+    background: var(--teal-light);
+  }
+  .photo-zone input { display: none; }
+  .upload-icon-wrap {
+    width: 56px; height: 56px;
+    background: var(--white);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 14px;
+    box-shadow: var(--shadow-sm);
+    font-size: 24px;
+    border: 1px solid var(--gray-100);
+  }
+  .photo-zone h3 { font-size: 15px; font-weight: 700; color: var(--gray-800); }
+  .photo-zone p { font-size: 13px; color: var(--gray-400); margin-top: 4px; }
+  .file-types {
+    display: inline-flex;
+    gap: 6px;
+    margin-top: 12px;
+  }
+  .file-type {
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gray-600);
+    letter-spacing: 0.03em;
+  }
+
+  .photo-previews {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .preview-thumb {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 2px solid var(--gray-100);
+    background: var(--gray-100);
+  }
+  .preview-thumb img {
+    width: 100%; height: 100%; object-fit: cover;
+    display: block;
+  }
+  .preview-thumb .badge-main {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: var(--teal);
+    color: #fff; font-size: 10px; font-weight: 700;
+    text-align: center; padding: 4px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .preview-thumb .btn-remove {
+    position: absolute; top: 5px; right: 5px;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.55);
+    border: none; color: #fff;
+    cursor: pointer; font-size: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+  }
+  .preview-add {
+    aspect-ratio: 1;
+    border-radius: var(--radius-md);
+    border: 2px dashed var(--gray-200);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 22px; color: var(--gray-400);
+    transition: all 0.2s;
+    background: var(--gray-50);
+  }
+  .preview-add:hover { border-color: var(--teal); color: var(--teal); background: var(--teal-light); }
+
+  /* Form grid */
+  .form-grid { display: grid; gap: 18px; }
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+  .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .col-span-2 { grid-column: span 2; }
+
+  .field { display: flex; flex-direction: column; gap: 7px; }
+  .field label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gray-600);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .required { color: var(--coral); }
+
+  .field input,
+  .field select,
+  .field textarea {
+    height: 44px;
+    padding: 0 14px;
+    border-radius: var(--radius-sm);
+    border: 1.5px solid var(--gray-200);
+    font-size: 14px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 500;
+    color: var(--gray-800);
+    background: var(--white);
+    transition: border-color 0.15s, box-shadow 0.15s;
+    outline: none;
+    width: 100%;
+  }
+  .field textarea {
+    height: auto;
+    padding: 12px 14px;
+    resize: vertical;
+    min-height: 100px;
+    line-height: 1.6;
+  }
+  .field input::placeholder,
+  .field textarea::placeholder { color: var(--gray-400); font-weight: 500; }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(13,110,110,0.12);
+  }
+
+  /* Pill radio */
+  .pill-group { display: flex; gap: 8px; flex-wrap: wrap; }
+  .pill input { display: none; }
+  .pill label {
+    padding: 9px 18px;
+    border-radius: 40px;
+    border: 1.5px solid var(--gray-200);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-600);
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .pill label:hover { border-color: var(--teal); color: var(--teal); }
+  .pill input:checked + label {
+    background: var(--teal);
+    border-color: var(--teal);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(13,110,110,0.25);
+  }
+
+  /* Checkbox row */
+  .check-group { display: flex; flex-wrap: wrap; gap: 12px 20px; }
+  .check-item {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 600; color: var(--gray-600);
+    cursor: pointer;
+  }
+  .check-item input[type=checkbox] {
+    width: 17px; height: 17px;
+    accent-color: var(--teal);
+    cursor: pointer;
+  }
+
+  /* Tags input */
+  .tags-wrap {
+    border: 1.5px solid var(--gray-200);
+    border-radius: var(--radius-sm);
+    padding: 8px 10px;
+    display: flex; flex-wrap: wrap; gap: 6px;
+    align-items: center; min-height: 44px;
+    cursor: text;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .tags-wrap:focus-within {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(13,110,110,0.12);
+  }
+  .tag {
+    display: flex; align-items: center; gap: 5px;
+    padding: 4px 10px; border-radius: 20px;
+    font-size: 12px; font-weight: 700;
+  }
+  .tag.pos { background: #E0F5EA; color: #1a6e3c; }
+  .tag.neg { background: #FDECEA; color: #b03020; }
+  .tag .rm {
+    cursor: pointer; opacity: 0.6; font-size: 11px;
+    line-height: 1; margin-left: 2px;
+  }
+  .tag .rm:hover { opacity: 1; }
+  .tags-input {
+    border: none; outline: none;
+    font-size: 13px; font-weight: 500;
+    font-family: 'Nunito', sans-serif;
+    color: var(--gray-800);
+    background: transparent; flex: 1; min-width: 100px;
+  }
+  .suggestions { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .sug-btn {
+    padding: 4px 12px; border-radius: 20px;
+    border: 1.5px solid var(--gray-200);
+    font-size: 12px; font-weight: 600;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer; background: transparent;
+    transition: all 0.15s;
+  }
+  .sug-btn.pos { color: #1a6e3c; }
+  .sug-btn.pos:hover { border-color: #1a6e3c; background: #E0F5EA; }
+  .sug-btn.neg { color: #b03020; }
+  .sug-btn.neg:hover { border-color: #b03020; background: #FDECEA; }
+
+  /* Hint text */
+  .hint {
+    font-size: 12px; color: var(--gray-400); font-weight: 500;
+    display: flex; align-items: flex-start; gap: 5px; margin-top: 4px;
+  }
+
+  /* Health status row */
+  .health-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .health-card {
+    border: 1.5px solid var(--gray-200);
+    border-radius: var(--radius-md);
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .health-card input { display: none; }
+  .health-card label {
+    display: flex; align-items: center; gap: 10px;
+    cursor: pointer; width: 100%;
+  }
+  .health-card .hc-icon {
+    width: 34px; height: 34px;
+    border-radius: var(--radius-sm);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .health-card .hc-text strong {
+    font-size: 13px; font-weight: 700; color: var(--gray-800); display: block;
+  }
+  .health-card .hc-text span {
+    font-size: 11px; color: var(--gray-400); font-weight: 500;
+  }
+  .health-card:has(input:checked) {
+    border-color: var(--teal);
+    background: var(--teal-light);
+  }
+
+  /* Footer */
+  .form-footer {
+    padding: 24px 40px;
+    background: var(--gray-50);
+    border-top: 1px solid var(--gray-100);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .footer-note {
+    font-size: 13px; color: var(--gray-400); font-weight: 500;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .footer-actions { display: flex; gap: 12px; align-items: center; }
+
+  .btn {
+    height: 44px; padding: 0 24px;
+    border-radius: var(--radius-sm);
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px; font-weight: 700;
+    cursor: pointer; border: none;
+    transition: all 0.15s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--gray-600);
+    border: 1.5px solid var(--gray-200);
+  }
+  .btn-ghost:hover { background: var(--white); border-color: var(--gray-400); }
+
+  .btn-outline-teal {
+    background: transparent;
+    color: var(--teal);
+    border: 1.5px solid var(--teal);
+  }
+  .btn-outline-teal:hover { background: var(--teal-light); }
+
+  .btn-primary {
+    background: var(--teal);
+    color: #fff;
+    box-shadow: 0 2px 10px rgba(13,110,110,0.3);
+  }
+  .btn-primary:hover {
+    background: var(--teal-dark);
+    box-shadow: 0 4px 14px rgba(13,110,110,0.35);
+    transform: translateY(-1px);
+  }
+  .btn-primary:active { transform: translateY(0); }
+
+  /* Toast */
+  .toast {
+    position: fixed; bottom: 28px; right: 28px;
+    background: var(--gray-800); color: #fff;
+    padding: 13px 20px; border-radius: var(--radius-md);
+    font-size: 14px; font-weight: 600;
+    display: flex; align-items: center; gap: 10px;
+    opacity: 0; transform: translateY(12px);
+    transition: all 0.3s; pointer-events: none;
+    box-shadow: var(--shadow-lg); z-index: 999;
+  }
+  .toast.show { opacity: 1; transform: translateY(0); }
+  .toast-dot { width: 8px; height: 8px; background: #4ade80; border-radius: 50%; flex-shrink: 0; }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Divider inside section */
+  .inner-divider {
+    height: 1px; background: var(--gray-100);
+    margin: 24px 0;
+  }
+
+  @media (max-width: 640px) {
+    .form-section { padding: 24px 20px; }
+    .form-footer { padding: 20px; flex-direction: column; align-items: stretch; }
+    .footer-actions { flex-direction: column; }
+    .btn { justify-content: center; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .health-grid { grid-template-columns: 1fr; }
+    .col-span-2 { grid-column: span 1; }
+    .steps { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-wrapper">
+
+  <div class="page-intro">
+    <h1>Cadastrar novo animal</h1>
+    <p>Preencha as informações para publicar o pet na plataforma de adoção</p>
+  </div>
+
+  <div class="card">
+    <div class="form-section">
+      <div class="section-header">
+        <div class="section-header-text">
+          <h2>Fotos do animal</h2>
+          <p>Adicione de 1 a 8 fotos. A primeira será a imagem de capa.</p>
+        </div>
+      </div>
+
+      <div class="photo-zone" id="dropzone" onclick="document.getElementById('fileInput').click()"
+        ondragover="event.preventDefault(); this.classList.add('drag')"
+        ondragleave="this.classList.remove('drag')"
+        ondrop="handleDrop(event)">
+        <input type="file" id="fileInput" multiple accept="image/*" onchange="handleFiles(this.files)">
+        <div class="upload-icon-wrap"><i class="fa-solid fa-paw"></i></div>
+        <h3>Arraste fotos aqui ou clique para selecionar</h3>
+        <p>Fotos nítidas, com boa iluminação, aumentam muito as chances de adoção</p>
+        <div class="file-types">
+          <span class="file-type">JPG</span>
+          <span class="file-type">PNG</span>
+          <span class="file-type">WEBP</span>
+          <span class="file-type">até 10MB</span>
+        </div>
+      </div>
+
+      <div class="photo-previews" id="photoGrid" style="display:none"></div>
+    </div>
+
+    <!-- DADOS BÁSICOS -->
+    <div class="form-section">
+      <div class="section-header">
+        <div class="section-header-text">
+          <h2>Informações básicas</h2>
+        </div>
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <div class="field" style="margin-bottom: 8px;">
+          <label>Espécie <span class="required">*</span></label>
+        </div>
+        <div class="pill-group">
+          <div class="pill"><input type="radio" name="especie" id="e-cachorro" value="cachorro" checked><label for="e-cachorro">Cachorro</label></div>
+          <div class="pill"><input type="radio" name="especie" id="e-gato" value="gato"><label for="e-gato">Gato</label></div>
+          <div class="pill"><input type="radio" name="especie" id="e-coelho" value="coelho"><label for="e-coelho">Coelho</label></div>
+          <div class="pill"><input type="radio" name="especie" id="e-outro" value="outro"><label for="e-outro">Outro</label></div>
+        </div>
+      </div>
+
+      <div class="form-grid grid-2" style="margin-bottom: 18px;">
+        <div class="field">
+          <label for="nome">Nome do animal <span class="required">*</span></label>
+          <input type="text" id="nome" placeholder="Ex: Monica, Thor, Mel…">
+        </div>
+        <div class="field">
+          <label for="raca">Raça</label>
+          <input type="text" id="raca" placeholder="Ex: Border Collie, SRD, Vira-lata…">
+        </div>
+      </div>
+
+      <div class="form-grid grid-3">
+        <div class="field">
+          <label>Sexo <span class="required">*</span></label>
+          <div class="pill-group" style="margin-top: 2px">
+            <div class="pill"><input type="radio" name="sexo" id="s-femea" value="femea" checked><label for="s-femea">Fêmea</label></div>
+            <div class="pill"><input type="radio" name="sexo" id="s-macho" value="macho"><label for="s-macho">Macho</label></div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Fase de vida <span class="required">*</span></label>
+          <div class="pill-group" style="margin-top: 2px">
+            <div class="pill"><input type="radio" name="idade" id="i-filhote" value="filhote"><label for="i-filhote">Filhote</label></div>
+            <div class="pill"><input type="radio" name="idade" id="i-adulto" value="adulto" checked><label for="i-adulto">Adulto</label></div>
+            <div class="pill"><input type="radio" name="idade" id="i-idoso" value="idoso"><label for="i-idoso">Idoso</label></div>
+          </div>
+        </div>
+        <div class="field">
+          <label for="idade-num">Idade aproximada</label>
+          <div style="display:flex; gap:8px">
+            <input type="number" id="idade-num" min="0" max="30" placeholder="0" style="width:72px; text-align:center; flex-shrink:0;">
+            <select style="flex:1">
+              <option>meses</option>
+              <option>anos</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="inner-divider"></div>
+
+      <div class="form-grid grid-2">
+        <div class="field">
+          <label>Porte <span class="required">*</span></label>
+          <div class="pill-group">
+            <div class="pill"><input type="radio" name="porte" id="p-peq" value="pequeno"><label for="p-peq">Pequeno</label></div>
+            <div class="pill"><input type="radio" name="porte" id="p-med" value="medio" checked><label for="p-med">Médio</label></div>
+            <div class="pill"><input type="radio" name="porte" id="p-gra" value="grande"><label for="p-gra">Grande</label></div>
+          </div>
+        </div>
+        <div class="field">
+          <label for="pelagem">Pelagem / cor</label>
+          <input type="text" id="pelagem" placeholder="Ex: Tricolor, caramelo, preto e branco…">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="section-header">
+        <div class="section-header-text">
+          <h2>Personalidade e características</h2>
+        </div>
+      </div>
+
+      <div class="form-grid" style="margin-bottom: 18px;">
+        <div class="field">
+          <label>A história do animal</label>
+          <textarea placeholder="Conte sobre a história, de onde veio, como foi resgatado, o que viveu. Seja humano — essa história conecta adotantes."></textarea>
+        </div>
+      </div>
+
+      <div class="form-grid grid-2">
+        <div class="field">
+          <label>Características positivas</label>
+          <div class="tags-wrap" id="posTagsWrap" onclick="this.querySelector('.tags-input').focus()">
+            <input class="tags-input" id="posInput" placeholder="Digite e pressione Enter…" onkeydown="addTag(event,'pos')">
+          </div>
+          <div class="suggestions">
+            <button class="sug-btn pos" onclick="quickTag('pos','Dócil')">+ Dócil</button>
+            <button class="sug-btn pos" onclick="quickTag('pos','Calmo')">+ Calmo</button>
+            <button class="sug-btn pos" onclick="quickTag('pos','Brincalhão')">+ Brincalhão</button>
+            <button class="sug-btn pos" onclick="quickTag('pos','Carinhoso')">+ Carinhoso</button>
+            <button class="sug-btn pos" onclick="quickTag('pos','Obediente')">+ Obediente</button>
+          </div>
+        </div>
+        <div class="field">
+          <label>Pontos de atenção</label>
+          <div class="tags-wrap" id="negTagsWrap" onclick="this.querySelector('.tags-input').focus()">
+            <input class="tags-input" id="negInput" placeholder="Digite e pressione Enter…" onkeydown="addTag(event,'neg')">
+          </div>
+          <div class="suggestions">
+            <button class="sug-btn neg" onclick="quickTag('neg','Morde objetos')">+ Morde objetos</button>
+            <button class="sug-btn neg" onclick="quickTag('neg','Tímido')">+ Tímido</button>
+            <button class="sug-btn neg" onclick="quickTag('neg','Latidor')">+ Latidor</button>
+            <button class="sug-btn neg" onclick="quickTag('neg','Ciumento')">+ Ciumento</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="inner-divider"></div>
+
+      <div class="field">
+        <label>Compatibilidade</label>
+        <div class="check-group">
+          <label class="check-item"><input type="checkbox"> Convive com crianças</label>
+          <label class="check-item"><input type="checkbox"> Convive com outros cachorros</label>
+          <label class="check-item"><input type="checkbox"> Convive com gatos</label>
+          <label class="check-item"><input type="checkbox"> Pode ficar sozinho</label>
+          <label class="check-item"><input type="checkbox"> Indicado para apartamento</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="section-header">
+        <div class="section-header-text">
+          <h2>Saúde e condição</h2>
+        </div>
+      </div>
+
+      <div class="health-grid" style="margin-bottom: 20px;">
+        <div class="health-card">
+          <label>
+            <div class="hc-text">
+              <input type="checkbox" checked>
+              <strong>Vacinado</strong>
+              <span>Vacinas em dia</span>
+            </div>
+          </label>
+        </div>
+        <div class="health-card">
+          <label>
+            <div class="hc-text">
+              <input type="checkbox">
+              <strong>Castrado</strong>
+              <span>Já castrado</span>
+            </div>
+          </label>
+        </div>
+        <div class="health-card">
+          <label>
+            <div class="hc-text">
+              <input type="checkbox">
+              <strong>Necessidade especial</strong>
+              <span>Requer cuidado extra</span>
+            </div>
+          </label>
+        </div>
+        <div class="health-card">
+          <label>
+            <div class="hc-text">
+              <input type="checkbox">
+              <strong>Em tratamento</strong>
+              <span>Acompanhamento ativo</span>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="obs-saude">Observações de saúde</label>
+        <textarea id="obs-saude" placeholder="Detalhe doenças, alergias, medicamentos, condição especial ou qualquer observação veterinária relevante." style="min-height: 80px;"></textarea>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="section-header">
+        <div class="section-header-text">
+          <h2>Localização e contato</h2>
+          <p>Onde o animal está e como o adotante pode entrar em contato</p>
+        </div>
+      </div>
+
+      <div class="form-grid grid-3" style="margin-bottom: 18px;">
+        <div class="field">
+          <label for="estado">Estado <span class="required">*</span></label>
+          <select id="estado">
+            <option value="">Selecione</option>
+            <option>Acre</option><option>Alagoas</option><option>Amapá</option><option>Amazonas</option>
+            <option>Bahia</option><option>Ceará</option><option>Distrito Federal</option><option>Espírito Santo</option>
+            <option>Goiás</option><option>Maranhão</option><option>Mato Grosso</option><option>Mato Grosso do Sul</option>
+            <option selected>Minas Gerais</option><option>Pará</option><option>Paraíba</option><option>Paraná</option>
+            <option>Pernambuco</option><option>Piauí</option><option>Rio de Janeiro</option><option>Rio Grande do Norte</option>
+            <option>Rio Grande do Sul</option><option>Rondônia</option><option>Roraima</option><option>Santa Catarina</option>
+            <option>São Paulo</option><option>Sergipe</option><option>Tocantins</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="cidade">Cidade <span class="required">*</span></label>
+          <input type="text" id="cidade" placeholder="Nome da cidade">
+        </div>
+        <div class="field">
+          <label for="bairro">Bairro / Região</label>
+          <input type="text" id="bairro" placeholder="Opcional">
+        </div>
+      </div>
+
+      <div class="form-grid grid-2">
+        <div class="field">
+          <label for="responsavel">Responsável / ONG <span class="required">*</span></label>
+          <input type="text" id="responsavel" placeholder="Nome do tutor ou organização">
+        </div>
+        <div class="field">
+          <label for="contato">WhatsApp ou e-mail de contato <span class="required">*</span></label>
+          <input type="text" id="contato" placeholder="(21) 99999-9999 ou email@exemplo.com">
+        </div>
+      </div>
+
+      <div class="hint" style="margin-top: 10px;">
+        O contato será exibido ao interessado após ele clicar em "Quero adotar". <b>Mantenha atualizado</b>.
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="form-footer">
+      <div class="footer-actions">
+        <!-- <button class="btn btn-ghost" onclick="saveDraft()">Salvar rascunho</button>
+        <button class="btn btn-outline-teal" onclick="preview()">Pré-visualizar</button> -->
+        <button class="btn btn-primary" onclick="submit()">Publicar animal →</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  let photos = [];
+
+  function handleFiles(files) {
+    Array.from(files).forEach(f => {
+      if (photos.length >= 8) return;
+      const url = URL.createObjectURL(f);
+      photos.push({ url, name: f.name });
+    });
+    renderPreviews();
+  }
+
+  function handleDrop(e) {
+    e.preventDefault();
+    document.getElementById('dropzone').classList.remove('drag');
+    handleFiles(e.dataTransfer.files);
+  }
+
+  function renderPreviews() {
+    const grid = document.getElementById('photoGrid');
+    const zone = document.getElementById('dropzone');
+    if (photos.length === 0) {
+      grid.style.display = 'none';
+      zone.style.display = 'flex';
+      return;
+    }
+    zone.style.display = 'none';
+    grid.style.display = 'grid';
+    grid.innerHTML = '';
+    photos.forEach((p, i) => {
+      const d = document.createElement('div');
+      d.className = 'preview-thumb' + (i === 0 ? ' main' : '');
+      d.innerHTML = `<img src="${p.url}" alt="${p.name}">
+        ${i === 0 ? '<div class="badge-main">Capa</div>' : ''}
+        <button class="btn-remove" onclick="removePhoto(${i})">✕</button>`;
+      grid.appendChild(d);
+    });
+    if (photos.length < 8) {
+      const add = document.createElement('div');
+      add.className = 'preview-add';
+      add.textContent = '+';
+      add.onclick = () => document.getElementById('fileInput').click();
+      grid.appendChild(add);
+    }
+  }
+
+  function removePhoto(i) {
+    photos.splice(i, 1);
+    renderPreviews();
+    if (photos.length === 0) {
+      document.getElementById('dropzone').style.display = 'flex';
+    }
+  }
+
+  // Tags
+  const tagsData = { pos: [], neg: [] };
+
+  function addTag(e, type) {
+    if (e.key !== 'Enter') return;
+    e.preventDefault();
+    const input = document.getElementById(type + 'Input');
+    const val = input.value.trim();
+    if (!val) return;
+    tagsData[type].push(val);
+    input.value = '';
+    renderTags(type);
+  }
+
+  function quickTag(type, val) {
+    if (tagsData[type].includes(val)) return;
+    tagsData[type].push(val);
+    renderTags(type);
+  }
+
+  function removeTag(type, i) {
+    tagsData[type].splice(i, 1);
+    renderTags(type);
+  }
+
+  function renderTags(type) {
+    const wrap = document.getElementById(type + 'TagsWrap');
+    const input = document.getElementById(type + 'Input');
+    Array.from(wrap.querySelectorAll('.tag')).forEach(t => t.remove());
+    tagsData[type].forEach((t, i) => {
+      const chip = document.createElement('span');
+      chip.className = 'tag ' + type;
+      chip.innerHTML = `${t} <span class="rm" onclick="removeTag('${type}',${i})">✕</span>`;
+      wrap.insertBefore(chip, input);
+    });
+  }
+
+  function showToast(msg, emoji = '✅') {
+    const t = document.getElementById('toast');
+    t.innerHTML = `<span class="toast-dot"></span> ${emoji} ${msg}`;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  function saveDraft() { showToast('Rascunho salvo com sucesso!', '💾'); }
+  function preview() { showToast('Abrindo pré-visualização…', '👁'); }
+  function submit() {
+    const nome = document.getElementById('nome').value.trim();
+    if (!nome) { showToast('Preencha o nome do animal', '⚠️'); return; }
+    showToast('Animal publicado com sucesso! 🎉', '🐾');
+  }
+</script>
+</body>
+</html>
