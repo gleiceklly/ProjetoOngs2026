@@ -57,7 +57,6 @@ class Login extends ControllerMain
         Session::set('userNome',  $aUser['nome']);
         Session::set('userEmail', $aUser['email']);
         Session::set('userNivel', $aUser['nivel']);
-        // Vínculo da ONG (preenchido apenas para logins de nível ONG)
         Session::set('userOngId', $aUser['ong_id'] ?? null);
 
         return Redirect::page('home');

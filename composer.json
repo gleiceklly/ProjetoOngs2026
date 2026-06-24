@@ -13,6 +13,6 @@
         }
     ],
     "require": {
-        "phpmailer/phpmailer": "^7.0.0"
+        "phpmailer/phpmailer": "^7.1"
     }
 }

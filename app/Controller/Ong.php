@@ -93,12 +93,17 @@ class Ong extends ControllerMain
 
     public function insert()
     {
-        // Cadastro público: visitante (nível 0) passa; usuário comum logado também.
-        $this->validaNivelAcesso(99);
-
         $post = $this->request->getPost();
+        $origem = $post['_tipo'] ?? '';
 
+        \error_log('DEBUG ONG INSERT: origem='.$origem.', t1='.$post['t1'].', t2='.$post['t2'].', t3='.$post['t3']);
         if (empty($post['t1']) || empty($post['t2']) || empty($post['t3'])) {
+            if ($origem === 'ong') {
+                return Redirect::page(
+                    'Login',
+                    ['msgError' => 'Você deve aceitar todos os termos para cadastrar a ONG.']
+                );
+            }
             return Redirect::page(
                 $this->controller . '/form/insert/0',
                 ['msgError' => 'Você deve aceitar todos os termos para cadastrar a ONG.']
@@ -115,6 +120,12 @@ class Ong extends ControllerMain
         $usuarioModel = new UsuarioModel();
 
         if (empty($senha) || $senha !== $confirmarSenha) {
+            if ($origem === 'ong') {
+                return Redirect::page(
+                    'Login',
+                    ['msgError' => 'Informe a senha de acesso e confirme-a corretamente.']
+                );
+            }
             return Redirect::page(
                 $this->controller . '/form/insert/0',
                 ['msgError' => 'Informe a senha de acesso e confirme-a corretamente.']
@@ -122,6 +133,12 @@ class Ong extends ControllerMain
         }
 
         if (!empty($usuarioModel->getUsuarioEmail($email))) {
+            if ($origem === 'ong') {
+                return Redirect::page(
+                    'Login',
+                    ['msgError' => 'Já existe um acesso cadastrado com este e-mail. Faça login ou use outro e-mail.']
+                );
+            }
             return Redirect::page(
                 $this->controller . '/form/insert/0',
                 ['msgError' => 'Já existe um acesso cadastrado com este e-mail. Faça login ou use outro e-mail.']
@@ -132,11 +149,18 @@ class Ong extends ControllerMain
         $post['atividades']    = json_encode($post['atividades']    ?? []);
         $post['statusRegistro'] = 1;
 
-        unset($post['t1'], $post['t2'], $post['t3']);
+        unset($post['t1'], $post['t2'], $post['t3'], $post['_tipo']);
 
         $ong_id = $this->model->insertGetId($post);
 
         if ($ong_id <= 0) {
+            if ($origem === 'ong') {
+                return Redirect::page(
+                    'Login',
+                    ['msgError' => 'Falha ao cadastrar ONG.']
+                );
+            }
+
             return Redirect::page(
                 $this->controller . '/form/insert/0',
                 ['msgError' => 'Falha ao cadastrar ONG.']
@@ -157,6 +181,13 @@ class Ong extends ControllerMain
         if (!$loginCriado) {
             // Desfaz a ONG para não deixar registro sem acesso (ex.: senha fraca)
             $this->model->db->where('id', $ong_id)->delete();
+
+            if ($origem === 'ong') {
+                return Redirect::page(
+                    'Login',
+                    ['msgError' => 'Não foi possível criar o acesso da ONG. Verifique a senha (mín. 8 caracteres, com maiúscula, minúscula, número e símbolo).']
+                );
+            }
 
             return Redirect::page(
                 $this->controller . '/form/insert/0',

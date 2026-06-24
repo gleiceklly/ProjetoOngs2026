@@ -17,4 +17,14 @@ class Home extends ControllerMain
             'animais' => $modelAnimal ? $modelAnimal->lista() : [],
         ]);
     }
+
+    /**
+     * viewErros
+     *
+     * @return void
+     */
+    public function viewErros()
+    {
+        return $this->view("erros", ['titulo' => 'Erro']);
+    }
 }

@@ -221,12 +221,11 @@
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(31, 41, 55, 0.55);
-  backdrop-filter: blur(3px);
+  backdrop-filter: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;           /* espaço nas bordas no mobile */
+  padding: 1rem;        
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.25s ease;
@@ -243,13 +242,19 @@
   border-radius: var(--radius);
   width: 100%;
   max-width: 480px;
-  max-height: 90vh;        /* nunca ultrapassa a tela */
-  overflow-y: auto;        /* scroll interno */
+  max-height: 90vh;       
+  overflow-y: auto;     
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   box-shadow: var(--shadow-lg);
   transform: translateY(20px) scale(0.97);
   transition: transform 0.25s ease;
   display: flex;
   flex-direction: column;
+}
+
+.modal-box::-webkit-scrollbar {
+  display: none;
 }
 
 .modal-overlay.open .modal-box {
@@ -260,7 +265,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.25rem 1.5rem 0.5rem;
   position: sticky;
   top: 0;
   background: var(--white);
@@ -279,7 +283,7 @@
 
 .modal-box form,
 .modal-box #modal-success-view {
-  padding: 0.75rem 1.5rem 1.5rem;
+  padding: 0.5rem 0.5rem 0.5rem;
 }
 
 .modal-header h3 {
@@ -306,30 +310,29 @@
   letter-spacing: 0.5px;
 }
 
-/* Formulário super compacto */
 .form-row {
-  display: flex;
-  gap: 0.6rem;
-  margin-bottom: 0.5rem;
+  gap: 0.4rem;
+  margin-bottom: 0.25rem;
 }
 
 .form-group {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 1px;
 }
 
 .form-group label {
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--gray-600);
+  margin-bottom: 0;
 }
 
 .form-group input, 
 .form-group select, 
 .form-group textarea {
-  padding: 0.45rem 0.6rem;
+  padding: 0.35rem 0.5rem;
   border: 1.5px solid var(--gray-200);
   border-radius: var(--radius-sm);
   font-size: 0.85rem;
@@ -351,7 +354,7 @@
 
 .btn-submit {
   width: 100%;
-  background: var(--amber);
+  background: var(--teal-light);
   color: #fff;
   border: none;
   padding: 0.65rem;
@@ -360,12 +363,12 @@
   font-weight: 700;
   cursor: pointer;
   margin-top: 0.8rem;
-  box-shadow: 0 4px 12px rgba(245,166,35,.2);
+  box-shadow: 0 4px 12px var(--teal);
   transition: background 0.15s;
 }
 
 .btn-submit:hover {
-  background: var(--amber-dark);
+  background: var(--teal);
 }
 
 /* Estado de Sucesso */

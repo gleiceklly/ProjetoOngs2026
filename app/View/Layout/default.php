@@ -123,6 +123,7 @@
     <?= $content ?>
 </main>
 
+<br><br><br><br><br><br>
 <footer class="footer-wave">
     <div class="container">
         <img class="contact-dog" src="/assets/img/afollow.png" alt="AFollow">
@@ -138,7 +139,7 @@
 
             <div class="footer-col" style="text-align:right;">
                 <p>Equipe de Desenvolvimento:</p>
-                <h4>Gleicekelly, Silmara, Thaise e Karine</h4>
+                <h4>Gleicekelly, Silmara e Thaise</h4>
             </div>
 
         </div>

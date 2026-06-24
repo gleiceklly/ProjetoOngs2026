@@ -33,7 +33,6 @@ $compatOpcoes = [
 
         <div class="cad-animal-card">
 
-            <!-- ── FOTOS ──────────────────────────────────────────── -->
             <div class="animal-form-section">
                 <div class="animal-section-title">Fotos do animal</div>
                 <div class="animal-section-sub">Adicione de 1 a 8 fotos. A primeira será a imagem de capa.</div>
@@ -66,7 +65,7 @@ $compatOpcoes = [
                     <div class="fotos-existentes-grid">
                         <?php foreach ($aFotos as $foto): ?>
                         <div class="foto-existente">
-                            <img src="/uploads/animais/<?= $animalId ?>/<?= $foto['caminho'] ?>"
+                            <img src="/uploads/animais/<?= $animalId ?>/<?= $foto['nomearquivo'] ?>"
                                  alt="Foto do animal">
                         </div>
                         <?php endforeach; ?>
@@ -77,7 +76,6 @@ $compatOpcoes = [
                 <?= setMsgFilderError('fotos') ?>
             </div>
 
-            <!-- ── DADOS BÁSICOS ──────────────────────────────────── -->
             <div class="animal-form-section">
                 <div class="animal-section-title">Informações básicas</div>
 
@@ -150,7 +148,7 @@ $compatOpcoes = [
                     </div>
                     <div class="an-field">
                         <label>Idade aproximada</label>
-                        <div style="display:flex; gap:8px;">
+                        <div style="display:flex; gap:8px; width: 50px; margin-right: 200px;">
                             <input type="number" name="idade" min="0" max="30"
                                    placeholder="0"
                                    value="<?= setValue('idade') ?>"
@@ -180,7 +178,7 @@ $compatOpcoes = [
                         </div>
                         <?= setMsgFilderError('porte') ?>
                     </div>
-                    <div class="an-field">
+                    <div class="an-field-pelagem">
                         <label for="pelagem">Pelagem / cor</label>
                         <input type="text" id="pelagem" name="pelagem" maxlength="60"
                                placeholder="Ex: Tricolor, caramelo, preto e branco…"
@@ -365,9 +363,8 @@ $compatOpcoes = [
                 </div>
             </div>
 
-            <!-- ── SUBMIT ─────────────────────────────────────────── -->
             <div class="animal-form-footer">
-                <a href="<?= baseUrl() ?>Adocao" class="btn btn-outline-secondary">Voltar</a>
+                <a href="<?= baseUrl() ?>Adocao" class="btn btn-outline">Voltar</a>
                 <div class="footer-actions">
                     <button type="submit" class="btn-animal-primary">
                         <?= $action === 'insert' ? 'Publicar animal' : 'Salvar alterações' ?>
@@ -375,13 +372,11 @@ $compatOpcoes = [
                     </button>
                 </div>
             </div>
-
-        </div><!-- /.cad-animal-card -->
+        </div>
     </form>
 </div>
 
 <script>
-/* ── Foto preview ─────────────────────────────────────────────── */
 let photos = [];
 
 function handleFiles(files) {
@@ -424,7 +419,6 @@ function renderPreviews() {
 
 function removePhoto(i) { photos.splice(i, 1); renderPreviews(); }
 
-/* ── Tags ─────────────────────────────────────────────────────── */
 var tagsData = {
     pos: <?= json_encode($tagsPos) ?>,
     neg: <?= json_encode($tagsNeg) ?>
@@ -461,11 +455,9 @@ function renderTags(type) {
     });
 }
 
-/* Renderiza tags iniciais (modo update / repopulação) */
 renderTags('pos');
 renderTags('neg');
 
-/* Sincroniza tags com hidden inputs antes do submit */
 document.getElementById('formAnimal').addEventListener('submit', function () {
     document.getElementById('inputTagsPos').value = JSON.stringify(tagsData.pos);
     document.getElementById('inputTagsNeg').value = JSON.stringify(tagsData.neg);

@@ -51,4 +51,4 @@
     <p class="text-muted m-3">Nenhum <?= $titulo ?> encontrado.</p>
 <?php endif; ?>
 
-<a href="<?= baseUrl() ?>Admin" class="btn btn-secondary m-3">Voltar ao Painel</a>
+<a href="<?= baseUrl() ?>adocao" class="btn btn-secondary m-3">Ver animais</a>

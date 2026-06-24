@@ -1,8 +1,5 @@
 <div class="login-split">
-
-    <!-- Painel esquerdo: branding -->
     <div class="login-brand-panel">
-
         <div class="brand-logo"><i class="fa-solid fa-paw"></i> Patas<span>doBem</span></div>
 
         <h1 class="brand-headline">Conectando<br>animais e<br>pessoas com amor</h1>
@@ -11,17 +8,8 @@
             Ajude ONGs, adote um pet, seja voluntário ou faça uma doação.
             Juntos podemos transformar a vida de muitos animais abandonados.
         </p>
-
-        <div class="brand-tags">
-            <span class="brand-tag">Adoção</span>
-            <span class="brand-tag">Voluntariado</span>
-            <span class="brand-tag">Doações</span>
-            <span class="brand-tag">ONGs</span>
-        </div>
-
     </div>
 
-    <!-- Painel direito: formulário -->
     <div class="login-form-panel">
 
         <div class="login-card">
