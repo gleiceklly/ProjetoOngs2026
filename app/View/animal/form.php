@@ -191,10 +191,10 @@ $compatOpcoes = [
             <div class="animal-form-section">
                 <div class="animal-section-title">Personalidade e características</div>
 
-                <div class="form-grid" style="margin-bottom:18px;">
-                    <div class="an-field">
+                <div class="form-grid" style="margin-top:-18px;">
+                    <div class="an-field" style="margin-bottom:-18px;">
                         <label>A história do animal</label>
-                        <textarea name="historia"
+                        <textarea name="historia" style="width: 500px;"
                                   placeholder="Conte sobre a história, de onde veio, como foi resgatado…"><?= setValue('historia') ?></textarea>
                     </div>
                 </div>
@@ -248,7 +248,6 @@ $compatOpcoes = [
                 </div>
             </div>
 
-            <!-- ── SAÚDE ──────────────────────────────────────────── -->
             <div class="animal-form-section">
                 <div class="animal-section-title">Saúde e condição</div>
 
@@ -266,11 +265,8 @@ $compatOpcoes = [
                     <div class="health-card">
                         <label>
                             <input type="checkbox" name="<?= $campo ?>"
-                                   value="1" <?= $chk ?>>
-                            <div class="hc-text">
+                                value="1" <?= $chk ?>>
                                 <strong><?= $info['label'] ?></strong>
-                                <span><?= $info['sub'] ?></span>
-                            </div>
                         </label>
                     </div>
                     <?php endforeach; ?>
@@ -279,17 +275,16 @@ $compatOpcoes = [
                 <div class="an-field">
                     <label for="obs_saude">Observações de saúde</label>
                     <textarea id="obs_saude" name="obs_saude"
-                              style="min-height:80px;"
+                              style="min-height:100px; min-width:500px;"
                               placeholder="Doenças, alergias, medicamentos, condição especial…"><?= setValue('obs_saude') ?></textarea>
                 </div>
             </div>
 
-            <!-- ── LOCALIZAÇÃO & CONTATO ──────────────────────────── -->
             <div class="animal-form-section">
-                <div class="animal-section-title">Localização e contato</div>
-                <div class="animal-section-sub">Onde o animal está e como o adotante pode entrar em contato</div>
+                <div class="animal-section-title">Localização</div>
+                <div class="animal-section-sub">Onde o animal está</div>
 
-                <div class="form-grid grid-3" style="margin-bottom:18px;">
+                <div class="form-grid grid-2" style="margin-bottom:18px;">
                     <div class="an-field">
                         <label for="estado">Estado <span class="required">*</span></label>
                         <select id="estado" name="estado" required>
@@ -321,6 +316,9 @@ $compatOpcoes = [
                     </div>
                 </div>
 
+                <div class="animal-section-title">Contato</div>
+                <div class="animal-section-sub">Como o adotante pode entrar em contato</div>
+                
                 <div class="form-grid grid-2" style="margin-bottom:18px;">
                     <div class="an-field">
                         <label for="ong_id">ONG responsável <span class="required">*</span></label>
