@@ -100,14 +100,14 @@ if (!function_exists('buttons')) {
         if ($acao == "new") {
             $button .= '<a href="' . $urlButton . '/form/insert" class="btn btn-outline-info text-white" title="Novo">Novo</a>';
         } elseif ($acao == "update") {
-             $button .= '<a href="' . $urlButton . '/form/update/'. $id . '" class="btn btn-warning btn-sm" title="Alterar">Alterar</a>';
+            $button .= '<a href="' . $urlButton . '/form/update/'. $id . '" title="Alterar" style="font-size: 20px; color: #000000;"><i class="fa-solid fa-pen-to-square"></i></a>';
         } elseif ($acao == "delete") {
             if ($disabled) {
                 $button .= '<span data-bs-toggle="tooltip" data-bs-title="Existem produtos vinculados">'
-                         . '<button type="button" class="btn btn-danger btn-sm" disabled>Excluir</button>'
+                         . '<button type="button" style="font-size: 20px; padding-left: 5px; color: #000000;" title="Excluir"><i class="fa-solid fa-trash"></i>'
                          . '</span>';
             } else {
-                $button .= '<a href="' . $urlButton . '/form/delete/'. $id . '" class="btn btn-danger btn-sm" title="Excluir">Excluir</a>';
+                $button .= '<a href="' . $urlButton . '/form/delete/'. $id . '" style="font-size: 20px; padding-left: 5px; color: #000000;" title="Excluir"><i class="fa-solid fa-trash"></i></a>';
             }
         } elseif ($acao == "view") {
              $button .= '<a href="' . $urlButton . '/form/view/'. $id . '" class="btn btn-secondary btn-sm" title="Visualizar">Visualizar</a>';

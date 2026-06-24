@@ -4,7 +4,7 @@
 </div>
 <br>
 <div class="d-flex justify-content-center">
-    <a href="<?= baseUrl() ?>Animal/form/insert/0" class="btn" style="background-color: #ee7f3f;">
+    <a href="<?= baseUrl() ?>Animal/form/insert/0" class="btn btn-animal" style="background-color: #ee7f3f;">
         <i class="fa fa-plus"></i> Cadastrar Animal
     </a>
 </div>
@@ -52,3 +52,32 @@
 <?php endif; ?>
 
 <a href="<?= baseUrl() ?>adocao" class="btn btn-secondary m-3">Ver animais</a>
+
+<style>
+    table th:first-child,
+    table td:first-child {
+        padding-left: 20px;
+    }
+
+    .btn-animal {
+        background-color: #ee7f3f !important;
+        border-color: #ee7f3f !important;
+        color: #fff !important;
+        transition: all .2s ease;
+    }
+
+    .btn-animal:hover,
+    .btn-animal:focus,
+    .btn-animal:active {
+        background-color: #ec5e0c !important;
+        border-color: #ec5e0c !important;
+        color: #fff !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,.15);
+    }
+
+    .btn-animal:active {
+        transform: translateY(1px) scale(.98);
+        box-shadow: 0 2px 4px rgba(0,0,0,.15);
+    }
+</style>
