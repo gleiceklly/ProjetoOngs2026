@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doações - Patas do Bem</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/stylesDoacoes.css">
+</head>
+<body>
+
+<div class="page-header">
+    <a href="cachorrinhos.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Voltar ao início</a>
+    <h1><i class="fa-solid fa-heart" style="color:#fcd444;margin-right:10px;"></i>Faça uma Doação</h1>
+    <p>Sua contribuição transforma vidas. Escolha uma causa e ajude a fazer a diferença.</p>
+    <img class="capaDoacao" src="../img/capaDoacao.png">
+</div>
+
+<div class="container">
+
+    <div class="section">
+        <div class="section-label-plano"><i class="fa-solid fa-paw"></i> Plano de Doação</div>
+
+        <div class="toggle-wrap">
+            <button class="toggle-btn" id="btnMensal" onclick="setPlano('mensal')">Mensal</button>
+            <button class="toggle-btn active" id="btnUnica" onclick="setPlano('unica')">Única <i class="fa-solid fa-circle-check" style="margin-left:6px;"></i></button>
+        </div>
+
+        <div class="donation-list" id="donationList">
+
+            <div class="donation-card" onclick="selectCard(this, 'Ong Um')">
+                <img class="donation-card__img" src="../img/linguinha.png" alt="Ong um">
+                <div class="donation-card__body">
+                    <div class="donation-card__title">Ong um</div>
+                    <div class="donation-card__desc">A sua doação nos ajuda a fornecer ração e cuidados básicos para animais em situação de abandono.</div>
+                    <button class="donation-card__btn">Escolher</button>
+                </div>
+            </div>
+
+            <!-- <div class="donation-card" onclick="selectCard(this, 'Veterinário', 60)">
+                <img class="donation-card__img" src="https://images.unsplash.com/photo-1628009368231-7bb7cfcb0def?w=400&q=80" alt="Veterinário">
+                <div class="donation-card__body">
+                    <div class="donation-card__title">Veterinário</div>
+                    <div class="donation-card__desc">A sua doação ajuda a custear consultas, vacinas e tratamentos veterinários para animais resgatados.</div>
+                    <button class="donation-card__btn">Escolher</button>
+                </div>
+                <div class="donation-card__price">R$ 60</div>
+            </div>
+
+            <div class="donation-card" onclick="selectCard(this, 'Castração', 100)">
+                <img class="donation-card__img" src="https://images.unsplash.com/photo-1560743641-3914f2c45636?w=400&q=80" alt="Castração">
+                <div class="donation-card__body">
+                    <div class="donation-card__title">Castração</div>
+                    <div class="donation-card__desc">A sua doação contribui para o programa de castração, combatendo a superpopulação de animais nas ruas.</div>
+                    <button class="donation-card__btn">Escolher</button>
+                </div>
+                <div class="donation-card__price">R$ 100</div>
+            </div>
+
+            <div class="donation-card" onclick="selectCard(this, 'Abrigo', 200)">
+                <img class="donation-card__img" src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=400&q=80" alt="Abrigo">
+                <div class="donation-card__body">
+                    <div class="donation-card__title">Abrigo</div>
+                    <div class="donation-card__desc">A sua doação nos ajuda a manter e melhorar as instalações dos abrigos parceiros das nossas ONGs.</div>
+                    <button class="donation-card__btn">Escolher</button>
+                </div>
+                <div class="donation-card__price">R$ 200</div>
+            </div> -->
+
+            <div class="donation-card donation-card--custom" id="customCard" onclick="selectCard(this, 'Outro valor', null)">
+                <div class="donation-card__body">
+                    <div class="donation-card__title">Escolha um valor</div>
+                    <div class="donation-card__desc">Escolha o valor que quiser e ajude da sua forma!</div>
+                    <div class="custom-input-wrap">
+                        <span>R$</span>
+                        <input type="number" class="custom-input" id="customValue" placeholder="0,00" min="1" onclick="event.stopPropagation();" oninput="updateCustom(this.value)">
+                    </div>
+                </div>
+                <div class="donation-card__price" id="customPrice">R$ -</div>
+            </div>
+
+        </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section-label"><i class="fa-solid fa-user"></i> Dados Pessoais</div>
+
+    <div class="form-group">
+        <label>CPF/CNPJ</label>
+        <i class="fa-solid fa-id-card input-icon"></i>
+        <input type="text" id="cpf" placeholder="000.000.000-00" oninput="maskCPF(this)">
+    </div>
+
+    <div class="form-group">
+        <label>Nome completo</label>
+        <i class="fa-solid fa-user input-icon"></i>
+        <input type="text" id="nome" placeholder="Seu nome">
+    </div>
+
+    <div class="form-group">
+        <label>E-mail</label>
+        <i class="fa-solid fa-envelope input-icon"></i>
+        <input type="email" id="email" placeholder="seuemail@exemplo.com">
+    </div>
+
+    <div class="form-group">
+        <label>Telefone</label>
+        <i class="fa-solid fa-phone input-icon"></i>
+        <input type="tel" id="telefone" placeholder="(00) 00000-0000" oninput="maskPhone(this)">
+    </div>
+
+    <hr class="divider">
+
+    <div class="section-label"><i class="fa-solid fa-credit-card"></i> Forma de Pagamento</div>
+
+    <div class="payment-options">
+        <div class="payment-option selected" id="opt-pix">
+            <div class="payment-option__left">
+                <i class="fa-brands fa-pix"></i> PIX
+            </div>
+            <div class="radio-circle"></div>
+        </div>
+
+        <div class="pix-details show" id="pix-details">
+            <p style="color:var(--text-muted);font-size:0.9rem;">
+                Use a chave PIX abaixo para realizar sua doação:
+            </p>
+
+            <div class="pix-key-box">
+                <i class="fa-brands fa-pix" style="font-size:1.4rem;"></i>
+                <span id="pixKey">nomeOng@ong.org.br</span>
+                <button class="copy-btn" onclick="copyPix()">Copiar</button>
+            </div>
+
+            <p style="color:var(--text-muted);font-size:0.82rem;">
+                Após realizar o PIX, envie o comprovante para nosso e-mail.
+            </p>
+        </div>
+    </div>
+
+    <div class="summary-box" id="summaryBox">
+        <h3><i class="fa-solid fa-receipt" style="margin-right:8px;color:var(--blob-green);"></i>Resumo da Doação</h3>
+        <div class="summary-row">
+            <span>Causa selecionada</span>
+            <span id="sumCausa">—</span>
+        </div>
+        <div class="summary-row">
+            <span>Plano</span>
+            <span id="sumPlano">—</span>
+        </div>
+        <div class="summary-row">
+            <span>Pagamento</span>
+            <span id="sumPagamento">—</span>
+        </div>
+        <div class="summary-row total">
+            <span>Total</span>
+            <span id="sumTotal">R$ —</span>
+        </div>
+    </div>
+
+    <div class="submit-section">
+        <button class="btn-donate" onclick="submitDonation()">
+            <i class="fa-solid fa-heart"></i> Concluir Doação
+        </button>
+        <div class="secure-note">
+            <i class="fa-solid fa-lock"></i> Pagamento seguro e criptografado
+        </div>
+    </div>
+
+</div>
+
+<div class="footer-wave">
+    <p>Copyright © 2026. Todos os direitos reservados. — Patas do Bem | Faculdade Santa Marcelina - Muriaé</p>
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+        <div class="modal-icon">
+            <img class="cat-donation" src="../img/gatoDoacao.png">
+        </div>
+        <h2>Você deixou o gatinho feliz. Obrigada pela doação!</h2>
+        <p>Sua contribuição faz toda a diferença na vida dos animaizinhos. Em breve você receberá uma confirmação por e-mail. 🐾</p>
+        <a href="Doacoes.html" class="modal-close" onclick="closeModal()">Voltar ao início</a>
+    </div>
+</div>
+
+<script src="../js/doacoes.js"></script>
+
+</body>
+</html>

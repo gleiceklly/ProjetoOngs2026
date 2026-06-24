@@ -1,0 +1,18 @@
+{
+    "name": "silma/projeto-ongs2026",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Core\\": "Core/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Silmara",
+            "email": "silmaraalmeida226@gmail.com"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^7.0.0"
+    }
+}

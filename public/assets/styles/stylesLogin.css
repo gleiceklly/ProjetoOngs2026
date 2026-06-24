@@ -1,0 +1,178 @@
+:root {
+    --teal:       #1c718d;
+    --teal-dark:  #0d3a4a;
+    --teal-light: #86c7df;
+    --bg-blue:    #f2f9f8;
+    --yellow:     #fcd444;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body.login-page {
+    font-family: 'Nunito Sans', sans-serif;
+    min-height: 100vh;
+    background: var(--bg-blue);
+    display: flex;
+    align-items: stretch;
+}
+
+/* ── Layout split ───────────────────────── */
+.login-split {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* Painel esquerdo — branding */
+.login-brand-panel {
+    flex: 0 0 42%;
+    background: linear-gradient(145deg, var(--teal) 0%, var(--teal-dark) 100%);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 48px;
+}
+
+.brand-logo {
+    font-family: 'Merriweather', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin-bottom: 32px;
+}
+
+.brand-logo span { color: var(--yellow); }
+
+.brand-headline {
+    font-family: 'Merriweather', serif;
+    font-size: 2rem;
+    line-height: 1.25;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.brand-description {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    opacity: 0.88;
+    margin-bottom: 32px;
+}
+
+.brand-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.brand-tag {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Painel direito — formulário */
+.login-form-panel {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px;
+    background: #fff;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 420px;
+}
+
+.login-card h2 {
+    font-family: 'Merriweather', serif;
+    font-size: 1.6rem;
+    color: var(--teal-dark);
+    margin-bottom: 6px;
+}
+
+.login-subtitle {
+    color: #6c757d;
+    font-size: 0.9rem;
+    margin-bottom: 24px;
+}
+
+.login-card label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.88rem;
+    margin-bottom: 4px;
+    color: #333;
+}
+
+.login-card .form-control {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: border-color 0.2s;
+}
+
+.login-card .form-control:focus {
+    outline: none;
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(28,113,141,0.12);
+}
+
+.btn-login {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background: var(--teal);
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-login:hover { background: var(--teal-dark); }
+
+.login-footer-links {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 14px;
+    font-size: 0.85rem;
+}
+
+.login-footer-links a {
+    color: var(--teal);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-footer-links a:hover { text-decoration: underline; }
+
+/* Erro de campo */
+.field-error {
+    color: #dc3545;
+    font-size: 0.8rem;
+    margin-top: 3px;
+}
+
+/* Alertas Bootstrap adaptados */
+.alert { border-radius: 8px; font-size: 0.9rem; padding: 10px 14px; margin-bottom: 18px; }
+.alert-success { background: #d1fae5; border: 1px solid #6ee7b7; color: #065f46; }
+.alert-danger  { background: #fee2e2; border: 1px solid #fca5a5; color: #991b1b; }
+
+/* ── Responsive ─────────────────────────── */
+@media (max-width: 768px) {
+    .login-brand-panel { display: none; }
+    .login-form-panel  { background: var(--bg-blue); padding: 32px 16px; }
+}
