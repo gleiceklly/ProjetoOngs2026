@@ -10,7 +10,6 @@
     --white: #ffffff;
     --card-shadow: 0 4px 18px rgba(28,113,141,0.10);
 }
-* { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'Nunito Sans', sans-serif; color: var(--text); background: var(--bg-light); }
 h1,h2,h3,h4 { font-family: 'Merriweather', serif; }
 a { text-decoration: none; color: inherit; }
@@ -26,6 +25,7 @@ a { text-decoration: none; color: inherit; }
     overflow: hidden;
     border-bottom-left-radius: 50% 6%;
     border-bottom-right-radius: 50% 6%;
+    margin-top: 0;
 }
 .page-header .textos {
     max-width: 600px;
@@ -44,20 +44,7 @@ a { text-decoration: none; color: inherit; }
     max-width: 550px;
     margin: 0 auto;
 }
-.back-link {
-    position: absolute;
-    top: 24px;
-    left: 30px;
-    color: white;
-    font-weight: 600;
-    font-size: 0.95rem;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    opacity: 0.85;
-    transition: opacity 0.2s;
-}
-.back-link:hover { opacity: 1; }
+
 .animalzinho-capa-right {
     position: absolute;
     right: 100px;
@@ -92,7 +79,7 @@ a { text-decoration: none; color: inherit; }
     box-shadow: var(--card-shadow);
     padding: 22px 20px 24px;
     position: sticky;
-    top: 20px;
+    top: -200px;
 }
 .filter-sidebar h2 {
     font-family: 'Nunito Sans', sans-serif;
@@ -107,7 +94,7 @@ a { text-decoration: none; color: inherit; }
 .filter-sidebar h2 i { color: var(--teal); font-size: 0.95rem; }
 
 .filter-group {
-    margin-bottom: 20px;
+    margin-bottom: -80px;
 }
 .filter-group-label {
     font-size: 0.72rem;
@@ -115,7 +102,7 @@ a { text-decoration: none; color: inherit; }
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--muted);
-    margin-bottom: 10px;
+    margin-bottom: -50px;
 }
 .filter-options {
     display: flex;
@@ -180,7 +167,7 @@ a { text-decoration: none; color: inherit; }
     display: flex;
     flex-direction: column;
     gap: 8px;
-    margin-top: 6px;
+    margin-top: 98px;
 }
 .btn-aplicar {
     background: var(--teal);
@@ -231,6 +218,12 @@ a { text-decoration: none; color: inherit; }
 @media(max-width:700px){ .animal-grid { grid-template-columns: repeat(2,1fr); } }
 @media(max-width:500px){ .animal-grid { grid-template-columns: repeat(1,1fr); } }
 
+.animal-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
 .animal-card {
     background: var(--white);
     border-radius: 14px;
@@ -238,37 +231,55 @@ a { text-decoration: none; color: inherit; }
     box-shadow: var(--card-shadow);
     transition: transform 0.22s, box-shadow 0.22s;
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
 }
+
 .animal-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(28,113,141,0.18);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(28,113,141,0.18);
 }
+
 .animal-card img {
     width: 100%;
-    height: 160px;
-    object-fit: cover;
+    aspect-ratio: 4 / 3;
+    object-fit: fill;
     display: block;
+    background-color: #ffffff;
 }
-.card-body { padding: 12px 14px 16px; }
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
 .card-body h3 {
     font-family: 'Nunito Sans', sans-serif;
-    font-weight: 800;
-    font-size: 1rem;
+    font-weight: bolder;
+    font-size: 20px;
     color: var(--teal);
-    margin-bottom: 3px;
+    margin-top: -20px;
 }
-.card-body p { font-size: 0.78rem; color: var(--muted); }
+
+.card-body p {
+    font-size: 15px;
+    color: var(--muted);
+    margin: 0;
+}
+
 .card-badge {
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    font-size: 0.7rem;
+    font-size: 15px;
     font-weight: 700;
     color: var(--teal);
     background: #e6f4f9;
     border-radius: 20px;
-    padding: 2px 8px;
-    margin-top: 6px;
+    padding: 6px 12px;
+    margin-top: 4px;
+    width: fit-content;
 }
 
 .empty-state {

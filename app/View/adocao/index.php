@@ -1,7 +1,4 @@
 <div class="page-header">
-    <a href="<?= baseUrl() ?>" class="back-link">
-        <i class="fa-solid fa-arrow-left"></i> Voltar ao início
-    </a>
     <div class="textos">
         <h1>
             <i class="fa-solid fa-heart" style="color:var(--teal);margin-right:10px;"></i>
@@ -77,16 +74,20 @@
                     <span class="filter-option-icon"><i class="fa-solid fa-circle-dot"></i></span>
                     <span class="filter-option-label">Adulto</span>
                 </label>
+                <label class="filter-option">
+                    <input type="checkbox" name="idade" value="Idoso" id="f-idoso">
+                    <span class="filter-checkbox-custom"><i class="fa-solid fa-check"></i></span>
+                    <span class="filter-option-icon"><i class="fa-solid fa-heart"></i></span>
+                    <span class="filter-option-label">Idoso</span>
+                </label>
             </div>
         </div>
 
         <div class="filter-actions">
-            <button class="btn-aplicar" id="btnAplicar">
-                <i class="fa-solid fa-magnifying-glass" style="margin-right:6px;"></i>Aplicar
-            </button>
             <button class="btn-limpar" id="btnLimpar">
                 <i class="fa-solid fa-xmark" style="margin-right:6px;"></i>Limpar filtros
             </button>
+            <div id="btnAplicar" hidden></div>
         </div>
     </aside>
 
@@ -108,7 +109,8 @@
                class="animal-card"
                data-tipo="<?= htmlspecialchars($animal['especie'], ENT_QUOTES) ?>"
                data-sexo="<?= htmlspecialchars($animal['sexo'], ENT_QUOTES) ?>"
-               data-idade="<?= htmlspecialchars($animal['fase_vida'], ENT_QUOTES) ?>">
+               data-idade="<?= htmlspecialchars($animal['fase_vida'], ENT_QUOTES) ?>"
+               data-nome="<?= htmlspecialchars($animal['nome'], ENT_QUOTES) ?>">
                 <img src="<?= htmlspecialchars($animal['foto'] ?? '', ENT_QUOTES) ?>"
                      alt="<?= htmlspecialchars($animal['nome'], ENT_QUOTES) ?>"
                      loading="lazy"
