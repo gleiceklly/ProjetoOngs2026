@@ -276,7 +276,7 @@ a { text-decoration: none; color: inherit; }
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
-    gap: 4px;
+    gap: 7px;
     margin-bottom: -50px;
 }
 

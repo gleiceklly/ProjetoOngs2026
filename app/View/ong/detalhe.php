@@ -124,7 +124,8 @@ $fotoOng = !empty($ong['foto'])
                     <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
                     <div>
                         <span class="contact-label">Localização</span>
-                        <span class="contact-value"><?= $ong['cidade'] ?>, <?= $ong['estado'] ?></span>
+                        <span class="contact-value"><?= $ong['cidade'] ?? '' ?>, <?= $ong['estado'] ?? '' ?></span>
+                        <span class="contact-value"><?= $ong['bairro'] ?? '' ?> - <?= $ong['logradouro'] ?? '' ?>,  <?= $ong['numero'] ?? '' ?></span>
                     </div>
                 </li>
                 <?php if (!empty($ong['email'])): ?>
