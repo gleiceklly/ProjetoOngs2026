@@ -81,10 +81,6 @@
                             <li><a class="dropdown-item" href="/Vaga">Minhas Vagas</a></li>
                         </ul>
                     </li>
-                <?php elseif (!$sessLogado): ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Ong/form/insert/0">Cadastrar ONG</a>
-                    </li>
                 <?php endif; ?>
             </ul>
 

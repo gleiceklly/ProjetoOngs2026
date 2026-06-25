@@ -1,9 +1,3 @@
-<div class="page-header">
-    <a href="<?= baseUrl() ?>" class="back-link">
-        <i class="fa-solid fa-arrow-left"></i> Voltar ao início
-    </a>
-</div>
-
 <section class="why-section">
     <div class="why-text">
         <div class="why-label">
@@ -51,45 +45,51 @@
         Mostrando <span id="countVisible">0</span> ONGs
     </p>
 
-    <div class="ong-grid" id="ongGrid">
-        <?php foreach ($ongs as $ong): ?>
+    <div class="pet-cards" id="ongGrid">
+    <?php foreach ($ongs as $ong): ?>
         <a href="<?= baseUrl() ?>Ong/show/detalhe/<?= $ong['id'] ?>"
-           class="ong-card"
-           data-nome="<?= strtolower($ong['nome']) ?>"
-           data-cidade="<?= strtolower($ong['cidade'] ?? '') ?>">
+            class="pet-card"
+            data-nome="<?= strtolower($ong['nome']) ?>"
+            data-cidade="<?= strtolower($ong['cidade'] ?? '') ?>">
 
-            <div class="ong-card-banner"
-                 style="background:linear-gradient(135deg,#1c718d 0%,#86c7df 100%);height:120px;display:block;width:100%;"></div>
+            <?php
+            $fotoOng = !empty($ong['foto'])
+                ? '/uploads/ongs/' . $ong['id'] . '/' . $ong['foto']
+                : '/assets/img/cachorrinhoFeliz.png';
+            ?>
 
-            <div class="ong-card-header">
-                <div class="ong-avatar"
-                     style="display:flex;align-items:center;justify-content:center;background:#0d3a4a;color:#fff;font-weight:800;font-size:1.2rem;font-family:'Nunito Sans',sans-serif;">
-                    <?= mb_strtoupper(mb_substr($ong['nome'], 0, 1)) ?>
-                </div>
-                <div class="ong-name-wrap">
-                    <h3><?= $ong['nome'] ?></h3>
-                    <div class="ong-location">
-                        <i class="fa-solid fa-location-dot"></i>
-                        <?= $ong['cidade'] ?>, <?= $ong['estado'] ?>
-                    </div>
-                </div>
-            </div>
+            <img src="<?= $fotoOng ?>"
+                alt="<?= $ong['nome'] ?>"
+                class="pet-image"
+                onerror="this.src='/assets/img/cachorrinhoFeliz.png'">
 
-            <div class="ong-card-body">
-                <p class="ong-desc"><?= mb_strimwidth($ong['descricao'] ?? '', 0, 130, '…') ?></p>
-                <div class="ong-badges"></div>
-                <div class="ong-card-footer">
-                    <span class="ong-animals-count">
-                        <i class="fa-solid fa-paw"></i> Apoie essa causa!
+            <div class="pet-info">
+                <h3 class="pet-name"><?= $ong['nome'] ?></h3>
+
+                <p class="pet-location">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <?= $ong['cidade'] ?>, <?= $ong['estado'] ?>
+                </p>
+
+                <p class="pet-description">
+                    <?= mb_strimwidth($ong['descricao'] ?? '', 0, 130, '...') ?>
+                </p>
+
+                <div class="pet-footer">
+                    <span>
+                        <i class="fa-solid fa-paw"></i>
+                        Apoie essa causa!
                     </span>
-                    <button class="btn-ver-ong">
+
+                    <span class="btn-ver-ong">
                         Ver ONG <i class="fa-solid fa-arrow-right"></i>
-                    </button>
+                    </span>
                 </div>
             </div>
+
         </a>
-        <?php endforeach; ?>
-    </div>
+    <?php endforeach; ?>
+</div>
 
     <div class="pagination" id="pagination"></div>
 </div>

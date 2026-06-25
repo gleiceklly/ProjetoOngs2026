@@ -1,34 +1,32 @@
-<div class="top-bar">
-    <a href="<?= baseUrl() ?>Ong" class="back-link">
-        <i class="fa-solid fa-arrow-left"></i> Voltar às ONGs
-    </a>
+<?php
+$fotoOng = !empty($ong['foto'])
+    ? '/uploads/ongs/' . $ong['id'] . '/' . $ong['foto']
+    : '/assets/img/cachorrinhoFeliz.png';
+?>
+
+<div class="row align-items-center ms-3">
+    <div class="col-auto">
+        <img
+            src="<?= $fotoOng ?>"
+            alt="<?= $ong['nome'] ?>"
+            class="profile-avatar"
+        >
+    </div>
+
+    <div class="col">
+        <div class="profile-location">
+            <i class="fa-solid fa-location-dot"></i>
+            <?= $ong['cidade'] ?>, <?= $ong['estado'] ?>
+        </div>
+
+        <h1 class="profile-name"><?= $ong['nome'] ?></h1>
+    </div>
 </div>
 
-<div class="profile-header">
-    <div class="profile-header-inner">
-        <div class="profile-top">
-            <div class="profile-avatar-wrap">
-                <div class="profile-avatar"
-                     style="display:flex;align-items:center;justify-content:center;background:#0d3a4a;color:white;font-weight:800;font-size:2.5rem;font-family:'Nunito Sans',sans-serif;">
-                    <?= mb_strtoupper(mb_substr($ong['nome'], 0, 1)) ?>
-                </div>
-                <div class="verified-badge"><i class="fa-solid fa-check"></i></div>
-            </div>
-            <div class="profile-info">
-                <div class="profile-location">
-                    <i class="fa-solid fa-location-dot"></i>
-                    <?= $ong['cidade'] ?>, <?= $ong['estado'] ?>
-                </div>
-                <h1 class="profile-name"><?= $ong['nome'] ?></h1>
-            </div>
-        </div>
-    </div>
-
-    <div class="profile-tabs">
-        <button class="tab-btn active" onclick="switchTab('sobre', this)">Sobre</button>
-        <button class="tab-btn" onclick="switchTab('animais', this)">Animais disponíveis</button>
-        <button class="tab-btn" onclick="switchTab('voluntariado', this)">Voluntariado</button>
-    </div>
+<div class="profile-tabs">
+    <button class="tab-btn active" onclick="switchTab('sobre', this)">Sobre</button>
+    <button class="tab-btn" onclick="switchTab('animais', this)">Animais disponíveis</button>
+    <button class="tab-btn" onclick="switchTab('voluntariado', this)">Voluntariado</button>
 </div>
 
 <div class="main-content">
@@ -77,7 +75,7 @@
                     <?php endif; ?>
                 </div>
                 <?php else: ?>
-                <p style="font-size:0.85rem;color:var(--muted);">Nenhum animal cadastrado ainda.</p>
+                <p style="font-size:0.85rem;color:var(--muted); text-align:center;">Nenhum animal cadastrado ainda.</p>
                 <?php endif; ?>
             </div>
         </div>
@@ -119,8 +117,8 @@
     </div>
 
     <div class="right-col">
-        <div class="card">
-            <div class="card-title"><i class="fa-solid fa-address-book"></i> Contato</div>
+        <div class="card-right">
+            <div class="card-title-contato"><i class="fa-solid fa-address-book"></i> Contato</div>
             <ul class="contact-list">
                 <li class="contact-item">
                     <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
@@ -162,16 +160,25 @@
                 <?php endif; ?>
             </ul>
 
-            <div class="divider"></div>
+            <hr class="divider"></hr>
 
-            <div class="card-title" style="margin-bottom:12px;"><i class="fa-solid fa-share-nodes"></i> Redes sociais</div>
+            <div class="card-title-contato" style="margin-bottom:12px;"><i class="fa-solid fa-share-nodes"></i> Redes sociais</div>
             <div class="social-row">
-                <p style="font-size:0.8rem;color:var(--muted);">Em breve.</p>
+                <?php if (!empty($ong['facebook'])): ?>
+                <a href="https://www.facebook.com/<?= trim($ong['facebook']) ?>" target="_blank" class="social-btn fb"><i class="fa-brands fa-facebook-f"></i></a>
+                <?php endif; ?>
+                <?php if (!empty($ong['instagram'])): ?>
+                    <a href="https://www.instagram.com/<?= trim($ong['instagram'], '@/') ?>"
+                    target="_blank"
+                    class="social-btn ig">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                <?php endif; ?>
             </div>
         </div>
 
         <?php if (!empty($ong['email'])): ?>
-        <div class="card" style="background:var(--teal);text-align:center;padding:28px 20px;">
+        <div class="card-pequeno" style="text-align:center;padding:28px 20px;">
             <i class="fa-solid fa-heart" style="color:rgba(255,255,255,0.5);font-size:1.8rem;display:block;margin-bottom:10px;"></i>
             <h3 style="font-family:'Nunito Sans',sans-serif;font-weight:800;color:white;font-size:1rem;margin-bottom:8px;">Quer adotar um animal?</h3>
             <p style="font-size:0.8rem;color:rgba(255,255,255,0.8);line-height:1.5;margin-bottom:16px;">Entre em contato com a ONG e inicie o processo de adoção responsável.</p>
@@ -185,19 +192,63 @@
 
 <div class="modal-overlay" id="adoptModal" onclick="handleOverlayClick(event)">
     <div class="modal-box">
-        <div class="modal-header">
+        
+        <div class="custom-modal-header">
             <button class="modal-close" onclick="closeAdoptModal()">
                 <i class="fa-solid fa-xmark"></i>
             </button>
-            <div class="modal-header-paw">
+            <div class="custom-modal-header-paw">
                 <i class="fa-solid fa-paw"></i>
             </div>
             <h2>Entre em contato para adotar!</h2>
             <p>Escolha como prefere falar com a equipe de <?= $ong['nome'] ?></p>
         </div>
 
-        <div class="modal-body">
+        <div class="custom-modal-body">
             <p class="modal-label">Canais de contato</p>
+
+            <?php 
+            $whatsapp = !empty($ong['whatsapp']) ? $ong['whatsapp'] : (!empty($ong['telefone']) ? $ong['telefone'] : ''); 
+            if (!empty($whatsapp)): 
+                $whatsappLink = preg_replace('/\D/', '', $whatsapp); // Limpa caracteres especiais para o link
+            ?>
+            <a href="https://api.whatsapp.com/send?phone=55<?= $whatsappLink ?>" target="_blank" rel="noopener" class="contact-btn">
+                <div class="contact-btn-icon whatsapp">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </div>
+                <div class="contact-btn-info">
+                    <span class="contact-btn-name">WhatsApp</span>
+                    <span class="contact-btn-detail"><?= $whatsapp ?></span>
+                </div>
+                <i class="fa-solid fa-arrow-right contact-btn-arrow"></i>
+            </a>
+            <?php endif; ?>
+
+            <?php if (!empty($ong['instagram'])): ?>
+            <a href="https://www.instagram.com/<?= trim($ong['instagram'], '@/') ?>" target="_blank" rel="noopener" class="contact-btn">
+                <div class="contact-btn-icon instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </div>
+                <div class="contact-btn-info">
+                    <span class="contact-btn-name">Instagram</span>
+                    <span class="contact-btn-detail">@<?= trim($ong['instagram'], '@/') ?></span>
+                </div>
+                <i class="fa-solid fa-arrow-right contact-btn-arrow"></i>
+            </a>
+            <?php endif; ?>
+
+            <?php if (!empty($ong['facebook'])): ?>
+            <a href="https://www.facebook.com/<?= trim($ong['facebook']) ?>" target="_blank" rel="noopener" class="contact-btn">
+                <div class="contact-btn-icon facebook">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </div>
+                <div class="contact-btn-info">
+                    <span class="contact-btn-name">Facebook</span>
+                    <span class="contact-btn-detail">/<?= trim($ong['facebook']) ?></span>
+                </div>
+                <i class="fa-solid fa-arrow-right contact-btn-arrow"></i>
+            </a>
+            <?php endif; ?>
 
             <?php if (!empty($ong['email'])): ?>
             <a href="mailto:<?= $ong['email'] ?>" class="contact-btn">
@@ -212,21 +263,8 @@
             </a>
             <?php endif; ?>
 
-            <?php if (!empty($ong['site'])): ?>
-            <a href="<?= $ong['site'] ?>" target="_blank" rel="noopener" class="contact-btn">
-                <div class="contact-btn-icon" style="background:#555;">
-                    <i class="fa-solid fa-globe"></i>
-                </div>
-                <div class="contact-btn-info">
-                    <span class="contact-btn-name">Site</span>
-                    <span class="contact-btn-detail"><?= $ong['site'] ?></span>
-                </div>
-                <i class="fa-solid fa-arrow-right contact-btn-arrow"></i>
-            </a>
-            <?php endif; ?>
-
             <p class="modal-note">
-                <i class="fa-solid fa-circle-info" style="color:var(--teal-light);"></i>
+                <i class="fa-solid fa-circle-info" style="color: var(--teal-light);"></i>
                 A adoção é responsável e gratuita. A ONG irá orientar todo o processo.
             </p>
         </div>
