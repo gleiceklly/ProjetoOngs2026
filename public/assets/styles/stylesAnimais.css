@@ -20,6 +20,7 @@ a { text-decoration: none; color: inherit; }
     padding: 10px 24px;
     font-size: 0.82rem;
     color: var(--muted);
+    margin-top: 0;
 }
 .breadcrumb a { color: var(--teal); font-weight: 600; }
 .breadcrumb span { margin: 0 6px; }
@@ -155,19 +156,19 @@ a { text-decoration: none; color: inherit; }
 .other-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(28,113,141,0.15); }
 .other-card img {
     width: 100%;
-    height: 110px;
+    max-height: 150px;
     object-fit: cover;
     display: block;
 }
-.other-card-body { padding: 8px 10px 12px; }
+.other-card-body { padding-left: 8px; margin-bottom: 10px; margin-top: 10px;}
 .other-card-body h4 {
     font-family: 'Nunito Sans', sans-serif;
     font-weight: 800;
-    font-size: 0.85rem;
+    font-size: 18px;
     color: var(--text);
-    margin-bottom: 2px;
+    margin-top: 0;
 }
-.other-card-body p { font-size: 0.72rem; color: var(--muted); }
+.other-card-body p { font-size: 15px; color: var(--muted); margin-bottom: 0; }
 
 .pagination {
     display: flex;
@@ -209,8 +210,6 @@ a { text-decoration: none; color: inherit; }
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(13, 58, 74, 0.45);
-    backdrop-filter: blur(3px);
     z-index: 1000;
     align-items: center;
     justify-content: center;
@@ -275,34 +274,33 @@ a { text-decoration: none; color: inherit; }
 .modal-contact-label {
     font-size: 0.78rem;
     font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.07em;
     color: var(--muted);
-    margin-bottom: 12px;
+    margin-bottom: -25px;
 }
 
 .modal-contact-list {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-bottom: 24px;
+    margin-bottom: 10px;
 }
 
 .modal-contact-item {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 12px 16px;
     border-radius: 12px;
     border: 1.5px solid #e0f0f7;
     background: #f7fcfe;
     transition: border-color .2s, background .2s;
     text-decoration: none;
+    height: 90px;
 }
+
 .modal-contact-item:hover {
     border-color: var(--teal-light);
     background: #eaf6fb;
 }
+
 .modal-contact-item .contact-icon {
     width: 36px;
     height: 36px;
@@ -351,8 +349,6 @@ a { text-decoration: none; color: inherit; }
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(13, 58, 74, 0.45);
-    backdrop-filter: blur(3px);
     z-index: 1100;
     align-items: center;
     justify-content: center;
@@ -362,45 +358,51 @@ a { text-decoration: none; color: inherit; }
 
 .share-card {
     background: var(--white);
-    border-radius: 20px;
-    padding: 32px 28px 24px;
-    max-width: 420px;
+    border-radius: 16px;
+    padding: 20px 20px 18px;
+    max-width: 520px;
     width: 100%;
-    box-shadow: 0 20px 60px rgba(13,58,74,0.25);
+    box-shadow: 0 16px 48px rgba(13,58,74,0.22);
     position: relative;
     animation: slideUp .25s cubic-bezier(.34,1.56,.64,1);
+    max-height: 700px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;       
+    -ms-overflow-style: none;     
 }
+.share-card::-webkit-scrollbar { display: none; }
 
 .share-card h2 {
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: var(--text);
-    margin-bottom: 6px;
+    margin-bottom: 4px;
 }
 .share-card p {
-    font-size: 0.85rem;
+    font-size: 0.78rem;
     color: var(--muted);
-    margin-bottom: 20px;
+    margin-bottom: 14px;
 }
 
 .share-options {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    margin-bottom: 20px;
+    gap: 8px;
+    margin-bottom: 14px;
 }
 
 .share-btn {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
-    padding: 14px 8px;
-    border-radius: 14px;
+    gap: 5px;
+    padding: 10px 6px;
+    border-radius: 12px;
     border: 1.5px solid #e0f0f7;
     background: #f7fcfe;
     cursor: pointer;
     font-family: 'Nunito Sans', sans-serif;
-    font-size: 0.78rem;
+    font-size: 0.7rem;
     font-weight: 700;
     color: var(--text);
     transition: border-color .2s, background .2s, transform .15s;
@@ -412,13 +414,13 @@ a { text-decoration: none; color: inherit; }
     transform: translateY(-2px);
 }
 .share-btn .share-icon {
-    width: 42px;
-    height: 42px;
-    border-radius: 12px;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 .share-icon.whatsapp  { background: #e6f9ef; color: #25d366; }
 .share-icon.facebook  { background: #e8eef9; color: #1877f2; }
@@ -430,9 +432,9 @@ a { text-decoration: none; color: inherit; }
 .share-divider {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 14px;
-    font-size: 0.78rem;
+    gap: 8px;
+    margin-bottom: 10px;
+    font-size: 0.72rem;
     color: var(--muted);
     font-weight: 600;
 }
@@ -446,16 +448,16 @@ a { text-decoration: none; color: inherit; }
 
 .share-link-row {
     display: flex;
-    gap: 8px;
+    gap: 6px;
     align-items: center;
 }
 .share-link-input {
     flex: 1;
-    padding: 10px 14px;
-    border-radius: 10px;
+    padding: 8px 10px;
+    border-radius: 8px;
     border: 1.5px solid #d0e8f0;
     font-family: 'Nunito Sans', sans-serif;
-    font-size: 0.82rem;
+    font-size: 0.75rem;
     color: var(--muted);
     background: #f7fcfe;
     outline: none;
@@ -466,18 +468,18 @@ a { text-decoration: none; color: inherit; }
 .share-link-input:focus { border-color: var(--teal-light); }
 
 .btn-copy {
-    padding: 10px 16px;
-    border-radius: 10px;
+    padding: 8px 12px;
+    border-radius: 8px;
     background: var(--teal);
     color: var(--white);
     border: none;
     font-family: 'Nunito Sans', sans-serif;
     font-weight: 700;
-    font-size: 0.82rem;
+    font-size: 0.75rem;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
     transition: background .2s, transform .15s;
     white-space: nowrap;
 }

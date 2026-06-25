@@ -1,3 +1,10 @@
+<?php
+    $contato = $animal['contato'] ?? '';
+
+    $isEmail = filter_var($contato, FILTER_VALIDATE_EMAIL);
+    $isPhone = !$isEmail && preg_match('/\d{8,}/', preg_replace('/\D/', '', $contato));
+?>
+
 <div class="breadcrumb">
     <a href="<?= baseUrl() ?>Adocao">Adoção</a>
     <span>›</span>
@@ -18,8 +25,8 @@
         <h1 id="animalNome" data-nome="<?= htmlspecialchars($animal['nome'], ENT_QUOTES) ?>">
             <?= htmlspecialchars($animal['nome']) ?>
             <span class="fav-icons">
-                <i class="fa-regular fa-heart" title="Favoritar" id="btnFav"></i>
                 <i class="fa-regular fa-share-from-square" title="Compartilhar" id="btnShare"></i>
+                <i class="fa-regular fa-heart" title="Favoritar" hidden id="btnFav"></i>
             </span>
         </h1>
 
@@ -40,14 +47,20 @@
         </div>
         <div class="meta-line pub">
             <i class="fa-solid fa-paw"></i>
-            <span>Cuidado por <strong><?= htmlspecialchars($animal['ong_nome'] ?? 'ONG Parceira') ?></strong></span>
+            <span>Cuidado por <strong><?= htmlspecialchars($animal['ong_nome'] ?? 'ONG Parceira') ?> - <?= htmlspecialchars($animal['responsavel'] ?? '') ?></strong></span>
         </div>
 
         <p class="section-title-sm">
             <i class="fa-solid fa-book-open"></i> A história de <?= htmlspecialchars($animal['nome']) ?>
         </p>
-        <div class="story-box" id="storyBox">
-            <?= nl2br(htmlspecialchars($animal['historia'] ?? 'Este animal está esperando por um lar cheio de amor. Entre em contato com a ONG para saber mais!')) ?>
+       <div class="story-box" id="storyBox">
+            <?=
+                nl2br(htmlspecialchars(
+                    !empty($animal['historia'])
+                        ? $animal['historia']
+                        : 'Este animal está esperando por um lar cheio de amor. Entre em contato com a ONG para saber mais!'
+                ))
+            ?>
         </div>
 
         <p class="section-title-sm">
@@ -116,9 +129,45 @@
             <i class="fa-solid fa-paw"></i>
         </div>
 
-        <h2 id="modalTitle">Adotar é salvar, proteger e amar.</h2><br>
+        <h2 id="modalTitle" style="align-items: center; text-align: center;">Adotar é salvar, proteger e amar.</h2><br>
 
-        <p class="modal-contact-label">Entre em contato com o protetor</p>
+        <p class="modal-contact-label">Entre em contato com o protetor - Contato do responsável</p>
+
+        <div class="modal-contact-list">
+            <?php if ($isEmail): ?>
+                <a class="modal-contact-item"
+                href="mailto:<?= htmlspecialchars($contato, ENT_QUOTES) ?>">
+                    <div class="contact-icon email"><i class="fa-solid fa-envelope"></i></div>
+                    <div class="contact-info">
+                        <small>E-mail</small>
+                        <span><?= htmlspecialchars($contato) ?></span>
+                    </div>
+                </a>
+            <?php endif; ?>
+
+            <?php if ($isPhone): ?>
+                <?php $phone = preg_replace('/\D/', '', $contato); ?>
+                <a class="modal-contact-item"
+                href="https://wa.me/55<?= $phone ?>"
+                target="_blank" rel="noopener noreferrer">
+                    <div class="contact-icon whatsapp"><i class="fa-brands fa-whatsapp"></i></div>
+                    <div class="contact-info">
+                        <small>WhatsApp</small>
+                        <span><?= htmlspecialchars($contato) ?></span>
+                    </div>
+                </a>
+            <?php endif; ?>
+
+            <?php if (empty($isEmail) && empty($isPhone)): ?>
+                <p style="color:var(--muted);font-size:0.9rem;text-align:center;padding:12px 0;">
+                    Entre em contato com a ONG <strong><?= htmlspecialchars($animal['ong_nome'] ?? '') ?></strong> para mais informações.
+                </p>
+            <?php endif; ?>
+        </div>
+
+        <br> <hr> <br>
+
+        <p class="modal-contact-label">Contato da Ong</p>
 
         <div class="modal-contact-list">
             <?php if (!empty($animal['ong_email'])): ?>

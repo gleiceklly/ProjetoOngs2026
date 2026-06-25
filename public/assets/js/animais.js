@@ -1,11 +1,5 @@
 const nomeAnimal = document.getElementById('animalNome')?.dataset.nome || document.title.split(' –')[0];
 
-document.getElementById('btnFav').addEventListener('click', function () {
-    this.classList.toggle('fa-regular');
-    this.classList.toggle('fa-solid');
-    this.style.color = this.classList.contains('fa-solid') ? '#e74c3c' : '';
-});
-
 const overlay     = document.getElementById('modalOverlay');
 const btnAdotar   = document.getElementById('btnAdotar');
 const btnCancelar = document.getElementById('btnCancelar');
@@ -57,7 +51,7 @@ function buildShareOptions() {
         {
             label: 'X / Twitter',
             cls: 'twitter',
-            icon: 'fa-brands fa-x-twitter',
+            icon: 'fa-brands fa-twitter',
             href: `https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}`
         },
         {
@@ -145,3 +139,72 @@ btnCopy.addEventListener('click', async () => {
 document.addEventListener('keydown', e => {
     if (e.key === 'Escape') { fecharModal(); fecharShare(); }
 });
+
+(function () {
+    const grid    = document.getElementById('othersGrid');
+    const wrap    = document.querySelector('.others-wrap');
+    if (!grid || !wrap) return;
+
+    const cards   = Array.from(grid.children);
+    const PER_PAG = 5;
+    const total   = cards.length;
+    const pages   = Math.ceil(total / PER_PAG);
+    if (pages <= 1) return;        
+
+    let cur = 1;
+
+    function showPage(p) {
+        cur = p;
+        cards.forEach((c, i) => {
+            c.style.display = (i >= (p - 1) * PER_PAG && i < p * PER_PAG) ? '' : 'none';
+        });
+        renderPag();
+    }
+
+    function renderPag() {
+        let el = document.getElementById('othersPag');
+        if (!el) {
+            el = document.createElement('div');
+            el.id = 'othersPag';
+            el.className = 'pagination';
+            wrap.appendChild(el);
+        }
+        el.innerHTML = '';
+
+        const prev = document.createElement('button');
+        prev.className = 'page-btn';
+        prev.disabled  = cur === 1;
+        prev.innerHTML = '<i class="fa-solid fa-paw" style="transform:scaleX(-1)"></i>';
+        prev.addEventListener('click', () => showPage(cur - 1));
+        el.appendChild(prev);
+
+        const range = [...new Set(
+            [1, pages, cur, cur - 1, cur + 1].filter(p => p >= 1 && p <= pages)
+        )].sort((a, b) => a - b);
+
+        let last = 0;
+        range.forEach(p => {
+            if (p - last > 1) {
+                const sp = document.createElement('span');
+                sp.className   = 'page-ellipsis';
+                sp.textContent = '…';
+                el.appendChild(sp);
+            }
+            const btn = document.createElement('button');
+            btn.className   = 'page-btn' + (p === cur ? ' active' : '');
+            btn.textContent = p;
+            btn.addEventListener('click', () => showPage(p));
+            el.appendChild(btn);
+            last = p;
+        });
+
+        const next = document.createElement('button');
+        next.className = 'page-btn';
+        next.disabled  = cur === pages;
+        next.innerHTML = '<i class="fa-solid fa-paw"></i>';
+        next.addEventListener('click', () => showPage(cur + 1));
+        el.appendChild(next);
+    }
+
+    showPage(1);
+})();
