@@ -17,8 +17,7 @@ $ongId           = (int) setValue('id', 0);
 
         <input type="hidden" name="id" value="<?= $ongId ?>">
 
-        <!-- ── IDENTIDADE ─────────────────────────────────────────── -->
-        <div class="cad-card">
+        <div class="cad-card-foto">
             <div class="cad-card-header">
                 <div class="cad-card-title">Identidade da ONG</div>
                 <div class="cad-card-subtitle">Informações que aparecerão no perfil público</div>
@@ -48,152 +47,200 @@ $ongId           = (int) setValue('id', 0);
                     </div>
                 </div>
 
-                <div class="field-row cols-1">
-                    <div class="cad-field">
-                        <label>Nome da ONG <span class="required">*</span></label>
-                        <input type="text" name="nome" maxlength="100"
-                               placeholder="Ex: Associação Bigodes do Bunker"
-                               value="<?= setValue('nome') ?>" required autofocus>
-                        <?= setMsgFilderError('nome') ?>
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <div class="cad-field">
+                            <label>Nome da ONG <span class="required">*</span></label>
+                            <input type="text"
+                                class="form-control"
+                                name="nome"
+                                maxlength="100"
+                                placeholder="Ex: Associação Bigodes do Bunker"
+                                value="<?= setValue('nome') ?>"
+                                required
+                                autofocus>
+
+                            <?= setMsgFilderError('nome') ?>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="cad-field">
+                            <label>Pix <span class="required">*</span></label>
+                            <input type="text"
+                                class="form-control"
+                                name="pix"
+                                maxlength="100"
+                                placeholder="Chave Pix da ONG"
+                                value="<?= setValue('pix') ?>"
+                                required>
+
+                            <?= setMsgFilderError('pix') ?>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="cad-field">
+                            <label>Descrição / Missão <span class="required">*</span></label>
+
+                            <textarea class="form-control"
+                                    name="descricao"
+                                    rows="5"
+                                    placeholder="Conte a história da sua ONG, sua missão, como começou... (mínimo 100 caracteres)"><?= setValue('descricao') ?></textarea>
+
+                            <div class="field-hint">
+                                Mínimo 100 caracteres. Seja inspirador!
+                            </div>
+
+                            <?= setMsgFilderError('descricao') ?>
+                        </div>
                     </div>
                 </div>
-
-                <div class="field-row cols-1">
-                    <div class="cad-field">
-                        <label>Pix <span class="required">*</span></label>
-                        <input type="text" name="pix" maxlength="100"
-                               placeholder="Chave Pix da ONG"
-                               value="<?= setValue('pix') ?>" required>
-                        <?= setMsgFilderError('pix') ?>
-                    </div>
-                </div>
-
-                <div class="field-row cols-1">
-                    <div class="cad-field">
-                        <label>Descrição / Missão <span class="required">*</span></label>
-                        <textarea name="descricao" rows="5"
-                                  placeholder="Conte a história da sua ONG, sua missão, como começou... (mínimo 100 caracteres)"><?= setValue('descricao') ?></textarea>
-                        <div class="field-hint">Mínimo 100 caracteres. Seja inspirador!</div>
-                        <?= setMsgFilderError('descricao') ?>
-                    </div>
-                </div>
-
             </div>
         </div>
 
-        <!-- ── LOCALIZAÇÃO ────────────────────────────────────────── -->
         <div class="cad-card">
             <div class="cad-card-header">
                 <div class="cad-card-title">Localização</div>
                 <div class="cad-card-subtitle">Endereço principal de atuação</div>
             </div>
-            <div class="cad-card-body">
 
-                <div class="field-row cols-2">
-                    <div class="cad-field">
-                        <label>CEP <span class="required">*</span></label>
-                        <input type="text" name="cep" maxlength="9"
-                               placeholder="00000-000"
-                               value="<?= setValue('cep') ?>" required>
-                        <?= setMsgFilderError('cep') ?>
+            <div class="cad-card-body-local">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <div class="cad-field">
+                            <label>CEP <span class="required">*</span></label>
+                            <input type="text"
+                                class="form-control"
+                                name="cep"
+                                maxlength="9"
+                                placeholder="00000-000"
+                                value="<?= setValue('cep') ?>"
+                                required>
+                            <?= setMsgFilderError('cep') ?>
+                        </div>
                     </div>
-                    <div class="cad-field">
-                        <label>Estado <span class="required">*</span></label>
-                        <select name="estado" required>
-                            <option value="">Selecionar...</option>
-                            <?php
-                            $estados = ['AC','AL','AP','AM','BA','CE','DF','ES','GO','MA',
-                                        'MT','MS','MG','PA','PB','PR','PE','PI','RJ','RN',
-                                        'RS','RO','RR','SC','SP','SE','TO'];
-                            foreach ($estados as $uf):
-                                $sel = setValue('estado') === $uf ? 'selected' : '';
-                            ?>
-                                <option value="<?= $uf ?>" <?= $sel ?>><?= $uf ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <?= setMsgFilderError('estado') ?>
+
+                    <div class="col-md-3">
+                        <div class="cad-field">
+                            <label>Estado <span class="required">*</span></label>
+                            <select class="form-select" name="estado" required>
+                                <option value="">Selecionar...</option>
+                                <?php
+                                $estados = ['AC','AL','AP','AM','BA','CE','DF','ES','GO','MA',
+                                            'MT','MS','MG','PA','PB','PR','PE','PI','RJ','RN',
+                                            'RS','RO','RR','SC','SP','SE','TO'];
+                                foreach ($estados as $uf):
+                                    $sel = setValue('estado') === $uf ? 'selected' : '';
+                                ?>
+                                    <option value="<?= $uf ?>" <?= $sel ?>><?= $uf ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <?= setMsgFilderError('estado') ?>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="cad-field">
+                            <label>Cidade <span class="required">*</span></label>
+                            <input type="text"
+                                class="form-control"
+                                name="cidade"
+                                maxlength="100"
+                                placeholder="Ex: Rio de Janeiro"
+                                value="<?= setValue('cidade') ?>"
+                                required>
+                            <?= setMsgFilderError('cidade') ?>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="cad-field">
+                            <label>Bairro</label>
+                            <input type="text"
+                                class="form-control"
+                                name="bairro"
+                                maxlength="100"
+                                placeholder="Ex: Copacabana"
+                                value="<?= setValue('bairro') ?>">
+                            <?= setMsgFilderError('bairro') ?>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="cad-field-local">
+                            <label>Rua / Logradouro</label>
+                            <input type="text"
+                                class="form-control"
+                                name="logradouro"
+                                maxlength="255"
+                                placeholder="Ex: Av. Nossa Senhora de Copacabana"
+                                value="<?= setValue('logradouro') ?>">
+                            <?= setMsgFilderError('logradouro') ?>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="cad-field-local">
+                            <label>Número</label>
+                            <input type="text"
+                                class="form-control"
+                                name="numero"
+                                maxlength="20"
+                                placeholder="Ex: 1200"
+                                value="<?= setValue('numero') ?>">
+                            <?= setMsgFilderError('numero') ?>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="cad-field-local">
+                            <label>Complemento</label>
+                            <input type="text"
+                                class="form-control"
+                                name="complemento"
+                                maxlength="100"
+                                placeholder="Bloco, apartamento, sala..."
+                                value="<?= setValue('complemento') ?>">
+                            <?= setMsgFilderError('complemento') ?>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="cad-field-local">
+                            <label>Área de atuação <span class="required">*</span></label>
+                            <select class="form-select" name="area_atuacao" required>
+                                <option value="">Selecionar alcance de atuação</option>
+                                <?php
+                                $areas = [
+                                    'bairro'        => 'Apenas no bairro / localidade',
+                                    'cidade'        => 'Cidade inteira',
+                                    'metropolitana' => 'Região metropolitana',
+                                    'estado'        => 'Estado',
+                                    'nacional'      => 'Nacional',
+                                ];
+
+                                foreach ($areas as $val => $label):
+                                    $sel = setValue('area_atuacao') === $val ? 'selected' : '';
+                                ?>
+                                    <option value="<?= $val ?>" <?= $sel ?>><?= $label ?></option>
+                                <?php endforeach; ?> 
+                            </select>
+
+                            <?= setMsgFilderError('area_atuacao') ?>
+                        </div>
                     </div>
                 </div>
-
-                <div class="field-row cols-2">
-                    <div class="cad-field">
-                        <label>Cidade <span class="required">*</span></label>
-                        <input type="text" name="cidade" maxlength="100"
-                               placeholder="Ex: Rio de Janeiro"
-                               value="<?= setValue('cidade') ?>" required>
-                        <?= setMsgFilderError('cidade') ?>
-                    </div>
-                    <div class="cad-field">
-                        <label>Bairro</label>
-                        <input type="text" name="bairro" maxlength="100"
-                               placeholder="Ex: Copacabana"
-                               value="<?= setValue('bairro') ?>">
-                        <?= setMsgFilderError('bairro') ?>
-                    </div>
-                </div>
-
-                <div class="field-row cols-3">
-                    <div class="cad-field" style="grid-column: span 2;">
-                        <label>Rua / Logradouro</label>
-                        <input type="text" name="logradouro" maxlength="255"
-                               placeholder="Ex: Av. Nossa Senhora de Copacabana"
-                               value="<?= setValue('logradouro') ?>">
-                        <?= setMsgFilderError('logradouro') ?>
-                    </div>
-                    <div class="cad-field">
-                        <label>Número</label>
-                        <input type="text" name="numero" maxlength="20"
-                               placeholder="Ex: 1200"
-                               value="<?= setValue('numero') ?>">
-                        <?= setMsgFilderError('numero') ?>
-                    </div>
-                </div>
-
-                <div class="field-row cols-1">
-                    <div class="cad-field">
-                        <label>Complemento</label>
-                        <input type="text" name="complemento" maxlength="100"
-                               placeholder="Bloco, apartamento, sala..."
-                               value="<?= setValue('complemento') ?>">
-                        <?= setMsgFilderError('complemento') ?>
-                    </div>
-                </div>
-
-                <div class="field-row cols-1">
-                    <div class="cad-field">
-                        <label>Área de atuação <span class="required">*</span></label>
-                        <select name="area_atuacao" required>
-                            <option value="">Selecionar alcance de atuação</option>
-                            <?php
-                            $areas = [
-                                'bairro'         => 'Apenas no bairro / localidade',
-                                'cidade'         => 'Cidade inteira',
-                                'metropolitana'  => 'Região metropolitana',
-                                'estado'         => 'Estado',
-                                'nacional'       => 'Nacional',
-                            ];
-                            foreach ($areas as $val => $label):
-                                $sel = setValue('area_atuacao') === $val ? 'selected' : '';
-                            ?>
-                                <option value="<?= $val ?>" <?= $sel ?>><?= $label ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <?= setMsgFilderError('area_atuacao') ?>
-                    </div>
-                </div>
-
             </div>
         </div>
 
-        <!-- ── ANIMAIS & ATIVIDADES ───────────────────────────────── -->
         <div class="cad-card">
             <div class="cad-card-header">
                 <div class="cad-card-title">Animais &amp; Atividades</div>
                 <div class="cad-card-subtitle">O que sua ONG faz e com quais animais trabalha</div>
             </div>
             <div class="cad-card-body">
-
-                <div class="cad-field">
+                <div class="cad-field-animais-atend">
                     <label>Tipos de animais atendidos <span class="required">*</span></label>
                     <div class="animal-grid">
                         <?php
@@ -220,7 +267,7 @@ $ongId           = (int) setValue('id', 0);
                     <?= setMsgFilderError('animais_tipos') ?>
                 </div>
 
-                <div class="field-row cols-2" style="margin-top:20px;">
+                <div class="field-row cols-2" style="margin-top:-80px; margin-left: -100px;">
                     <div class="cad-field">
                         <label>Animais disponíveis atualmente</label>
                         <input type="number" name="animais_qtd" min="0"
@@ -263,79 +310,102 @@ $ongId           = (int) setValue('id', 0);
             </div>
         </div>
 
-        <!-- ── CONTATO & RESPONSÁVEL ──────────────────────────────── -->
         <div class="cad-card">
             <div class="cad-card-header">
                 <div class="cad-card-title">Contato &amp; Responsável</div>
                 <div class="cad-card-subtitle">Como as pessoas podem entrar em contato com a ONG</div>
             </div>
             <div class="cad-card-body">
-
-                <div class="field-row cols-2">
-                    <div class="cad-field">
-                        <label>Nome do responsável <span class="required">*</span></label>
-                        <input type="text" name="responsavel_nome" maxlength="100"
-                               placeholder="Nome completo"
-                               value="<?= setValue('responsavel_nome') ?>" required>
-                        <?= setMsgFilderError('responsavel_nome') ?>
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <div class="cad-field" style="margin-top: -90px;">
+                            <label>Nome do responsável <span class="required">*</span></label>
+                            <input type="text"
+                                class="form-control"
+                                name="responsavel_nome"
+                                maxlength="100"
+                                placeholder="Nome completo"
+                                value="<?= setValue('responsavel_nome') ?>"
+                                required>
+                            <?= setMsgFilderError('responsavel_nome') ?>
+                        </div>
                     </div>
-                    <div class="cad-field">
-                        <label>Cargo / Função</label>
-                        <input type="text" name="responsavel_cargo" maxlength="100"
-                               placeholder="Ex: Presidenta, Coordenadora..."
-                               value="<?= setValue('responsavel_cargo') ?>">
-                        <?= setMsgFilderError('responsavel_cargo') ?>
+
+                    <div class="col-md-3">
+                        <div class="cad-field" style="margin-top: -90px;">
+                            <label>Cargo / Função</label>
+                            <input type="text"
+                                class="form-control"
+                                name="responsavel_cargo"
+                                maxlength="100"
+                                placeholder="Ex: Presidenta, Coordenadora..."
+                                value="<?= setValue('responsavel_cargo') ?>">
+                            <?= setMsgFilderError('responsavel_cargo') ?>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="cad-field" style="margin-top: -90px;">
+                            <label>E-mail de contato <span class="required">*</span></label>
+                            <input type="email"
+                                class="form-control"
+                                name="email"
+                                maxlength="150"
+                                placeholder="contato@suaong.org.br"
+                                value="<?= setValue('email') ?>"
+                                required>
+                            <?= setMsgFilderError('email') ?>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="cad-field" style="margin-top: -90px;">
+                            <label>Telefone / WhatsApp <span class="required">*</span></label>
+                            <input type="tel"
+                                class="form-control"
+                                name="telefone"
+                                maxlength="20"
+                                placeholder="(21) 99999-9999"
+                                value="<?= setValue('telefone') ?>"
+                                required>
+                            <?= setMsgFilderError('telefone') ?>
+                        </div>
                     </div>
                 </div>
 
-                <div class="field-row cols-2">
-                    <div class="cad-field">
-                        <label>E-mail de contato <span class="required">*</span></label>
-                        <input type="email" name="email" maxlength="150"
-                               placeholder="contato@suaong.org.br"
-                               value="<?= setValue('email') ?>" required>
-                        <?= setMsgFilderError('email') ?>
-                    </div>
-                    <div class="cad-field">
-                        <label>Telefone / WhatsApp <span class="required">*</span></label>
-                        <input type="tel" name="telefone" maxlength="20"
-                               placeholder="(21) 99999-9999"
-                               value="<?= setValue('telefone') ?>" required>
-                        <?= setMsgFilderError('telefone') ?>
-                    </div>
-                </div>
-
-                <div class="section-divider" style="margin-top:24px;">
+                <div class="section-divider" style="margin-top:-70px;">
                     <span>Redes sociais</span>
                 </div>
 
-                <div class="social-row">
+                <div class="social-row" style="margin-top:-20px;">
                     <div class="social-icon-wrap fb">
                         <i class="fa-brands fa-facebook"></i>
                     </div>
                     <div class="cad-field">
-                        <input type="url" name="facebook"
-                               placeholder="https://facebook.com/suaong"
+                        <input type="text" name="facebook"
+                               placeholder="apenas usuario ex: amicaomuriae"
                                value="<?= setValue('facebook') ?>">
                         <?= setMsgFilderError('facebook') ?>
                     </div>
                 </div>
 
-                <div class="social-row">
+                <div class="social-row" style="margin-top:-70px;">
                     <div class="social-icon-wrap ig">
                         <i class="fa-brands fa-instagram"></i>
                     </div>
                     <div class="cad-field">
-                        <input type="url" name="instagram"
-                               placeholder="https://instagram.com/suaong"
+                        <input type="text" name="instagram"
+                               placeholder="apenas usuario ex: amicaomuriae"
                                value="<?= setValue('instagram') ?>">
                         <?= setMsgFilderError('instagram') ?>
                     </div>
                 </div>
 
-                <div class="field-row cols-1" style="margin-top:4px;">
+                <div class="social-row" style="margin-top:-70px;">
+                    <div class="social-icon-wrap fb">
+                        <i class="fa-solid fa-globe"></i>
+                    </div>
                     <div class="cad-field">
-                        <label>Site da ONG</label>
                         <input type="url" name="site"
                                placeholder="https://www.suaong.org.br"
                                value="<?= setValue('site') ?>">
@@ -346,14 +416,13 @@ $ongId           = (int) setValue('id', 0);
             </div>
         </div>
 
-        <!-- ── HORÁRIOS ───────────────────────────────────────────── -->
-        <div class="cad-card">
+        <div class="cad-card" style="max-height: 350px;">
             <div class="cad-card-header">
                 <div class="cad-card-title">Horário de Atendimento</div>
                 <div class="cad-card-subtitle">Quando sua ONG pode ser contatada ou visitada</div>
             </div>
             <div class="cad-card-body">
-                <div class="cad-field">
+                <div class="cad-field" style="margin-top:-70px;">
                     <label>Horários de funcionamento</label>
                     <input type="text" name="horarios" maxlength="255"
                            placeholder="Ex: Seg–Sex 9h–18h · Sáb 9h–12h"
@@ -364,7 +433,6 @@ $ongId           = (int) setValue('id', 0);
             </div>
         </div>
 
-        <!-- ── ACESSO DA ONG (apenas no cadastro) ─────────────────── -->
         <?php if ($action === 'insert'): ?>
         <div class="cad-card">
             <div class="cad-card-header">
@@ -391,7 +459,6 @@ $ongId           = (int) setValue('id', 0);
         </div>
         <?php endif; ?>
 
-        <!-- ── TERMOS & SUBMIT ────────────────────────────────────── -->
         <div class="cad-card">
             <div class="cad-card-body">
                 <div class="terms-row">

@@ -18,10 +18,14 @@ function selectCard(el, causa) {
     selectedOngId = el.dataset.ongId || null;
 
     const pix = el.dataset.pix;
+    const copyBtn = document.querySelector('.copy-btn');
+    
     if (pix) {
         document.getElementById('pixKey').textContent = pix;
+        if (copyBtn) copyBtn.style.display = '';
     } else if (selectedOngId) {
-        document.getElementById('pixKey').textContent = 'Entre em contato com a ONG';
+        document.getElementById('pixKey').textContent = 'Esta ONG não possui chave PIX cadastrada.';
+        if (copyBtn) copyBtn.style.display = 'none';
     }
 
     updateSummary();
@@ -46,11 +50,51 @@ function updateSummary() {
 
 function copyPix() {
     const key = document.getElementById('pixKey').textContent;
-    navigator.clipboard.writeText(key).then(() => {
-        const btn = document.querySelector('.copy-btn');
-        btn.textContent = 'Copiado!';
-        setTimeout(() => btn.textContent = 'Copiar', 2000);
-    });
+    const btn = document.querySelector('.copy-btn');
+
+    // Proteção extra: impede a cópia do placeholder caso o botão fique visível por algum bug de CSS
+    if (key.includes('não possui') || key.includes('Entre em contato')) {
+        return;
+    }
+
+    // Função auxiliar para manter sua lógica de feedback visual unificada
+    const showSuccess = () => {
+        if (btn) {
+            btn.textContent = 'Copiado!';
+            setTimeout(() => btn.textContent = 'Copiar', 2000);
+        }
+    };
+
+    // Tenta a API moderna primeiro (HTTPS / Localhost)
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(key)
+            .then(showSuccess)
+            .catch(err => console.error('Erro na API Clipboard:', err));
+    } else {
+        // Fallback para conexões HTTP
+        const textArea = document.createElement("textarea");
+        textArea.value = key;
+
+        // Estilização para evitar "pulos" na tela quando o textarea receber foco
+        textArea.style.top = "0";
+        textArea.style.left = "0";
+        textArea.style.position = "fixed";
+
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+
+        try {
+            const successful = document.execCommand('copy');
+            if (successful) {
+                showSuccess();
+            }
+        } catch (err) {
+            console.error('Erro no Fallback de cópia:', err);
+        }
+
+        document.body.removeChild(textArea);
+    }
 }
 
 function submitDonation() {

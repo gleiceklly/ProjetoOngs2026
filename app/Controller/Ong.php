@@ -80,6 +80,24 @@ class Ong extends ControllerMain
             ]);
         }
 
+        if ($action === 'update') {
+            if (!Session::get('userId')) {
+                return Redirect::page('Login');
+            }
+
+            $this->validaNivelAcesso(NIVEL_ONG);
+
+            $id = (int) Session::get('userOngId');
+
+            return $this->view('ong/form', [
+                'titulo'    => $this->model->titulo,
+                'data'      => $this->model->getById($id),
+                'aStatus'   => $this->model->listaStatus,
+                'action'    => $this->action,
+                'extraHead' => new Raw('<link rel="stylesheet" href="/assets/styles/stylesCadastroOngs.css">'),
+            ]);
+        }
+
         $this->validaNivelAcesso(99);
 
         return $this->view('ong/form', [
@@ -110,13 +128,13 @@ class Ong extends ControllerMain
             );
         }
 
-        // Dados de login da ONG (não são colunas da tabela ong)
+        // login ong  
         $email          = $post['email']          ?? '';
         $senha          = $post['senha']          ?? '';
         $confirmarSenha = $post['confirmarSenha'] ?? '';
         unset($post['senha'], $post['confirmarSenha']);
 
-        // Pré-validação do login antes de gravar a ONG (evita ONG órfã sem acesso)
+        //valida login ant de gravar ong  
         $usuarioModel = new UsuarioModel();
 
         if (empty($senha) || $senha !== $confirmarSenha) {
@@ -205,9 +223,19 @@ class Ong extends ControllerMain
 
     public function update()
     {
-        $this->validaNivelAcesso(99);
+        if (!Session::get('userId')) {
+            return Redirect::page('Login');
+        }
+
+        $this->validaNivelAcesso(NIVEL_ONG);
 
         $post = $this->request->getPost();
+
+        $ongId = (int) Session::get('userOngId');
+        $post[$this->model->primaryKey] = $ongId;
+
+        $ongAtual = $this->model->getById($ongId);
+        $post['statusRegistro'] = $ongAtual['statusRegistro'] ?? 1;
 
         $post['animais_tipos'] = json_encode($post['animais_tipos'] ?? []);
         $post['atividades']    = json_encode($post['atividades']    ?? []);
@@ -216,15 +244,15 @@ class Ong extends ControllerMain
 
         if (!$this->model->update($post)) {
             return Redirect::page(
-                $this->controller . '/form/update/' . $post[$this->model->primaryKey],
+                $this->controller . '/form/update',
                 ['msgError' => 'Falha ao atualizar ONG.']
             );
         }
 
-        $this->processarFoto((int) $post[$this->model->primaryKey]);
+        $this->processarFoto($ongId);
 
         return Redirect::page(
-            $this->controller,
+            $this->controller . '/form/update',
             ['msgSucesso' => 'ONG atualizada com sucesso.']
         );
     }

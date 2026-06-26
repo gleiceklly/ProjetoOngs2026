@@ -77,6 +77,7 @@
                             <i class="fa-solid fa-paw"></i> Minha ONG
                         </a>
                         <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/Ong/form/update">Meu Perfil</a></li>
                             <li><a class="dropdown-item" href="/Animal">Meus Animais</a></li>
                             <li><a class="dropdown-item" href="/Vaga">Minhas Vagas</a></li>
                         </ul>
