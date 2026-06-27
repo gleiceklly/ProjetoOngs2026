@@ -87,7 +87,9 @@ class Ong extends ControllerMain
 
             $this->validaNivelAcesso(NIVEL_ONG);
 
-            $id = (int) Session::get('userOngId');
+            if ((int) $id === 0) {
+                $id = (int) Session::get('userOngId');
+            }
 
             return $this->view('ong/form', [
                 'titulo'    => $this->model->titulo,
@@ -231,7 +233,11 @@ class Ong extends ControllerMain
 
         $post = $this->request->getPost();
 
-        $ongId = (int) Session::get('userOngId');
+        $ongId = (int) ($post['id'] ?? 0);
+        if ($ongId === 0) {
+            $ongId = (int) Session::get('userOngId');
+        }
+
         $post[$this->model->primaryKey] = $ongId;
 
         $ongAtual = $this->model->getById($ongId);
