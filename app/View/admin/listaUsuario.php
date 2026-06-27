@@ -1,8 +1,15 @@
-<?= formTitulo($titulo, true) ?>
+<h1 style="padding-top: 55px; display: flex; justify-content: center; color: #86c7df"><i class="fa-solid fa-paw"></i> Usuários <i class="fa-solid fa-paw"></i></h1>
+
+<div class="d-flex justify-content-end px-4">
+    <a href="<?= baseUrl() ?>Usuario/form/insert/0" class="btn" style="background-color: #86c7df;">
+        <i class="fa-solid fa-plus"></i> Novo <?= $titulo ?>
+    </a>
+</div>
 
 <?php if (!empty($lista)): ?>
 
-    <table class="table table-sm m-3" id="tbLista">
+<div class="px-4">
+    <table class="table table-sm" id="tbLista">
         <thead>
             <tr>
                 <th>Id</th>
@@ -32,6 +39,7 @@
 
         </tbody>
     </table>
+</div>
 
     <?= datatables("tbLista") ?>
 
