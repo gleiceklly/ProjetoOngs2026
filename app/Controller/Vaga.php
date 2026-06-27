@@ -59,7 +59,7 @@ class Vaga extends ControllerMain
                 return;
             }
 
-            return $this->view('admin/formVaga', [
+            return $this->view('admin/formVagaDelete', [
                 'titulo'  => $this->model->titulo,
                 'data'    => $this->model->getById((int) $id),
                 'action'  => 'delete',
