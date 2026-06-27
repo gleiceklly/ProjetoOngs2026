@@ -1,28 +1,105 @@
-<?= formTitulo($titulo) ?>
+<?php
+$animal = $data['data'];
+?>
 
-<div class="m-3">
+<div class="container py-4">
 
-    <div class="alert alert-danger">
-        <strong>Atenção!</strong> Confirme a exclusão do animal abaixo. Esta ação não pode ser desfeita.
+    <div class="alert alert-danger shadow-sm">
+        <h5 class="mb-2">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            Confirmar Exclusão
+        </h5>
+
+        Tem certeza que deseja excluir este animal?
+
+        <br>
+
+        <strong>Esta ação é permanente e não poderá ser desfeita.</strong>
     </div>
 
-    <div class="card mb-3">
+    <div class="card shadow-sm border-0">
         <div class="card-body">
-            <h5 class="card-title"><?= htmlspecialchars($data['nome'] ?? '') ?></h5>
-            <p class="card-text">
-                <strong>Espécie:</strong> <?= htmlspecialchars(ucfirst($data['especie'] ?? '')) ?><br>
-                <strong>Porte:</strong> <?= htmlspecialchars(ucfirst($data['porte'] ?? '')) ?><br>
-                <strong>Cidade/Estado:</strong>
-                <?= htmlspecialchars($data['cidade'] ?? '') ?>, <?= htmlspecialchars($data['estado'] ?? '') ?>
-            </p>
+            <div class="row align-items-center">
+                <div class="col-md-4 text-center">
+                    <?php if (!empty($animal['foto'])) : ?>
+                        <img
+                            src="<?= baseUrl() . ltrim($animal['foto'], '/') ?>"
+                            class="img-fluid rounded shadow"
+                            style="max-height:280px; object-fit:cover;"
+                            alt="<?= htmlspecialchars($animal['nome']) ?>">
+                    <?php else : ?>
+                        <div class="border rounded p-5 text-muted">
+                            <i class="fa-solid fa-paw fa-3x mb-2"></i><br>
+                            Sem foto
+                        </div>
+                    <?php endif; ?>
+                </div>
+
+                <div class="col-md-8">
+                    <h3 class="mb-3">
+                        <?= htmlspecialchars($animal['nome']) ?>
+                    </h3>
+                    <table class="table table-borderless table-sm">
+                        <tr>
+                            <th width="180">Espécie</th>
+                            <td><?= ucfirst($animal['especie']) ?></td>
+                        </tr>
+                        <tr>
+                            <th>Raça</th>
+                            <td><?= htmlspecialchars($animal['raca']) ?></td>
+                        </tr>
+                        <tr>
+                            <th>Sexo</th>
+                            <td><?= ucfirst($animal['sexo']) ?></td>
+                        </tr>
+                        <tr>
+                            <th>Idade</th>
+                            <td>
+                                <?= $animal['idade'] ?>
+                                <?= $animal['unidade_idade'] ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Porte</th>
+                            <td><?= ucfirst($animal['porte']) ?></td>
+                        </tr>
+                        <tr>
+                            <th>Pelagem</th>
+                            <td><?= htmlspecialchars($animal['pelagem']) ?></td>
+                        </tr>
+                        <tr>
+                            <th>Localização</th>
+                            <td>
+                                <?= htmlspecialchars($animal['cidade']) ?>
+                                -
+                                <?= htmlspecialchars($animal['estado']) ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Responsável</th>
+                            <td><?= htmlspecialchars($animal['responsavel']) ?></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: -80px;">
+            <form method="POST" action="<?= baseUrl() ?>Animal/delete">
+                <?= csrfField() ?>
+                <input
+                    type="hidden"
+                    name="id"
+                    value="<?= (int)$animal['id'] ?>"
+                >
+
+                <form method="POST" action="<?= baseUrl() ?>Animal/delete">
+                    <?= csrfField() ?>
+                    <input type="hidden" name="id" value="<?= (int)($data['data']['id'] ?? 0) ?>">
+                    <a href="<?= baseUrl() ?>Animal" class="btn btn-secondary">Voltar</a>
+                    <button type="submit" class="btn btn-danger ms-2">Confirmar Exclusão</button>
+                </form>
+            </form>
         </div>
     </div>
-
-    <form method="POST" action="<?= baseUrl() ?>Animal/delete">
-        <?= csrfField() ?>
-        <input type="hidden" name="id" value="<?= (int)($data['id'] ?? 0) ?>">
-        <a href="<?= baseUrl() ?>Animal" class="btn btn-outline-secondary">Voltar</a>
-        <button type="submit" class="btn btn-danger ms-2">Confirmar Exclusão</button>
-    </form>
-
 </div>
