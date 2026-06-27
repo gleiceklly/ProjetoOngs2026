@@ -26,7 +26,6 @@ h1, h2, h3, h4 {
 
 a { text-decoration: none; color: inherit; }
 
-/* ── HEADER ── */
 .page-header {
     background: var(--blob-blue);
     color: white;
@@ -35,6 +34,7 @@ a { text-decoration: none; color: inherit; }
     position: relative;
     border-bottom-left-radius: 50% 6%;
     border-bottom-right-radius: 50% 6%;
+    margin-top: 0;
 }
 
 .page-header h1 {
@@ -101,6 +101,7 @@ a { text-decoration: none; color: inherit; }
     display: flex;
     align-items: center;
     gap: 10px;
+    margin-bottom: 100px;
 }
 
 .section-label i { color: var(--blob-green); }
@@ -135,7 +136,6 @@ a { text-decoration: none; color: inherit; }
     color: white;
 }
 
-/* ── DONATION CARDS ── */
 .donation-list {
     display: flex;
     flex-direction: column;
@@ -153,6 +153,24 @@ a { text-decoration: none; color: inherit; }
     transition: transform 0.25s, box-shadow 0.25s;
     cursor: pointer;
     border: 2px solid transparent;
+    max-height: 200px;
+    margin-top: -50px;
+}
+
+.donation-card-custom {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(28,113,141,0.08);
+    transition: transform 0.25s, box-shadow 0.25s;
+    cursor: pointer;
+    border: 2px solid transparent;
+    max-height: 200px;
+    min-width: 490px;
+    margin-top: -40px;
 }
 
 .donation-card:hover {
@@ -181,7 +199,8 @@ a { text-decoration: none; color: inherit; }
 
 .donation-card__body {
     flex: 1;
-    padding: 16px;
+    padding: 6px;
+    max-width: 300px;
 }
 
 .donation-card__title {
@@ -190,27 +209,33 @@ a { text-decoration: none; color: inherit; }
     color: var(--text-dark);
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    margin-bottom: 6px;
+    margin-bottom: -50px;
 }
 
 .donation-card__desc {
     color: var(--text-muted);
     font-size: 0.88rem;
     max-width: 440px;
+    padding-right: 15px;
+    padding-left: 5px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .donation-card__btn {
     background: transparent;
     border: 2px solid var(--orange);
     color: var(--orange);
-    font-size: 0.78rem;
+    font-size: 13px;
     font-weight: 700;
     letter-spacing: 0.07em;
     text-transform: uppercase;
     padding: 8px 22px;
     border-radius: 4px;
     cursor: pointer;
-    margin-top: 12px;
     transition: all 0.2s;
     font-family: 'Nunito Sans', sans-serif;
 }
@@ -229,7 +254,6 @@ a { text-decoration: none; color: inherit; }
     white-space: nowrap;
 }
 
-/* Custom value card */
 .donation-card--custom .donation-card__img {
     background: var(--bg-light);
     display: flex;
@@ -332,7 +356,6 @@ input::-webkit-inner-spin-button {
     font-size: 0.9rem;
 }
 
-/* ── PAGAMENTO ── */
 .payment-options {
     display: flex;
     flex-direction: column;
@@ -346,7 +369,9 @@ input::-webkit-inner-spin-button {
     justify-content: space-between;
     border: 2px solid var(--orange);
     border-radius: 6px;
-    padding: 14px 18px;
+    padding-right: 18px;
+    padding-left: 18px;
+    max-height: 50px;
     cursor: pointer;
     transition: background 0.2s;
 }
@@ -366,6 +391,7 @@ input::-webkit-inner-spin-button {
     font-size: 0.9rem;
     letter-spacing: 0.04em;
     text-transform: uppercase;
+    padding-right: 6px;
 }
 
 .payment-option__left i { font-size: 1.1rem; }
@@ -392,7 +418,6 @@ input::-webkit-inner-spin-button {
 
 .payment-option.selected .radio-circle::after { opacity: 1; }
 
-/* PIX details */
 .pix-details {
     display: none;
     background: var(--bg-light);
@@ -468,7 +493,8 @@ input::-webkit-inner-spin-button {
     display: flex;
     justify-content: space-between;
     font-size: 0.9rem;
-    margin-bottom: 8px;
+    margin-bottom: 2px;
+    margin-top: 15px;
     color: var(--text-muted);
 }
 

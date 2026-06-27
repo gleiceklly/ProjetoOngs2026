@@ -40,10 +40,6 @@ class DoacaoModel extends ModelMain
             "label" => "Valor da doação",
             "rules" => "required"
         ],
-        "plano" => [
-            "label" => "Plano",
-            "rules" => "required|in:mensal,unica"
-        ],
         "forma_pagamento" => [
             "label" => "Forma de pagamento",
             "rules" => "required"

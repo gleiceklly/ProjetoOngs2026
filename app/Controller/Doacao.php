@@ -121,7 +121,6 @@ class Doacao extends ControllerMain
     {
         $nome    = htmlspecialchars($dados['nome'],  ENT_QUOTES, 'UTF-8');
         $valor   = number_format((float) $dados['valor'], 2, ',', '.');
-        $plano   = $dados['plano'] === 'mensal' ? 'Mensal' : 'Única';
         $nomeOng = htmlspecialchars($ong['nome'] ?? 'ONG parceira', ENT_QUOTES, 'UTF-8');
         $pixKey  = htmlspecialchars($ong['pix'] ?? '', ENT_QUOTES, 'UTF-8');
 
@@ -162,10 +161,6 @@ class Doacao extends ControllerMain
                         <div class="field-label">Valor</div>
                         <div class="field-value">R$ {$valor}</div>
                     </div>
-                    <div class="field">
-                        <div class="field-label">Plano</div>
-                        <div class="field-value">{$plano}</div>
-                    </div>
                     {$pixInfo}
                     <p>Obrigado por apoiar a causa animal!</p>
                 </div>
@@ -183,7 +178,6 @@ class Doacao extends ControllerMain
         $telefone = htmlspecialchars($dados['telefone'], ENT_QUOTES, 'UTF-8');
         $cpf      = htmlspecialchars($dados['cpf'],      ENT_QUOTES, 'UTF-8');
         $valor    = number_format((float) $dados['valor'], 2, ',', '.');
-        $plano    = $dados['plano'] === 'mensal' ? 'Mensal' : 'Única';
         $nomeOng  = htmlspecialchars($ong['nome'] ?? '', ENT_QUOTES, 'UTF-8');
 
         return <<<HTML
@@ -229,10 +223,6 @@ class Doacao extends ControllerMain
                     <div class="field">
                         <div class="field-label">Valor da Intenção</div>
                         <div class="field-value">R$ {$valor}</div>
-                    </div>
-                    <div class="field">
-                        <div class="field-label">Plano</div>
-                        <div class="field-value">{$plano}</div>
                     </div>
                     <p style="color:#888;font-size:0.9rem;">Este é um registro de intenção. Confirme o recebimento do PIX antes de processar a doação.</p>
                 </div>

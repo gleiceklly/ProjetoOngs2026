@@ -70,15 +70,52 @@ if (!function_exists('formButton')) {
      */
     function formButton()
     {
-        $request = new Request();
+        static $css = false;
 
-        $cHtml = '<a href="' . baseUrl() . $request->getController() . '" class="btn btn-outline-info" title="Voltar">Voltar</a>';
+        $html = '';
 
-        if ($request->getAction() != "view") {
-            $cHtml .= '<button type="submit" class="mx-2 btn btn-primary">Enviar</button>';
+        if (!$css) {
+            $html .= '
+            <style>
+                .btn-custom{
+                    display:inline-block;
+                    padding:10px 22px;
+                    border:none;
+                    border-radius:10px;
+                    font-size:15px;
+                    font-weight:600;
+                    text-decoration:none;
+                    cursor:pointer;
+                    transition:.25s;
+                }
+                .btn-orange{
+                    background:#86c7df;
+                    color:#fff;
+                }
+                .btn-orange:hover{
+                    background:#86c7df;
+                }
+                .btn-light-orange{
+                    background:#a3d1f6;
+                    color:#fff;
+                }
+                .btn-light-orange:hover{
+                    background:#86c7df;
+                }
+            </style>';
+
+            $css = true;
         }
 
-        return $cHtml;
+        $request = new Request();
+
+        $html .= '<a href="' . baseUrl() . $request->getController() . '" class="btn-custom btn-light-orange">Voltar</a>';
+
+        if ($request->getAction() != 'view') {
+            $html .= '<button type="submit" class="btn-custom btn-orange ms-2">Enviar</button>';
+        }
+
+        return $html;
     }
 }
 

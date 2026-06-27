@@ -15,8 +15,6 @@
                     <strong>E-mail:</strong> <?= htmlspecialchars($data['email'] ?? '') ?><br>
                     <strong>Valor:</strong>
                     R$ <?= number_format((float)($data['valor'] ?? 0), 2, ',', '.') ?><br>
-                    <strong>Plano:</strong>
-                    <?= ($data['plano'] ?? '') === 'mensal' ? 'Mensal' : 'Única' ?>
                 </p>
             </div>
         </div>
@@ -48,11 +46,6 @@
                     <dt class="col-sm-3">Valor</dt>
                     <dd class="col-sm-9">
                         R$ <?= number_format((float)($data['valor'] ?? 0), 2, ',', '.') ?>
-                    </dd>
-
-                    <dt class="col-sm-3">Plano</dt>
-                    <dd class="col-sm-9">
-                        <?= ($data['plano'] ?? '') === 'mensal' ? 'Mensal' : 'Única' ?>
                     </dd>
 
                     <dt class="col-sm-3">Forma de Pagamento</dt>

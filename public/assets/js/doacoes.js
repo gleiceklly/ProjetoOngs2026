@@ -11,15 +11,16 @@ function setPlano(plano) {
     updateSummary();
 }
 
-function selectCard(el, causa) {
+function selectCard(el) {
     document.querySelectorAll('.donation-card').forEach(c => c.classList.remove('selected'));
     el.classList.add('selected');
-    selectedCausa = causa;
+
+    selectedCausa = el.dataset.nome || null;
     selectedOngId = el.dataset.ongId || null;
 
     const pix = el.dataset.pix;
     const copyBtn = document.querySelector('.copy-btn');
-    
+
     if (pix) {
         document.getElementById('pixKey').textContent = pix;
         if (copyBtn) copyBtn.style.display = '';
@@ -31,21 +32,20 @@ function selectCard(el, causa) {
     updateSummary();
 }
 
+function updateSummary() {
+    document.getElementById('sumCausa').textContent   = selectedCausa || '—';
+    document.getElementById('sumTotal').textContent   = selectedValor ? 'R$ ' + selectedValor.toFixed(2).replace('.', ',') : 'R$ —';
+    document.getElementById('sumNome').textContent    = document.getElementById('nome').value.trim()     || '—';
+    document.getElementById('sumEmail').textContent   = document.getElementById('email').value.trim()    || '—';
+    document.getElementById('sumCpf').textContent     = document.getElementById('cpf').value.trim()      || '—';
+    document.getElementById('sumTelefone').textContent = document.getElementById('telefone').value.trim() || '—';
+}
+
 function updateCustom(val) {
     const v = parseFloat(val);
     selectedValor = isNaN(v) ? null : v;
     document.getElementById('customPrice').textContent = isNaN(v) ? 'R$ -' : 'R$ ' + v.toFixed(2).replace('.', ',');
     updateSummary();
-}
-
-function updateSummary() {
-    const labels = { mensal: 'Mensal', unica: 'Única' };
-    const payLabels = { pix: 'Pix' };
-
-    document.getElementById('sumCausa').textContent = selectedCausa || '—';
-    document.getElementById('sumPlano').textContent = labels[selectedPlano] || '—';
-    document.getElementById('sumPagamento').textContent = selectedPayment ? payLabels[selectedPayment] : '—';
-    document.getElementById('sumTotal').textContent = selectedValor ? 'R$ ' + selectedValor.toFixed(2).replace('.', ',') : 'R$ —';
 }
 
 function copyPix() {
@@ -107,10 +107,9 @@ function submitDonation() {
     const telefone = document.getElementById('telefone').value.trim();
     if (!nome || !email || !cpf || !telefone) { alert('Por favor, preencha todos os dados pessoais.'); return; }
 
-    document.getElementById('hidden-ong-id').value         = selectedOngId;
-    document.getElementById('hidden-valor').value          = selectedValor;
-    document.getElementById('hidden-plano').value          = selectedPlano;
-    document.getElementById('hidden-forma-pagamento').value = selectedPayment;
+    document.getElementById('hidden-ong-id').value          = selectedOngId;
+    document.getElementById('hidden-valor').value           = selectedValor;
+    document.getElementById('hidden-forma-pagamento').value = selectedPayment;  // ← só esses 3
 
     document.getElementById('formDoacao').submit();
 }

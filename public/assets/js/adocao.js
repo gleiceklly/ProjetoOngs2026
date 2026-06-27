@@ -48,15 +48,15 @@ function renderizarPagina() {
 }
 
 function aplicarFiltro() {
-    const especies = getChecked('especie');
-    const sexos    = getChecked('sexo');
-    const idades   = getChecked('idade');
+    const especies = getChecked('especie').map(normalizar);  
+    const sexos    = getChecked('sexo').map(normalizar);
+    const idades   = getChecked('idade').map(normalizar);
     const busca    = normalizar(searchInput ? searchInput.value.trim() : '');
 
     animaisFiltrados = todosOsCards.filter(card => {
-        const okEspecie = especies.length === 0 || especies.includes(card.dataset.tipo);
-        const okSexo    = sexos.length    === 0 || sexos.includes(card.dataset.sexo);
-        const okIdade   = idades.length   === 0 || idades.includes(card.dataset.idade);
+        const okEspecie = especies.length === 0 || especies.includes(normalizar(card.dataset.tipo));
+        const okSexo    = sexos.length    === 0 || sexos.includes(normalizar(card.dataset.sexo));
+        const okIdade   = idades.length   === 0 || idades.includes(normalizar(card.dataset.idade));
         const okBusca   = busca === '' || normalizar(card.dataset.nome || card.querySelector('h3')?.textContent || '').includes(busca);
 
         return okEspecie && okSexo && okIdade && okBusca;

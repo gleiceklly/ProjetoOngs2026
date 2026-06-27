@@ -47,7 +47,7 @@ function renderVagas() {
     <div class="col-sm-6 mb-3 mb-sm-0">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title" style="color: #9bcaff"><i class="fa-solid fa-paw"></i> ${v.ong}</h5>
+          <h5 class="card-title" style="color: #2a7c7c"><i class="fa-solid fa-paw"></i> ${v.ong}</h5>
           <h6 class="card-subtitle mb-2 text-body-secondary">${v.funcao}</h6>
           <p class="card-text">${v.descricao || 'Sem descrição disponível.'}</p>
           <p class="card-text">
@@ -60,7 +60,7 @@ function renderVagas() {
               <i class="fa-solid fa-users"></i> ${v.quantidade} vaga${v.quantidade !== 1 ? 's' : ''} disponível${v.quantidade !== 1 ? 'is' : ''}
             </small>
           </p>
-          <button class="btn" style="background-color: #9bcaff" onclick="openModal(${v.id})">Participar →</button>
+          <button class="btn" style="background-color: #2a7c7c; color: #fff" onclick="openModal(${v.id})">Participar →</button>
         </div>
       </div>
     </div>
@@ -99,7 +99,7 @@ function renderVoluntarios() {
     <div class="col-sm-6 mb-3 mb-sm-0">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title" style="color: #9bcaff">
+          <h5 class="card-title" style="color: #2a7c7c">
             <i class="fa-solid fa-paw"></i> ${v.nome || '—'}
           </h5>
           <h6 class="card-subtitle mb-2 text-body-secondary">${v.funcao || '—'}</h6>

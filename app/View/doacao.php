@@ -4,7 +4,6 @@ $prevInput  = \Core\Library\Session::getDestroy('formInputs') ?? [];
 ?>
 
 <div class="page-header">
-    <a href="<?= baseUrl() ?>" class="back-link"><i class="fa-solid fa-arrow-left"></i> Voltar ao início</a>
     <h1><i class="fa-solid fa-heart" style="color:#fcd444;margin-right:10px;"></i>Faça uma Doação</h1>
     <p>Sua contribuição transforma vidas. Escolha uma causa e ajude a fazer a diferença.</p>
     <img class="capaDoacao" src="/assets/img/capaDoacao.png">
@@ -28,16 +27,10 @@ $prevInput  = \Core\Library\Session::getDestroy('formInputs') ?? [];
         <?= csrfField() ?>
         <input type="hidden" name="ong_id"          id="hidden-ong-id"          value="">
         <input type="hidden" name="valor"            id="hidden-valor"            value="">
-        <input type="hidden" name="plano"            id="hidden-plano"            value="unica">
         <input type="hidden" name="forma_pagamento"  id="hidden-forma-pagamento"  value="pix">
 
         <div class="section">
-            <div class="section-label-plano"><i class="fa-solid fa-paw"></i> Plano de Doação</div>
-
-            <div class="toggle-wrap">
-                <button type="button" class="toggle-btn" id="btnMensal" onclick="setPlano('mensal')">Mensal</button>
-                <button type="button" class="toggle-btn active" id="btnUnica" onclick="setPlano('unica')">Única <i class="fa-solid fa-circle-check" style="margin-left:6px;"></i></button>
-            </div>
+            <div class="section-label-plano"><i class="fa-solid fa-paw"></i> Área de Doações</div>
 
             <div class="donation-list" id="donationList">
 
@@ -46,22 +39,26 @@ $prevInput  = \Core\Library\Session::getDestroy('formInputs') ?? [];
                 <?php else: ?>
                 <?php foreach ($ongs as $ong): ?>
                 <div class="donation-card"
-                     data-ong-id="<?= (int) $ong['id'] ?>"
-                     data-pix="<?= htmlspecialchars($ong['pix'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
-                     onclick="selectCard(this, <?= json_encode($ong['nome']) ?>)">
+                    data-ong-id="<?= (int) $ong['id'] ?>"
+                    data-pix="<?= htmlspecialchars($ong['pix'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
+                    data-nome="<?= htmlspecialchars($ong['nome'], ENT_QUOTES, 'UTF-8') ?>"
+                    onclick="selectCard(this)">
                     <img class="donation-card__img"
                          src="<?= htmlspecialchars(!empty($ong['foto']) ? '/assets/img/ongs/' . $ong['foto'] : '/assets/img/linguinha.png', ENT_QUOTES, 'UTF-8') ?>"
                          alt="<?= htmlspecialchars($ong['nome'], ENT_QUOTES, 'UTF-8') ?>">
                     <div class="donation-card__body">
                         <div class="donation-card__title"><?= htmlspecialchars($ong['nome'], ENT_QUOTES, 'UTF-8') ?></div>
                         <div class="donation-card__desc"><?= htmlspecialchars(mb_substr($ong['descricao'] ?? '', 0, 120), ENT_QUOTES, 'UTF-8') ?><?= mb_strlen($ong['descricao'] ?? '') > 120 ? '…' : '' ?></div>
-                        <button type="button" class="donation-card__btn">Escolher</button>
+                         <button type="button" class="donation-card__btn" style="margin-bottom: 50px;"
+                                onclick="event.stopPropagation(); selectCard(this.closest('.donation-card'))">
+                            Escolher
+                        </button>
                     </div>
                 </div>
                 <?php endforeach; ?>
                 <?php endif; ?>
 
-                <div class="donation-card donation-card--custom" id="customCard">
+                <div class="donation-card-custom donation-card--custom" id="customCard">
                     <div class="donation-card__body">
                         <div class="donation-card__title">Valor da doação</div>
                         <div class="donation-card__desc">Informe o valor que deseja doar (mínimo R$ 1,00).</div>
@@ -84,28 +81,28 @@ $prevInput  = \Core\Library\Session::getDestroy('formInputs') ?? [];
         <div class="form-group">
             <label>CPF/CNPJ</label>
             <i class="fa-solid fa-id-card input-icon"></i>
-            <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" oninput="maskCPF(this)"
+            <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" oninput="maskCPF(this); updateSummary();"
                    value="<?= htmlspecialchars($prevInput['cpf'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
         </div>
 
         <div class="form-group">
             <label>Nome completo</label>
             <i class="fa-solid fa-user input-icon"></i>
-            <input type="text" id="nome" name="nome" placeholder="Seu nome"
+            <input type="text" id="nome" name="nome" placeholder="Seu nome" oninput="updateSummary()"
                    value="<?= htmlspecialchars($prevInput['nome'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
         </div>
 
         <div class="form-group">
             <label>E-mail</label>
             <i class="fa-solid fa-envelope input-icon"></i>
-            <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com"
+            <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" oninput="updateSummary()"
                    value="<?= htmlspecialchars($prevInput['email'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
         </div>
 
         <div class="form-group">
             <label>Telefone</label>
             <i class="fa-solid fa-phone input-icon"></i>
-            <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" oninput="maskPhone(this)"
+            <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" oninput="maskPhone(this); updateSummary();"
                    value="<?= htmlspecialchars($prevInput['telefone'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
         </div>
 
@@ -139,16 +136,24 @@ $prevInput  = \Core\Library\Session::getDestroy('formInputs') ?? [];
         <div class="summary-box" id="summaryBox">
             <h3><i class="fa-solid fa-receipt" style="margin-right:8px;color:var(--blob-green);"></i>Resumo da Doação</h3>
             <div class="summary-row">
-                <span>Causa selecionada</span>
+                <span>ONG selecionada</span>
                 <span id="sumCausa">—</span>
             </div>
             <div class="summary-row">
-                <span>Plano</span>
-                <span id="sumPlano">—</span>
+                <span>Nome</span>
+                <span id="sumNome">—</span>
             </div>
             <div class="summary-row">
-                <span>Pagamento</span>
-                <span id="sumPagamento">—</span>
+                <span>E-mail</span>
+                <span id="sumEmail">—</span>
+            </div>
+            <div class="summary-row">
+                <span>CPF/CNPJ</span>
+                <span id="sumCpf">—</span>
+            </div>
+            <div class="summary-row">
+                <span>Telefone</span>
+                <span id="sumTelefone">—</span>
             </div>
             <div class="summary-row total">
                 <span>Total</span>
@@ -166,10 +171,6 @@ $prevInput  = \Core\Library\Session::getDestroy('formInputs') ?? [];
         </div>
 
     </form>
-</div>
-
-<div class="footer-wave">
-    <p>Copyright © 2026. Todos os direitos reservados. — Patas do Bem | Faculdade Santa Marcelina - Muriaé</p>
 </div>
 
 <script src="/assets/js/doacoes.js"></script>
