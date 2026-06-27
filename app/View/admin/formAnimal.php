@@ -26,7 +26,7 @@ $animal = $data['data'];
                             src="<?= baseUrl() . ltrim($animal['foto'], '/') ?>"
                             class="img-fluid rounded shadow"
                             style="max-height:280px; object-fit:cover;"
-                            alt="<?= htmlspecialchars($animal['nome']) ?>">
+                            alt="<?= htmlspecialchars($animal['nome'] ?? 'Não informado') ?>">
                     <?php else : ?>
                         <div class="border rounded p-5 text-muted">
                             <i class="fa-solid fa-paw fa-3x mb-2"></i><br>
@@ -37,20 +37,20 @@ $animal = $data['data'];
 
                 <div class="col-md-8">
                     <h3 class="mb-3">
-                        <?= htmlspecialchars($animal['nome']) ?>
+                        <?= htmlspecialchars($animal['nome'] ?? 'Não informado') ?>
                     </h3>
                     <table class="table table-borderless table-sm">
                         <tr>
                             <th width="180">Espécie</th>
-                            <td><?= ucfirst($animal['especie']) ?></td>
+                            <td><?= ucfirst($animal['especie'] ?? 'Não informado') ?></td>
                         </tr>
                         <tr>
                             <th>Raça</th>
-                            <td><?= htmlspecialchars($animal['raca']) ?></td>
+                            <td><?= htmlspecialchars($animal['raca'] ?? 'Não informado') ?></td>
                         </tr>
                         <tr>
                             <th>Sexo</th>
-                            <td><?= ucfirst($animal['sexo']) ?></td>
+                            <td><?= ucfirst($animal['sexo'] ?? 'Não informado') ?></td>
                         </tr>
                         <tr>
                             <th>Idade</th>
@@ -61,23 +61,23 @@ $animal = $data['data'];
                         </tr>
                         <tr>
                             <th>Porte</th>
-                            <td><?= ucfirst($animal['porte']) ?></td>
+                            <td><?= ucfirst($animal['porte'] ?? 'Não informado') ?></td>
                         </tr>
                         <tr>
                             <th>Pelagem</th>
-                            <td><?= htmlspecialchars($animal['pelagem']) ?></td>
+                            <td><?= htmlspecialchars($animal['pelagem'] ?? 'Não informado') ?></td>
                         </tr>
                         <tr>
                             <th>Localização</th>
                             <td>
-                                <?= htmlspecialchars($animal['cidade']) ?>
+                                <?= htmlspecialchars($animal['cidade'] ?? 'Não informado') ?>
                                 -
-                                <?= htmlspecialchars($animal['estado']) ?>
+                                <?= htmlspecialchars($animal['estado'] ?? 'Não informado') ?>
                             </td>
                         </tr>
                         <tr>
                             <th>Responsável</th>
-                            <td><?= htmlspecialchars($animal['responsavel']) ?></td>
+                            <td><?= htmlspecialchars($animal['responsavel'] ?? 'Não informado') ?></td>
                         </tr>
                     </table>
                 </div>
