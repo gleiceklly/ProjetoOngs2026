@@ -1,8 +1,9 @@
-<?= formTitulo($titulo) ?>
+<h1 style="padding-top: 55px; padding-bottom: 25px; display: flex; justify-content: center; color: #86c7df"><i class="fa-solid fa-paw"></i> Doações <i class="fa-solid fa-paw"></i></h1>
 
 <?php if (!empty($lista)): ?>
 
-    <table class="table table-sm m-3" id="tbLista">
+<div class="px-3">
+    <table class="table table-sm" id="tbLista">
         <thead>
             <tr>
                 <th>Id</th>
@@ -33,6 +34,7 @@
 
         </tbody>
     </table>
+</div>
 
     <?= datatables("tbLista") ?>
 

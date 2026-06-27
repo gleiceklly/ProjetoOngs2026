@@ -1,5 +1,11 @@
 <h1 style="padding-top: 55px; padding-bottom: 25px; display: flex; justify-content: center; color: #86c7df"><i class="fa-solid fa-paw"></i> Ongs <i class="fa-solid fa-paw"></i></h1>
 
+<div class="d-flex justify-content-end px-4 mb-3">
+    <a href="<?= baseUrl() ?>Ong/form/insert/0" class="btn" style="background-color: #86c7df;">
+        <i class="fa-solid fa-plus"></i> Adicionar ONG
+    </a>
+</div>
+
 <?php if (!empty($lista)): ?>
 
 <div class="px-4">

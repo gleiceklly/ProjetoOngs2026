@@ -272,11 +272,16 @@ class Ong extends ControllerMain
         $this->validaNivelAcesso(11);
 
         $post = $this->request->getPost();
+        $ongId = (int) ($post['id'] ?? 0);
+
+        // Exclui o usuário vinculado a ONG antes de excluir a ONG
+        $usuarioModel = new UsuarioModel();
+        $usuarioModel->db->where('ong_id', $ongId)->delete();
 
         if ($this->model->delete($post)) {
             return Redirect::page(
                 $this->controller . '/admin',
-                ['msgSucesso' => 'ONG excluída com sucesso.']
+                ['msgSucesso' => 'ONG e usuário vinculado excluídos com sucesso.']
             );
         }
 

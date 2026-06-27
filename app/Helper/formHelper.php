@@ -144,10 +144,10 @@ if (!function_exists('buttons')) {
                          . '<button type="button" style="font-size: 20px; padding-left: 5px; color: #000000;" title="Excluir"><i class="fa-solid fa-trash"></i>'
                          . '</span>';
             } else {
-                $button .= '<a href="' . $urlButton . '/form/delete/'. $id . '" style="font-size: 20px; padding-left: 5px; color: #000000;" title="Excluir"><i class="fa-solid fa-trash"></i></a>';
+                $button .= '<a href="' . $urlButton . '/form/delete/'. $id . '" style="font-size: 20px; padding-left: 7px; color: #000000;" title="Excluir"><i class="fa-solid fa-trash"></i></a>';
             }
         } elseif ($acao == "view") {
-             $button .= '<a href="' . $urlButton . '/form/view/'. $id . '" class="btn btn-secondary btn-sm" title="Visualizar">Visualizar</a>';
+             $button .= '<a href="' . $urlButton . '/form/view/'. $id . '"style="font-size: 20px; padding-right: 7px; color: #000000;" title="Visualizar"><i class="fa-solid fa-magnifying-glass"></i></a>';
         } elseif ($acao == "voltarTitulo") {
             $button .= '<a href="' . $urlButton . '" class="btn btn-outline-info text-white" title="Voltar">Voltar</a>';
         }
