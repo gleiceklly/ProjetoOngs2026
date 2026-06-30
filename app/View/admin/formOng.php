@@ -54,12 +54,7 @@
                             <th>Telefone</th>
                             <td><?= htmlspecialchars($data['data']['telefone'] ?? 'Não informado') ?></td>
                         </tr>
-
-                        <tr>
-                            <th>CNPJ</th>
-                            <td><?= htmlspecialchars($data['data']['cnpj'] ?? 'Não informado') ?></td>
-                        </tr>
-
+                        
                         <tr>
                             <th>Endereço</th>
                             <td><?= htmlspecialchars($data['data']['endereco'] ?? 'Não informado') ?></td>
